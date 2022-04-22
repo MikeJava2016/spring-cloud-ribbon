@@ -24,6 +24,7 @@
         <druid.version>1.0.26</druid.version>
         <mysql.version>8.0.25</mysql.version>
         <fastjson.version>1.2.15</fastjson.version>
+        <spring-cloud-starter-netflix-ribbon.version>2.2.6.RELEASE</spring-cloud-starter-netflix-ribbon.version>
     </properties>
     <dependencies>
 
@@ -146,9 +147,9 @@
             </dependency>
 
             <dependency>
-                <groupId>com.netflix.ribbon</groupId>
-                <artifactId>ribbon</artifactId>
-                <version>2.3.0</version>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+                <version>${spring-cloud-starter-netflix-ribbon.version}</version>
             </dependency>
 
             <dependency>
