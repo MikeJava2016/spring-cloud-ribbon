@@ -1,7 +1,9 @@
 package com.sunshine.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +17,12 @@ import org.springframework.web.client.RestTemplate;
 public class UserController {
 
     @Autowired
+    @Qualifier("restTemplate")
     private RestTemplate restTemplate;
 
     /**
-     * url http://localhost:8080/1/user/1
+     * url http://localhost:8080/user/1/1
+     * restTemplate 做rpc调用
      * @param id
      * @return
      */
@@ -34,7 +38,7 @@ public class UserController {
     private LoadBalancerClient loadBalancerClient;
 
     /**
-     * http://localhost:8080/2/user/1
+     * http://localhost:8080/user/2/1
      * @param id
      * @return
      */
@@ -47,4 +51,21 @@ public class UserController {
         return "user:"+id;
     }
 
+
+    @Autowired
+    @Qualifier("restTemplate3")
+    @LoadBalanced
+    private RestTemplate restTemplate3;
+
+    /**
+     * http://localhost:8080/user/3/1
+     * @param id
+     * @return
+     */
+    @GetMapping("/3/{id}")
+    public String findUserById3(@PathVariable("id") int id){
+        ResponseEntity<String> forEntity = restTemplate3.getForEntity("http://spring-cloud-order-service/hello/hello", String.class);
+        System.out.println(forEntity.getBody());
+        return "user:"+id;
+    }
 }
