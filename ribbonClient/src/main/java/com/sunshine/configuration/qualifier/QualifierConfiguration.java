@@ -1,4 +1,4 @@
-package com.sunshine.configuration;
+package com.sunshine.configuration.qualifier;
 
 import com.sunshine.entity.User;
 import org.springframework.beans.factory.annotation.Qualifier;
