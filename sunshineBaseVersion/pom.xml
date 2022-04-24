@@ -155,6 +155,7 @@
                 <version>${spring-cloud-starter-netflix-ribbon.version}</version>
             </dependency>
 
+
             <dependency>
                 <groupId>com.netflix.eureka</groupId>
                 <artifactId>eureka-client</artifactId>
@@ -162,11 +163,16 @@
             </dependency>
 
             <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-                <version>${okhttp.version}</version>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${spring-cloud-starter-netflix-ribbon.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>4.2.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
