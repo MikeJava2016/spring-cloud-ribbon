@@ -71,7 +71,7 @@ public class UserController {
     }
 
     /**
-     * http://localhost:8080/user/3/1
+     * http://localhost:8080/user/4/1
      * @param id
      * @return
      */
@@ -80,5 +80,16 @@ public class UserController {
         ResponseEntity<String> stringResponseEntity = RestTemplateUtils.get("http://spring-cloud-order-service/hello/hello", String.class);
          System.out.println(stringResponseEntity.getBody());
         return "user:"+id;
+    }
+
+    /**
+     * http://localhost:8080/user/5/1
+     * @return
+     */
+    @GetMapping("/5/{name}")
+    public String findUserById5(@PathVariable("name") String name){
+        ResponseEntity<String> stringResponseEntity = RestTemplateUtils.get("http://"+name+"/hello/hello", String.class);
+        System.out.println(stringResponseEntity.getBody());
+        return "user:"+name;
     }
 }

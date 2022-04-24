@@ -1,5 +1,7 @@
 package com.sunshine.configuration.rest;
 
+import com.netflix.loadbalancer.IRule;
+import com.netflix.loadbalancer.ResponseTimeWeightedRule;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +20,12 @@ public class RestTemplateAutoConfiguration {
     @LoadBalanced
     public RestTemplate restTemplate3(RestTemplateBuilder builder) {
         return builder.build();
+    }
+
+
+    @Bean
+    public IRule iRule(){
+        return new ResponseTimeWeightedRule();
     }
 
 }

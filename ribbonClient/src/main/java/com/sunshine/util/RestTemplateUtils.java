@@ -1,6 +1,10 @@
 package com.sunshine.util;
 
+import com.netflix.loadbalancer.ILoadBalancer;
 import com.sunshine.configuration.ApplicationContextUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.netflix.ribbon.SpringClientFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,7 +15,30 @@ import java.util.Map;
 
 public class RestTemplateUtils  {
 
-    private static final RestTemplate restTemplate = (RestTemplate)ApplicationContextUtils.getBean("restTemplate3");
+    private final static Logger logger = LoggerFactory.getLogger(RestTemplateUtils.class);
+
+    private static final RestTemplate restTemplate3 = (RestTemplate)ApplicationContextUtils.getBean("restTemplate3");
+
+    private static final RestTemplate restTemplate  = (RestTemplate)ApplicationContextUtils.getBean("restTemplate");
+
+    private static final SpringClientFactory springClientFactory = (SpringClientFactory)ApplicationContextUtils.getBean(SpringClientFactory.class);
+
+    /**
+     *
+     * @param url
+     * @return
+     */
+    public final static RestTemplate getRestTemplate(String url){
+        logger.info("url = {}",url);
+       String name = url.split("/")[2];
+        ILoadBalancer loadBalancer = springClientFactory.getLoadBalancer(name);
+        if (loadBalancer.getAllServers().size()==0){
+            logger.info("url = {},restTemplate = restTemplate",url);
+            return restTemplate;
+        }
+        logger.info("url = {},restTemplate = restTemplate3",url);
+       return restTemplate3;
+    }
 
     // ----------------------------------GET-------------------------------------------------------
 
@@ -23,7 +50,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> get(String url, Class<T> responseType) {
-        return restTemplate.getForEntity(url, responseType);
+        return getRestTemplate(url).getForEntity(url, responseType);
     }
 
     /**
@@ -35,7 +62,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> get(String url, Class<T> responseType, Object... uriVariables) {
-        return restTemplate.getForEntity(url, responseType, uriVariables);
+        return getRestTemplate(url).getForEntity(url, responseType, uriVariables);
     }
 
     /**
@@ -47,7 +74,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> get(String url, Class<T> responseType, Map<String, ?> uriVariables) {
-        return restTemplate.getForEntity(url, responseType, uriVariables);
+        return getRestTemplate(url).getForEntity(url, responseType, uriVariables);
     }
 
     /**
@@ -118,7 +145,7 @@ public class RestTemplateUtils  {
      * @return
      */
     public static <T> ResponseEntity<T> post(String url, Class<T> responseType) {
-        return restTemplate.postForEntity(url, HttpEntity.EMPTY, responseType);
+        return getRestTemplate(url).postForEntity(url, HttpEntity.EMPTY, responseType);
     }
 
     /**
@@ -130,7 +157,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> post(String url, Object requestBody, Class<T> responseType) {
-        return restTemplate.postForEntity(url, requestBody, responseType);
+        return getRestTemplate(url).postForEntity(url, requestBody, responseType);
     }
 
     /**
@@ -143,7 +170,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> post(String url, Object requestBody, Class<T> responseType, Object... uriVariables) {
-        return restTemplate.postForEntity(url, requestBody, responseType, uriVariables);
+        return getRestTemplate(url).postForEntity(url, requestBody, responseType, uriVariables);
     }
 
     /**
@@ -156,7 +183,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> post(String url, Object requestBody, Class<T> responseType, Map<String, ?> uriVariables) {
-        return restTemplate.postForEntity(url, requestBody, responseType, uriVariables);
+        return getRestTemplate(url).postForEntity(url, requestBody, responseType, uriVariables);
     }
 
     /**
@@ -231,7 +258,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> post(String url, HttpEntity<?> requestEntity, Class<T> responseType, Object... uriVariables) {
-        return restTemplate.exchange(url, HttpMethod.POST, requestEntity, responseType, uriVariables);
+        return getRestTemplate(url).exchange(url, HttpMethod.POST, requestEntity, responseType, uriVariables);
     }
 
     /**
@@ -244,7 +271,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> post(String url, HttpEntity<?> requestEntity, Class<T> responseType, Map<String, ?> uriVariables) {
-        return restTemplate.exchange(url, HttpMethod.POST, requestEntity, responseType, uriVariables);
+        return getRestTemplate(url).exchange(url, HttpMethod.POST, requestEntity, responseType, uriVariables);
     }
 
     // ----------------------------------PUT-------------------------------------------------------
@@ -361,7 +388,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> put(String url, HttpEntity<?> requestEntity, Class<T> responseType, Object... uriVariables) {
-        return restTemplate.exchange(url, HttpMethod.PUT, requestEntity, responseType, uriVariables);
+        return getRestTemplate(url).exchange(url, HttpMethod.PUT, requestEntity, responseType, uriVariables);
     }
 
     /**
@@ -374,7 +401,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> put(String url, HttpEntity<?> requestEntity, Class<T> responseType, Map<String, ?> uriVariables) {
-        return restTemplate.exchange(url, HttpMethod.PUT, requestEntity, responseType, uriVariables);
+        return getRestTemplate(url).exchange(url, HttpMethod.PUT, requestEntity, responseType, uriVariables);
     }
 
     // ----------------------------------DELETE-------------------------------------------------------
@@ -561,7 +588,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> delete(String url, HttpEntity<?> requestEntity, Class<T> responseType, Object... uriVariables) {
-        return restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, responseType, uriVariables);
+        return getRestTemplate(url).exchange(url, HttpMethod.DELETE, requestEntity, responseType, uriVariables);
     }
 
     /**
@@ -574,7 +601,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> delete(String url, HttpEntity<?> requestEntity, Class<T> responseType, Map<String, ?> uriVariables) {
-        return restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, responseType, uriVariables);
+        return getRestTemplate(url).exchange(url, HttpMethod.DELETE, requestEntity, responseType, uriVariables);
     }
 
     // ----------------------------------通用方法-------------------------------------------------------
@@ -590,7 +617,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> exchange(String url, HttpMethod method, HttpEntity<?> requestEntity, Class<T> responseType, Object... uriVariables) {
-        return restTemplate.exchange(url, method, requestEntity, responseType, uriVariables);
+        return getRestTemplate(url).exchange(url, method, requestEntity, responseType, uriVariables);
     }
 
     /**
@@ -604,15 +631,7 @@ public class RestTemplateUtils  {
      * @return ResponseEntity 响应对象封装类
      */
     public static <T> ResponseEntity<T> exchange(String url, HttpMethod method, HttpEntity<?> requestEntity, Class<T> responseType, Map<String, ?> uriVariables) {
-        return restTemplate.exchange(url, method, requestEntity, responseType, uriVariables);
+        return getRestTemplate(url).exchange(url, method, requestEntity, responseType, uriVariables);
     }
 
-    /**
-     * 获取RestTemplate实例对象，可自由调用其方法
-     *
-     * @return RestTemplate实例对象
-     */
-    public static RestTemplate getRestTemplate() {
-        return restTemplate;
-    }
 }
