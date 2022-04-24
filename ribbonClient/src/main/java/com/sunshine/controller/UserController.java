@@ -1,5 +1,6 @@
 package com.sunshine.controller;
 
+import com.sunshine.util.RestTemplateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
@@ -66,6 +67,18 @@ public class UserController {
     public String findUserById3(@PathVariable("id") int id){
         ResponseEntity<String> forEntity = restTemplate3.getForEntity("http://spring-cloud-order-service/hello/hello", String.class);
         System.out.println(forEntity.getBody());
+        return "user:"+id;
+    }
+
+    /**
+     * http://localhost:8080/user/3/1
+     * @param id
+     * @return
+     */
+    @GetMapping("/4/{id}")
+    public String findUserById4(@PathVariable("id") int id){
+        ResponseEntity<String> stringResponseEntity = RestTemplateUtils.get("http://spring-cloud-order-service/hello/hello", String.class);
+         System.out.println(stringResponseEntity.getBody());
         return "user:"+id;
     }
 }

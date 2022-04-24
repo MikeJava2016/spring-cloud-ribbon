@@ -1,4 +1,4 @@
-package com.sunshine.controller;
+package com.sunshine.controller.qualifier;
 
 import com.sunshine.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,10 @@ public class QualifierController {
     @Qualifier
     private List<User> userList;
 
+    /**
+     * http://localhost:8081/qualifier/users
+     * @return
+     */
     @RequestMapping("users")
     public List<User> getUsers() {
         return userList;
