@@ -3,6 +3,7 @@ package com.sunshine.controller.qualifier;
 import com.sunshine.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +12,12 @@ import java.util.List;
 @RequestMapping("/qualifier")
 @RestController
 public class QualifierController {
+
+    @Value("${mysql.user}")
+    private String username;
+
+    @Value("${mysql.password}")
+    private String password;
     /**
      * 所有带有Qualifier标签的User
      */
