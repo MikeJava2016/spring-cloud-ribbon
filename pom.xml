@@ -10,7 +10,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>sunshineBaseVersion</module>
-        <module>ribbonClient</module>
+        <module>ribbon-entity</module>
+        <module>ribbon-api</module>
         <module>eureka-server</module>
     </modules>
     <properties>
