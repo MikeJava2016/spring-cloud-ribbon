@@ -1,26 +1,26 @@
 package com.sunshine.entity;
 
 import java.io.Serializable;
-
 public class User implements Serializable {
-    private String id;
+
+    private Long id;
 
     private String username;
 
     private String password;
 
-    public User(String id) {
+    public User(Long id) {
         this.id = id;
     }
 
     public User() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

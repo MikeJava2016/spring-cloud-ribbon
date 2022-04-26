@@ -20,7 +20,7 @@ public class UserFeignController {
 
     @GetMapping("/{id}")
     @SentinelResource(value = "userfeign", blockHandler = "blockHandler2", fallback = "fallbackHandle2")
-    public User getUserById(@PathVariable("id") String id) {
+    public User getUserById(@PathVariable("id") Long id) {
         return userFeignSerivce.getOne(id);
     }
 
@@ -35,18 +35,18 @@ public class UserFeignController {
     }
 
     @DeleteMapping("/{id}")
-    public User putUser(@PathVariable("id") String id) {
+    public User putUser(@PathVariable("id") Long id) {
         return userFeignSerivce.delete(id);
     }
 
     public User blockHandler2(BlockException blockException) {
         logger.info("调用payment---blockHandler");
-        return new User("0");
+        return new User(0L);
     }
 
     public User fallbackHandler2() {
         logger.info("调用payment----fallbackHandler");
-        return new User("0");
+        return new User(0L);
     }
 
 

@@ -13,6 +13,7 @@
         <module>ribbon-entity</module>
         <module>ribbon-api</module>
         <module>eureka-server</module>
+        <module>druid-mybatis-plus-mysql</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

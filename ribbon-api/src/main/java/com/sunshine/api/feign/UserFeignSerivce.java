@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 public interface UserFeignSerivce {
 
     @GetMapping(value = "/user/{id}")//对应提供者方法路径
-    User getOne(@PathVariable("id") String id);
+    User getOne(@PathVariable("id") Long id);
 
     @PostMapping(value = "/user")//对应提供者方法路径
     User post(@RequestBody User user);
@@ -17,5 +17,5 @@ public interface UserFeignSerivce {
     User put(@RequestBody User user);
 
     @PutMapping(value = "/{id}")//对应提供者方法路径
-    User delete(@PathVariable("id")String id);
+    User delete(@PathVariable("id")Long id);
 }
