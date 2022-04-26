@@ -13,7 +13,7 @@ public class ConditionalOnPropertyConfiguration {
     @Bean(value = "user10")
     @Qualifier
     public User user10() {
-       return new User("10");
+       return new User(10L);
     }
 
 }

@@ -11,7 +11,7 @@
     <artifactId>ribbonClient</artifactId>
     <name>ribbonClient</name>
     <description>Demo project for Spring Boot</description>
-    <packaging>jar</packaging>
+
 
     <properties>
         <start-class>com.sunshine.ribbon.RibbonClientApplication</start-class>
@@ -23,6 +23,7 @@
         <dependency>
             <groupId>com.sunshine</groupId>
             <artifactId>ribbon-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>

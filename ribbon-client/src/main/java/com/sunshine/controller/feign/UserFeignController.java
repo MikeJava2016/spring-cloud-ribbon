@@ -18,6 +18,11 @@ public class UserFeignController {
     @Autowired
     private UserFeignSerivce userFeignSerivce;
 
+    /**
+     * url http://localhost:8080/userfeign/1
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     @SentinelResource(value = "userfeign", blockHandler = "blockHandler2", fallback = "fallbackHandle2")
     public User getUserById(@PathVariable("id") Long id) {

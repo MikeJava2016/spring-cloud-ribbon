@@ -13,11 +13,6 @@ import java.util.List;
 @RestController
 public class QualifierController {
 
-    @Value("${mysql.user}")
-    private String username;
-
-    @Value("${mysql.password}")
-    private String password;
     /**
      * 所有带有Qualifier标签的User
      */

@@ -10,23 +10,23 @@ public class QualifierConfiguration {
 
     @Bean
     public User user1(){
-        return new User("1");
+        return new User(1l);
     }
 
     @Bean
     public User user2(){
-        return new User("2");
+        return new User(2L);
     }
 
     @Bean
     @Qualifier
     public User user3(){
-        return new User("3");
+        return new User(3L);
     }
 
     @Bean
     @Qualifier
     public User user4(){
-        return new User("4");
+        return new User(4L);
     }
 }
