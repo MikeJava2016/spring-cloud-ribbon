@@ -46,7 +46,7 @@ public class UserController {
     @GetMapping("/2/{id}")
     public String findUserById2(@PathVariable("id") int id){
         ServiceInstance serverInstance = loadBalancerClient.choose("spring-cloud-order-service");
-        String url = String.format("http://%s:%s/user/1/%s", serverInstance.getHost(), serverInstance.getPort(),id);
+        String url = String.format("http//%s:%s/user/1/%s", serverInstance.getHost(), serverInstance.getPort(),id);
         ResponseEntity<String> forEntity = restTemplate.getForEntity(url, String.class);
         System.out.println(forEntity.getBody());
         return "user:"+id;
