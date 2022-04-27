@@ -1,5 +1,6 @@
 package com.sunshine.controller;
 
+import com.sunshine.annotation.SunShine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ public class HelloController {
      * @return
      */
     @GetMapping("/hello")
+    @SunShine
     public String hello() {
         logger.info("HelloController hello");
         return "hello";
