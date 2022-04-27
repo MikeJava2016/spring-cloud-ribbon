@@ -42,6 +42,7 @@ public class SunshineTomcatConfiguration {
         connector.setPort(httpsPort-10000);//http端口
         connector.setSecure(true);//设置为false重定向容易出错，建议设置为true
         connector.setRedirectPort(httpsPort);
+
         return connector;
     }
 }
