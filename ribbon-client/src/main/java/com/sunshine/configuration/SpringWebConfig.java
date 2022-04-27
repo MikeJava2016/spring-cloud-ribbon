@@ -77,6 +77,12 @@ public class SpringWebConfig implements WebMvcConfigurer {
             logger.info("filter");
             String requestURI = request.getRequestURI();
             logger.info("requestURI = {}",requestURI);
+            if (!requestURI.equals("/prometheus/metrics") && !requestURI.equals("/prometheus/metrics2") && !requestURI.equals("/prometheus")) {
+                response.addHeader("Access-Control-Allow-Credentials", "true");
+                response.addHeader("Access-Control-Allow-Origin", "*");
+                response.addHeader("Access-Control-Allow-Methods", "*");
+                response.setHeader("Access-Control-Allow-Headers", "x-requested-with,content-type");
+            }
             filterChain.doFilter(request, response);
         }
     }
