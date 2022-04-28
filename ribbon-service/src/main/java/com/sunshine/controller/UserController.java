@@ -1,14 +1,17 @@
 package com.sunshine.controller;
-import com.sunshine.api.feign.UserFeignSerivce;
+ import com.sunshine.api.feign.UserFeignSerivce;
 import com.sunshine.entity.User;
 import com.sunshine.mapper.UserMapper;
-import org.slf4j.Logger;
+ import org.apache.shardingsphere.core.strategy.keygen.SnowflakeShardingKeyGenerator;
+ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController implements UserFeignSerivce {
+
+    private SnowflakeShardingKeyGenerator snowflakeShardingKeyGenerator = new SnowflakeShardingKeyGenerator();
 
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -24,6 +27,10 @@ public class UserController implements UserFeignSerivce {
 
     @Override
     public User post(User user) {
+        Comparable<?> comparable = snowflakeShardingKeyGenerator.generateKey();
+
+        user.setId((Long) comparable);
+        userMapper.insert(user);
         logger.info(" user = {}", user);
         return user;
     }

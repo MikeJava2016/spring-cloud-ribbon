@@ -3,6 +3,7 @@ package com.sunshine.controller.feign;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.sunshine.api.feign.UserFeignSerivce;
+import com.sunshine.entity.Result;
 import com.sunshine.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,11 +31,17 @@ public class UserFeignController {
     }
 
     @PostMapping
-    public User postUser(@RequestBody User user) {
-        return userFeignSerivce.post(user);
+    public Result<User> postUser(@RequestBody User user) {
+        User rest = userFeignSerivce.post(user);
+        Result<User> userResult = new Result<>();
+        userResult.setData(rest);
+        userResult.setCode(0);
+        userResult.setMsg("success");
+        return userResult;
     }
 
     @PutMapping("/{id}")
+    @ResponseBody
     public User putUser(@RequestBody User user) {
         return userFeignSerivce.put(user);
     }

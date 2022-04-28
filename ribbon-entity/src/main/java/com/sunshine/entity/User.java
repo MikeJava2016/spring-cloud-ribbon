@@ -1,12 +1,14 @@
 package com.sunshine.entity;
 
+import annotation.JsonEncrypt;
+
 import java.io.Serializable;
 public class User implements Serializable {
 
     private Long id;
 
     private String username;
-
+    @JsonEncrypt(beginIdx = 1, endIdx = 2)
     private String password;
 
     public User(Long id) {

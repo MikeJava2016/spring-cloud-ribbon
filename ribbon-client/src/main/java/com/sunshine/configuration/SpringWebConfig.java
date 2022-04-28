@@ -1,17 +1,28 @@
 package com.sunshine.configuration;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.sunshine.annotation.SunShine;
+import com.sunshine.mvc.returnValueHandler.ResultWarpReturnValueHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -19,14 +30,47 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 /**
  * 先走filter -> Interceptor
  */
 @Configuration
 @EnableWebMvc
-public class SpringWebConfig implements WebMvcConfigurer {
+public class SpringWebConfig implements WebMvcConfigurer, InitializingBean {
+
+    @Autowired
+    private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/cors/**")
+                .allowedHeaders("*")
+                .allowedMethods("POST", "GET","PUT","DELETE")
+                .allowedOrigins("*");
+    }
+
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        //创建fastJson消息转换器
+        FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
+        //创建配置类
+        FastJsonConfig fastJsonConfig = new FastJsonConfig();
+        //修改配置返回内容的过滤
+        fastJsonConfig.setSerializerFeatures(
+                SerializerFeature.DisableCircularReferenceDetect,
+                SerializerFeature.WriteMapNullValue,
+                SerializerFeature.WriteNullStringAsEmpty
+        );
+        fastConverter.setFastJsonConfig(fastJsonConfig);
+        //将fastjson添加到视图消息转换器列表内
+        converters.add(fastConverter);
+    }
+
+
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -39,11 +83,27 @@ public class SpringWebConfig implements WebMvcConfigurer {
 
     @Bean
     public FilterRegistrationBean filterRegistrationBean(){
+
         FilterRegistrationBean bean = new FilterRegistrationBean();
         bean.setFilter(new SunshineFilter());
         bean.addUrlPatterns("/*");
-        bean.setOrder(20);
+        bean.setOrder(-2);
         return bean;
+    }
+
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        List<HandlerMethodReturnValueHandler> unmodifiableList = requestMappingHandlerAdapter.getReturnValueHandlers();
+        List<HandlerMethodReturnValueHandler> list = new ArrayList<>(unmodifiableList.size());
+        for (HandlerMethodReturnValueHandler returnValueHandler : unmodifiableList) {
+            if (returnValueHandler instanceof RequestResponseBodyMethodProcessor) {
+                list.add(new ResultWarpReturnValueHandler(returnValueHandler));
+            } else {
+                list.add(returnValueHandler);
+            }
+        }
+        requestMappingHandlerAdapter.setReturnValueHandlers(list);
     }
 
     /**
@@ -77,12 +137,7 @@ public class SpringWebConfig implements WebMvcConfigurer {
             logger.info("filter");
             String requestURI = request.getRequestURI();
             logger.info("requestURI = {}",requestURI);
-            if (!requestURI.equals("/prometheus/metrics") && !requestURI.equals("/prometheus/metrics2") && !requestURI.equals("/prometheus")) {
-                response.addHeader("Access-Control-Allow-Credentials", "true");
-                response.addHeader("Access-Control-Allow-Origin", "*");
-                response.addHeader("Access-Control-Allow-Methods", "*");
-                response.setHeader("Access-Control-Allow-Headers", "x-requested-with,content-type");
-            }
+
             filterChain.doFilter(request, response);
         }
     }
@@ -124,5 +179,7 @@ public class SpringWebConfig implements WebMvcConfigurer {
             logger.info("afterCompletion");
         }
     }
+
+
 
 }
