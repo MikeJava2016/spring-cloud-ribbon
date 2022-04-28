@@ -3,12 +3,16 @@ package com.sunshine.configuration.tomcat;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
+import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.ResourceUtils;
+
+import javax.net.ssl.SSLContext;
 
 @Configuration
 public class SunshineTomcatConfiguration {
@@ -45,5 +49,21 @@ public class SunshineTomcatConfiguration {
 
         return connector;
     }
+
+   /* @Value("${server.ssl.trust-store}")
+    private String trustStorePath;
+
+    @Value("${server.ssl.trust-store-password}")
+    private String trustStorePassword;
+
+    @Bean
+    public SSLContext sslContext() throws Exception {
+        return SSLContextBuilder.
+                create().
+                loadTrustMaterial(ResourceUtils.getFile(trustStorePath), trustStorePassword.toCharArray()).
+                build();
+    }*/
+
+
 }
 
