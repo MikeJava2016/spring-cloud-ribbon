@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 @EnableApolloConfig
-@EnableFeignClients(basePackages = "com.sunshine.api.feign")
+@EnableFeignClients(basePackages = "com.sunshine")
 @EnableEurekaClient
 @SpringBootApplication(scanBasePackages={"com.sunshine"})
 @MapperScan("com.sunshine.mapper")

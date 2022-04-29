@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
@@ -55,6 +56,17 @@ public class SpringWebConfig implements WebMvcConfigurer, InitializingBean {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
+
+        List<MediaType> mediaTypes = new ArrayList<>(16);
+        mediaTypes.add(MediaType.APPLICATION_ATOM_XML);
+        mediaTypes.add(MediaType.APPLICATION_CBOR);
+        mediaTypes.add(MediaType.APPLICATION_FORM_URLENCODED);
+        mediaTypes.add(MediaType.APPLICATION_JSON);
+        mediaTypes.add(MediaType.APPLICATION_OCTET_STREAM);
+        converter.setSupportedMediaTypes(mediaTypes);
+        converters.add(converter);
+
         //创建fastJson消息转换器
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
         //创建配置类
