@@ -1,6 +1,7 @@
-package com.sunshine.mvc.returnValueHandler;
+package com.sunshine.configuration.web;
 
 import annotation.JsonEncrypt;
+import com.sunshine.common.util.ManagerTokenUtil;
 import com.sunshine.entity.Result;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.core.MethodParameter;
@@ -35,6 +36,7 @@ public class ResultWarpReturnValueHandler  implements HandlerMethodReturnValueHa
         if (null != source) {
             jsonEncrypt(source);
         }
+        ManagerTokenUtil.removeThreadToken();
         return source;
     }
 

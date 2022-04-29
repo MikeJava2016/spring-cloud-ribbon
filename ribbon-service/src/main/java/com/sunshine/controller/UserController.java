@@ -1,9 +1,10 @@
 package com.sunshine.controller;
- import com.sunshine.api.feign.UserFeignSerivce;
+
+import com.sunshine.api.feign.UserFeignSerivce;
 import com.sunshine.entity.User;
 import com.sunshine.mapper.UserMapper;
- import org.apache.shardingsphere.core.strategy.keygen.SnowflakeShardingKeyGenerator;
- import org.slf4j.Logger;
+import org.apache.shardingsphere.core.strategy.keygen.SnowflakeShardingKeyGenerator;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,8 @@ public class UserController implements UserFeignSerivce {
 
     @Autowired
     private UserMapper userMapper;
-        // url:http://localhost:8085/user/1
+
+    // url:http://localhost:8085/user/1
     @Override
     public User getOne(Long id) {
         logger.info(" id = {}", id);

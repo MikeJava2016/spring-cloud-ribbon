@@ -1,9 +1,10 @@
 package com.sunshine.entity;
 
 import annotation.JsonEncrypt;
+import com.sunshine.common.ao.BaseAo;
 
 import java.io.Serializable;
-public class User implements Serializable {
+public class User extends BaseAo {
 
     private Long id;
 

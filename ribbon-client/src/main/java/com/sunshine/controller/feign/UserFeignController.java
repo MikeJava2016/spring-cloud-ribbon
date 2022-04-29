@@ -3,11 +3,13 @@ package com.sunshine.controller.feign;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.sunshine.api.feign.UserFeignSerivce;
+import com.sunshine.common.annontation.Login;
 import com.sunshine.entity.Result;
 import com.sunshine.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/userfeign")
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserFeignController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Value("${mysql.password}")
+    private String password;
 
     @Autowired
     private UserFeignSerivce userFeignSerivce;
@@ -26,12 +31,12 @@ public class UserFeignController {
      */
     @GetMapping("/{id}")
     @SentinelResource(value = "userfeign", blockHandler = "blockHandler2", fallback = "fallbackHandle2")
-    public User getUserById(@PathVariable("id") Long id) {
+    public User getUserById(@PathVariable("id")Long id) {
         return userFeignSerivce.getOne(id);
     }
 
     @PostMapping
-    public Result<User> postUser(@RequestBody User user) {
+    public Result<User> postUser(@Login @RequestBody User user) {
         User rest = userFeignSerivce.post(user);
         Result<User> userResult = new Result<>();
         userResult.setData(rest);
