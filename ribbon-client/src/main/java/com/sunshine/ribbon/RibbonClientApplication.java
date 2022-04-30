@@ -11,7 +11,7 @@ import org.springframework.core.io.ClassPathResource;
 
 @EnableApolloConfig
 @EnableEurekaClient
-@EnableFeignClients(basePackages = "com.sunshine.api.feign")
+@EnableFeignClients(basePackages ={ "com.sunshine.api.feign"})
 @ComponentScan(value = "com.sunshine")
 @SpringBootApplication
 public class RibbonClientApplication {

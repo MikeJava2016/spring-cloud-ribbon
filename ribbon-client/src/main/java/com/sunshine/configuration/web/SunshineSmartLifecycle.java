@@ -1,6 +1,6 @@
 package com.sunshine.configuration.web;
 
-import com.sunshine.api.feign.UserFeignSerivce;
+//import com.sunshine.api.feign.UserFeignSerivce;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -9,7 +9,7 @@ import org.springframework.context.SmartLifecycle;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
-@Configuration(proxyBeanMethods = false)
+//@Configuration(proxyBeanMethods = false)
 public class SunshineSmartLifecycle implements ApplicationContextAware, SmartLifecycle, Ordered {
 
     private ApplicationContext applicationContext;
@@ -28,9 +28,9 @@ public class SunshineSmartLifecycle implements ApplicationContextAware, SmartLif
     public boolean isAutoStartup() {
         return true;
     }
-
+/*
     @Autowired
-    private UserFeignSerivce userFeignSerivce;
+    private UserFeignSerivce userFeignSerivce;*/
 
 
     @Override
