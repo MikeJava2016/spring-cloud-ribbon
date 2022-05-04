@@ -48,4 +48,10 @@ public class UserController implements UserFeignSerivce {
         logger.info("delete id = {}", id);
         return new User(id);
     }
+
+    @Override
+    public User getInfoByUserName(String username) {
+        User user = userMapper.selectByUsername(username);
+        return user;
+    }
 }
