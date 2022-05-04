@@ -9,4 +9,6 @@ public @interface SunShine {
 
 
     String name() default "huzhanglin";
+
+    boolean supported() default true;
 }

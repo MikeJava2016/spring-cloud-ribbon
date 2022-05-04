@@ -18,7 +18,7 @@ public class HelloController {
      * @return
      */
     @GetMapping("/hello")
-    @SunShine
+    @SunShine(supported = false)
     public String hello() {
         logger.info("HelloController hello");
         return "hello";

@@ -42,6 +42,8 @@ public class SunShineHandlerInterceptor implements HandlerInterceptor {
             SunShine sunShine = (SunShine) declaredAnnotation;
             String name = sunShine.name();
             logger.info(" name = {}", name);
+            boolean supported = sunShine.supported();
+            logger.info(" supported = {}", supported);
         }
     }
 
