@@ -3,12 +3,14 @@ package com.sunshine.configuration.ApplicationEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.boot.context.logging.LoggingApplicationListener;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -23,11 +25,13 @@ public class EventConfig {
     private final static Logger logger = LoggerFactory.getLogger(EventConfig.class);
 
     @Bean(name = "1")
+    @Order(LoggingApplicationListener.DEFAULT_ORDER + 1)
     public MyListener getMyListener(){
         return new MyListener(MyEventEnum.one,message -> logger.info("MyListener1 {} ",message));
     }
 
     @Bean(name = "2")
+    @Order(LoggingApplicationListener.DEFAULT_ORDER + 1)
     public MyListener getMyListener2(){
         return new MyListener(MyEventEnum.two, message -> logger.info("MyListener2 {} ",message));
     }
