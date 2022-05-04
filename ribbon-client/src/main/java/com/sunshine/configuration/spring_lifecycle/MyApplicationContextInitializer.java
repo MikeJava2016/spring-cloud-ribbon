@@ -1,4 +1,4 @@
-package com.sunshine.configuration.ApplicationEvent;
+package com.sunshine.configuration.spring_lifecycle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
