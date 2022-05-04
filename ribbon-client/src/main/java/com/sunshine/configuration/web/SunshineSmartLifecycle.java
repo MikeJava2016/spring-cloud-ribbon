@@ -1,6 +1,8 @@
 package com.sunshine.configuration.web;
 
 //import com.sunshine.api.feign.UserFeignSerivce;
+import com.sunshine.api.feign.UserFeignSerivce;
+import com.sunshine.configuration.spring_lifecycle.SunshineFactoryBean;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -9,7 +11,7 @@ import org.springframework.context.SmartLifecycle;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
-//@Configuration(proxyBeanMethods = false)
+@Configuration(proxyBeanMethods = false)
 public class SunshineSmartLifecycle implements ApplicationContextAware, SmartLifecycle, Ordered {
 
     private ApplicationContext applicationContext;
@@ -35,7 +37,12 @@ public class SunshineSmartLifecycle implements ApplicationContextAware, SmartLif
 
     @Override
     public void start() {
+        UserFeignSerivce bean = applicationContext.getBean(UserFeignSerivce.class);
+        System.out.println("===="+ bean);
         System.out.println("---------------------------");
+
+        SunshineFactoryBean.SunshineFactoryInnerBean innerBean = applicationContext.getBean(SunshineFactoryBean.SunshineFactoryInnerBean.class);
+        System.out.println(" sun -1+>"+ innerBean);
     }
 
     @Override
