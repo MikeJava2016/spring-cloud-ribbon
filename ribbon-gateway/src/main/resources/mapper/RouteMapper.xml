@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunshine.mapper.RouteMapper" >
+    <insert id="insert">
+        insert into gateway_route(id,name,app_id,route_id,uri,predicates,filters,enabled,description,order_num,create_time,modify_time,create_id,modify_id) values
+        (#{id},#{name},#{appId},#{routeId},#{uri},#{predicates},#{filters},#{enabled},#{description},#{orderNum},#{createTime},#{modifyTime},#{createId},#{modifyTime})
+    </insert>
+    <delete id="delete">
+        update gateway_route set enabled = 0 where route_id = #{routeId}
+    </delete>
+    <select id="selectAll" resultType="com.sunshine.service.RouteInfo">
+        select
+        id,
+        name,
+        route_id as routeId,
+        uri,
+        predicates,
+        filters,
+        enabled,
+        description,
+        order_num as  orderNum,
+        create_time as createTime,
+        modify_time as modifyTime,
+        create_id as createId,
+        modify_id as modifyId
+         from gateway_route where delete_flag = 0 and enabled = 1 order by order_num asc
+    </select>
+
+
+</mapper>

@@ -1,17 +1,25 @@
 spring:
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
       routes:
-        - id: ribbon-client
-          uri: lb://ribbon-client
+        - id: ribbon_client
           predicates:
-            - Path=/user/**
+            - Path=/gateway/**
           filters:
-            - StripPrefix=1
+             - StripPrefix=1
+          uri: http://localhost:8082/
+
+        - id: cookie_route
+          predicates:
+            - Cookie=name,huzhanglin
+          uri: https://www.baidu.com/?tn=02003390_82_hao_pg
+
+        - id: auth_route
+          predicates:
+            - Path=/auth/**
+            - Auth=authorization,1234
+          uri: https://www.baidu.com/?tn=02003390_82_hao_pg
+
           #跨域设置
       globalcors:
         corsConfigurations:
