@@ -2,25 +2,71 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: query_user_info_route
+          predicates:
+            - Path=/query_user_info_route/**
+          uri: lb://ribbon-client/
+          filters:
+            - StripPrefix=1
+#            - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 1
+#                redis-rate-limiter.burstCapacity: 2
+#                key-resolver: "#{@pathAddrKeyResolver}"
+#            - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 1
+#                redis-rate-limiter.burstCapacity: 1
+#                key-resolver: "#{@remoteAddrKeyResolver}"
+
         - id: ribbon_client
           predicates:
-            - Path=/gateway/**
+            - Path=/ribbon_client/**
           filters:
              - StripPrefix=1
           uri: http://localhost:8082/
 
         - id: cookie_route
           predicates:
+            - Path=/cookie/**
             - Cookie=name,huzhanglin
           uri: https://www.baidu.com/?tn=02003390_82_hao_pg
 
         - id: auth_route
           predicates:
-            - Path=/auth/**
+            - Path=/auth_route/**
             - Auth=authorization,1234
           uri: https://www.baidu.com/?tn=02003390_82_hao_pg
 
-          #跨域设置
+        - id: lb_route
+          predicates:
+            - Path=/lb/**
+          filters:
+            - StripPrefix=1
+          uri: lb://ribbon-client/
+
+        - id: www
+          predicates:
+            - Path=/www/**
+          filters:
+            - StripPrefix=1
+#            - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 0
+#                redis-rate-limiter.burstCapacity: 0
+#                key-resolver: "#{@pathAddrKeyResolver}"
+#            - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 0
+#                redis-rate-limiter.burstCapacity: 0
+#                key-resolver: "#{@remoteAddrKeyResolver}"
+          uri: http://192.168.56.100:8761/
+
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+        #跨域设置
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -29,3 +75,6 @@ spring:
             allowed-headers: "*"
             allow-credentials: true
             exposedHeaders: "Content-Disposition,Content-Type,Cache-Control"
+#  redis:
+#    host: 192.168.56.100
+#    port: 6379

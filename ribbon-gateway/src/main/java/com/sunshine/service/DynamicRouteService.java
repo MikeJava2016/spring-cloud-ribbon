@@ -14,6 +14,7 @@ import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
@@ -45,49 +46,49 @@ public class DynamicRouteService implements ApplicationEventPublisherAware {
      * @param routeForm
      * @return
      */
-    public Result<Boolean> add(RouteForm routeForm) {
+    public Flux<Boolean> add(RouteForm routeForm) {
         RouteDefinition definition = convert(routeForm);
         routeDefinitionWriter.save(Mono.just(definition)).subscribe();
         this.publisher.publishEvent(new RefreshRoutesEvent(this));
         System.out.println(JSON.toJSONString(definition));
         enduranceRule(routeForm.getName(),definition);
-        return Result.success(true);
+        return  Flux.just(true);
     }
-
+;
     /**
      * 更新路由
      *
      * @param routeForm
      * @return
      */
-    public Result<Boolean> update(RouteForm routeForm) {
+    public  Mono<Boolean> update(RouteForm routeForm) {
         RouteDefinition definition = convert(routeForm);
         try {
             delete(definition.getId());
         } catch (Exception e) {
-            return Result.fail("未知路由信息");
+            return Mono.just(false);
         }
         try {
             routeDefinitionWriter.save(Mono.just(definition)).subscribe();
             this.publisher.publishEvent(new RefreshRoutesEvent(this));
-            return Result.success(true);
+            return Mono.just(true);
         } catch (Exception e) {
-            return Result.fail("路由信息修改失败!");
+            return Mono.just(false);
         }
     }
 
     /**
      * 删除路由
      *
-     * @param id
+     * @param routeId
      * @return
      */
-    public Result<Boolean> delete(String id) {
-        Mono<ResponseEntity<Object>> responseEntityMono = this.routeDefinitionWriter.delete(Mono.just(id))
+    public Result<Boolean> delete(String routeId) {
+        Mono<ResponseEntity<Object>> responseEntityMono = this.routeDefinitionWriter.delete(Mono.just(routeId))
                 .then(Mono.defer(() -> {
                     Mono<ResponseEntity<Object>> just = Mono.just(ResponseEntity.ok().build());
                     //todo 删除数据库数据
-                    routeService.delete(id);
+                    routeService.delete(routeId);
                     return just;
                 }))
                 .onErrorReturn(ResponseEntity.notFound().build());
@@ -164,5 +165,13 @@ public class DynamicRouteService implements ApplicationEventPublisherAware {
         }
         definition.setUri(uri);
         return definition;
+    }
+
+    public Result getAll() {
+        return Result.success(this.routeService.getRouteList());
+    }
+
+    public RouteDefinition getOne(String routeId) {
+        return this.routeService.getOne(routeId);
     }
 }

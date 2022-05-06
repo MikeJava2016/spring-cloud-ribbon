@@ -3,7 +3,6 @@ package com.sunshine.gateway.predicate;
 import org.springframework.cloud.gateway.handler.predicate.AbstractRoutePredicateFactory;
 import org.springframework.cloud.gateway.handler.predicate.GatewayPredicate;
 import org.springframework.http.HttpCookie;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.server.ServerWebExchange;
 

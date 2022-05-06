@@ -15,5 +15,7 @@ public interface RouteMapper {
 
     List<RouteInfo> selectAll();
 
-    int delete(String id);
+    int delete(String routeId);
+
+    RouteInfo getOne(String routeId);
 }

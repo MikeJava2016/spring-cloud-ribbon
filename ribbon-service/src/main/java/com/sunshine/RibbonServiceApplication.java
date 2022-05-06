@@ -16,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class RibbonServiceApplication {
 
     public static void main(String[] args) {
+//        System.setProperty("apollo.refreshInterval","3000");
         SpringApplication.run(RibbonServiceApplication.class, args);
     }
 

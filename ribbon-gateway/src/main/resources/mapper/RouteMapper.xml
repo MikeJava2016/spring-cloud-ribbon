@@ -25,6 +25,23 @@
         modify_id as modifyId
          from gateway_route where delete_flag = 0 and enabled = 1 order by order_num asc
     </select>
+    <select id="getOne" resultType="com.sunshine.service.RouteInfo">
+         select
+        id,
+        name,
+        route_id as routeId,
+        uri,
+        predicates,
+        filters,
+        enabled,
+        description,
+        order_num as  orderNum,
+        create_time as createTime,
+        modify_time as modifyTime,
+        create_id as createId,
+        modify_id as modifyId
+         from gateway_route  where route_id = #{routeId}
+    </select>
 
 
 </mapper>

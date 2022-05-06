@@ -30,25 +30,28 @@ public class RouteService {
 
     public List<RouteDefinition> getRouteList() {
         List<RouteInfo> list = list();
-        return list.stream().map(x -> {
-            RouteDefinition routeDefinition = new RouteDefinition();
-            routeDefinition.setId(x.getRouteId());
-            routeDefinition.setPredicates(JSON.parseArray(x.getPredicates(), PredicateDefinition.class));
-            routeDefinition.setFilters(JSON.parseArray(x.getFilters(), FilterDefinition.class));
-            try {
-                routeDefinition.setUri(new URI(x.getUri()));
-                routeDefinition.setOrder(x.getOrderNum());
-                routeDefinition.setMetadata(new HashMap<>());
-                return routeDefinition;
-            } catch ( URISyntaxException e) {
-                e.printStackTrace();
-                return null;
-            }
+        return list.stream().map(x -> getRouteDefinition(x)).filter(Objects::nonNull).collect(Collectors.toList());
+    }
 
-        }).filter(Objects::nonNull).collect(Collectors.toList());
+    private RouteDefinition getRouteDefinition(RouteInfo x) {
+        RouteDefinition routeDefinition = new RouteDefinition();
+        routeDefinition.setId(x.getRouteId());
+        routeDefinition.setPredicates(JSON.parseArray(x.getPredicates(), PredicateDefinition.class));
+        routeDefinition.setFilters(JSON.parseArray(x.getFilters(), FilterDefinition.class));
+        try {
+            routeDefinition.setUri(new URI(x.getUri()));
+            routeDefinition.setOrder(x.getOrderNum());
+            routeDefinition.setMetadata(new HashMap<>());
+            return routeDefinition;
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private List<RouteInfo> list() {
+
+        // 添加缓存
         return this.routeMapper.selectAll();
     }
 
@@ -67,7 +70,12 @@ public class RouteService {
         this.save(routeInfo);
     }
 
-    public void delete(String id) {
-        this.routeMapper.delete(id);
+    public void delete(String routeId) {
+        this.routeMapper.delete(routeId);
+    }
+
+    public RouteDefinition getOne(String routeId) {
+        RouteInfo x = this.routeMapper.getOne(routeId);
+        return getRouteDefinition(x);
     }
 }
