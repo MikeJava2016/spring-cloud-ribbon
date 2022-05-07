@@ -33,7 +33,8 @@ public class SunshineRouteDefinitionRepository implements RouteDefinitionReposit
         logger.info("SunshineRouteDefinitionRepository  getRouteDefinitions");
         // 获取缓存的配置
         List<RouteDefinition> gatewayPropertiesRoutes = this.gatewayProperties.getRoutes();
-        gatewayPropertiesRoutes.addAll(routeService.getRouteList());
+        // 获取数据库配置
+//        gatewayPropertiesRoutes.addAll(routeService.getRouteList());
         return Flux.fromIterable(gatewayPropertiesRoutes);
     }
 

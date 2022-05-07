@@ -14,7 +14,7 @@ import java.beans.PropertyDescriptor;
  * @Author huzhanglin
  * @Date 2022/5/4 15:10
  **/
-@Component
+//@Component
 public class SunshineInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPostProcessor {
     /**
      * 实例化bean之前，相当于new这个bean之前

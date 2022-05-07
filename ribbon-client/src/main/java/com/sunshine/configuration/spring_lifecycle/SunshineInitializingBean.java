@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @Author huzhanglin
  * @Date 2022/5/4 16:05
  **/
-@Component
+//@Component
 public class SunshineInitializingBean implements InitializingBean, DisposableBean {
     @Override
     public void afterPropertiesSet() throws Exception {

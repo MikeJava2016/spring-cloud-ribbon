@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @Author huzhanglin
  * @Date 2022/5/4 15:30
  **/
-@Component
+//@Component
 public class SunshineBeanFactoryAware implements BeanFactoryAware {
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {

@@ -12,7 +12,7 @@ import java.lang.reflect.Constructor;
  * @Author huzhanglin
  * @Date 2022/5/4 15:25
  **/
-@Component
+//@Component
 public class SunshineSmartInstantiationAwareBeanPostProcessor implements SmartInstantiationAwareBeanPostProcessor {
     /**
      * 该触发点发生在postProcessBeforeInstantiation之前(在图上并没有标明，因为一般不太需要扩展这个点)，这个方法用于预测Bean的类型，

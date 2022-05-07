@@ -14,7 +14,7 @@ import org.springframework.util.ResourceUtils;
 
 import javax.net.ssl.SSLContext;
 
-@Configuration
+//@Configuration
 public class SunshineTomcatConfiguration {
 
     @Value("${server.port}")
@@ -49,21 +49,6 @@ public class SunshineTomcatConfiguration {
 
         return connector;
     }
-
-   /* @Value("${server.ssl.trust-store}")
-    private String trustStorePath;
-
-    @Value("${server.ssl.trust-store-password}")
-    private String trustStorePassword;
-
-    @Bean
-    public SSLContext sslContext() throws Exception {
-        return SSLContextBuilder.
-                create().
-                loadTrustMaterial(ResourceUtils.getFile(trustStorePath), trustStorePassword.toCharArray()).
-                build();
-    }*/
-
 
 }
 

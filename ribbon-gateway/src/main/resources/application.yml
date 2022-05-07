@@ -24,19 +24,19 @@ spring:
             - Path=/ribbon_client/**
           filters:
              - StripPrefix=1
-          uri: http://localhost:8082/
+          uri: http://192.168.56.100:8761/
 
         - id: cookie_route
           predicates:
             - Path=/cookie/**
             - Cookie=name,huzhanglin
-          uri: https://www.baidu.com/?tn=02003390_82_hao_pg
+          uri: http://192.168.56.100:8761/
 
         - id: auth_route
           predicates:
             - Path=/auth_route/**
             - Auth=authorization,1234
-          uri: https://www.baidu.com/?tn=02003390_82_hao_pg
+          uri: http://192.168.56.100:8761/
 
         - id: lb_route
           predicates:

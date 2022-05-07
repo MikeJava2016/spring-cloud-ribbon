@@ -19,6 +19,6 @@ public interface UserFeignSerivce {
     @PutMapping(value = "/{id}")//对应提供者方法路径
     User delete(@PathVariable("id")Long id);
 
-    @GetMapping(value = "/user/{username}")//对应提供者方法路径
-    User getInfoByUserName(@PathVariable("id") String username);
+    @GetMapping(value = "/username/{username}")//对应提供者方法路径
+    User getInfoByUserName(@PathVariable("username") String username);
 }

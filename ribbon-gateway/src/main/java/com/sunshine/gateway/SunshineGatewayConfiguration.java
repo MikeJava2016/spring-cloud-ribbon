@@ -3,10 +3,12 @@ package com.sunshine.gateway;
 import com.sunshine.gateway.filter.RSAGateWayFilterFactory;
 import com.sunshine.gateway.filter.SunshineGlobalFilter;
 import com.sunshine.gateway.predicate.AuthRoutePredicateFactory;
+import com.sunshine.gateway.route.HttpsClientRequestFactory;
 import com.sunshine.gateway.route.SunshineRouteDefinitionRepository;
 import com.sunshine.service.RouteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -14,13 +16,20 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.web.reactive.HttpHandlerAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.reactive.WebFluxAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.embedded.netty.NettyReactiveWebServerFactory;
 import org.springframework.cloud.gateway.config.GatewayClassPathWarningAutoConfiguration;
 import org.springframework.cloud.gateway.config.GatewayLoadBalancerClientAutoConfiguration;
 import org.springframework.cloud.gateway.config.GatewayProperties;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.DispatcherHandler;
+import reactor.core.publisher.Mono;
+
+import javax.annotation.PostConstruct;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * @version v1
@@ -68,5 +77,31 @@ public class SunshineGatewayConfiguration {
         return sunshineGlobalFilter;
     }
 
+    @Value("${server.https.port}")
+    private int httpsPort;
+    @Value("${server.port}")
+    private int serverPort;
 
+    @PostConstruct
+    public void startRedirectServer() {
+        NettyReactiveWebServerFactory httpNettyReactiveWebServerFactory = new NettyReactiveWebServerFactory(httpsPort);
+        httpNettyReactiveWebServerFactory.getWebServer((request, response) -> {
+            URI uri = request.getURI();
+            URI httpsUri;
+            try {
+                httpsUri = new URI("https", uri.getUserInfo(), uri.getHost(), httpsPort, uri.getPath(), uri.getQuery(), uri.getFragment());
+            } catch (URISyntaxException e) {
+                return Mono.error(e);
+            }
+            response.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
+            response.getHeaders().setLocation(httpsUri);
+            return response.setComplete();
+        }).start();
+    }
+
+//    @Bean
+    public HttpsClientRequestFactory httpsClientRequestFactory(){
+        return new HttpsClientRequestFactory();
+    }
+//    https://blog.csdn.net/Chipslyc/article/details/98851831?spm=1001.2101.3001.6650.17&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-17-98851831-blog-112706944.pc_relevant_antiscanv2&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-17-98851831-blog-112706944.pc_relevant_antiscanv2&utm_relevant_index=27
 }

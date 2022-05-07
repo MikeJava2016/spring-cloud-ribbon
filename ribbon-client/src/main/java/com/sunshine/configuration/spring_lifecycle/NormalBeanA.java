@@ -15,7 +15,7 @@ import javax.annotation.PostConstruct;
  * @Author huzhanglin
  * @Date 2022/5/4 15:43
  **/
-@Component
+//@Component
 public class NormalBeanA {
     public NormalBeanA() {
         System.out.println("NormalBean constructor");

@@ -23,8 +23,7 @@ public class UserController implements UserFeignSerivce {
     @Override
     public User getOne(Long id) {
         logger.info(" id = {}", id);
-        User user = userMapper.selectById(id);
-        return new User(id);
+        return userMapper.selectById(id);
     }
 
     @Override

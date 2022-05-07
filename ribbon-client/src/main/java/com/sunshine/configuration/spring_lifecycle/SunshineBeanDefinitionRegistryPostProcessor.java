@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @author huzhanglin
  * @date
  */
-@Component
+//@Component
 public class SunshineBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
     /**
