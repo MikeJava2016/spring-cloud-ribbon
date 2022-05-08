@@ -1,14 +1,30 @@
 package com.sunshine.configuration.fegin;
 
+import feign.Client;
 import feign.Logger;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.apache.http.conn.ssl.SSLContexts;
 import org.apache.http.conn.ssl.TrustStrategy;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
+import org.springframework.cloud.commons.httpclient.DefaultOkHttpClientConnectionPoolFactory;
+import org.springframework.cloud.commons.httpclient.DefaultOkHttpClientFactory;
+import org.springframework.cloud.commons.httpclient.OkHttpClientConnectionPoolFactory;
+import org.springframework.cloud.commons.httpclient.OkHttpClientFactory;
+import org.springframework.cloud.netflix.ribbon.SpringClientFactory;
+import org.springframework.cloud.openfeign.ribbon.CachingSpringLoadBalancerFactory;
+import org.springframework.cloud.openfeign.ribbon.LoadBalancerFeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.security.KeyStore;
 import java.security.cert.CertificateException;
@@ -16,6 +32,50 @@ import java.security.cert.X509Certificate;
 
 @Configuration
 public class FeignConfiguration {
+
+    private final static org.slf4j.Logger logger = LoggerFactory.getLogger(FeignConfiguration.class);
+
+    @Bean
+    public Client feignClient(CachingSpringLoadBalancerFactory cachingFactory,
+                              SpringClientFactory clientFactory, okhttp3.OkHttpClient okHttpClient) {
+        feign.okhttp.OkHttpClient delegate = new feign.okhttp.OkHttpClient(okHttpClient);
+        logger.info("FeignConfiguration feignClient...huzhanglinFeignConfiguration ");
+        return new LoadBalancerFeignClient(delegate, cachingFactory, clientFactory);
+    }
+
+    @Bean
+    public OkHttpClientFactory okHttpClientFactory(OkHttpClient.Builder builder) {
+        logger.info("FeignConfiguration okHttpClientFactory...huzhanglinFeignConfiguration ");
+        return new DefaultOkHttpClientFactory(builder);
+    }
+
+    @Bean
+    public OkHttpClientConnectionPoolFactory connPoolFactory() {
+        logger.info("FeignConfiguration OkHttpClientConnectionPoolFactory...huzhanglinFeignConfiguration ");
+        return new DefaultOkHttpClientConnectionPoolFactory();
+    }
+
+    @Bean
+    public OkHttpClient.Builder okHttpClientBuilder() {
+        logger.info("FeignConfiguration OkHttpClient.Builder...huzhanglinFeignConfiguration ");
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.addInterceptor(chain -> {
+            Request originRequest = chain.request();
+            Request newRequest = originRequest.newBuilder().addHeader("name", "huzhanglin").build();
+            logger.info("uri = {}",originRequest.url().toString());
+            return chain.proceed(newRequest);
+        });
+        return builder;
+    }
+
+    @Bean
+    @Primary
+    @ConditionalOnMissingClass("org.springframework.retry.support.RetryTemplate")
+    public CachingSpringLoadBalancerFactory cachingLBClientFactory(
+            SpringClientFactory factory) {
+        logger.info("FeignConfiguration CachingSpringLoadBalancerFactory...huzhanglinFeignConfiguration ");
+        return new CachingSpringLoadBalancerFactory(factory);
+    }
 
 
     /**
