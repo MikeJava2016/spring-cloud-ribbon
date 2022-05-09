@@ -78,7 +78,7 @@ public class SpringWebConfig extends WebMvcConfigurationSupport implements Initi
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 //        registry.addInterceptor(new SunShineHandlerInterceptor()).addPathPatterns("/**").excludePathPatterns("/hello");
-        registry.addInterceptor(new SunShineHandlerInterceptor()).addPathPatterns("/hello/**");
+        registry.addInterceptor(new SunShineHandlerInterceptor()).addPathPatterns("/**");
     }
 
 
