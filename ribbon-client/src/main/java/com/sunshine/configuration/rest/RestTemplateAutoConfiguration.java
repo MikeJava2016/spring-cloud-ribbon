@@ -20,6 +20,8 @@ public class RestTemplateAutoConfiguration {
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
+//        builder.additionalInterceptors()
+//        builder.additionalCustomizers()
         return builder.build();
     }
 
@@ -30,12 +32,12 @@ public class RestTemplateAutoConfiguration {
     }
 
 
-    @Bean
+//    @Bean
     public IRule iRule(){
         return new ResponseTimeWeightedRule();
     }
 
-    @Bean
+//    @Bean
     public MyPing iPing(){
         return new MyPing();
     }
