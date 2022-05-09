@@ -2,13 +2,12 @@ package com.sunshine.configuration.fegin;
 
 import feign.Client;
 import feign.Logger;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import org.apache.http.conn.ssl.SSLContexts;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.cloud.commons.httpclient.DefaultOkHttpClientConnectionPoolFactory;
 import org.springframework.cloud.commons.httpclient.DefaultOkHttpClientFactory;
@@ -24,7 +23,6 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.security.KeyStore;
 import java.security.cert.CertificateException;
@@ -60,8 +58,9 @@ public class FeignConfiguration {
         logger.info("FeignConfiguration OkHttpClient.Builder...huzhanglinFeignConfiguration ");
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addInterceptor(chain -> {
+            // 设置header
             Request originRequest = chain.request();
-            Request newRequest = originRequest.newBuilder().addHeader("name", "huzhanglin").build();
+            Request newRequest = originRequest.newBuilder().addHeader("ribbon-client-token", "huzhanglin").build();
             logger.info("uri = {}",originRequest.url().toString());
             return chain.proceed(newRequest);
         });
