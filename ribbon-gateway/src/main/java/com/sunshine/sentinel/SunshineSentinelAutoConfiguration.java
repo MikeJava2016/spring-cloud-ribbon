@@ -8,7 +8,7 @@ import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
-import com.sunshine.entity.Result;
+import com.sunshine.common.util.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
@@ -34,7 +34,7 @@ import java.util.List;
  * @Date 2022/5/7 10:24
  * https://www.cnblogs.com/fanshuyao/p/14607028.html
  **/
-@Configuration
+//@Configuration
 public class SunshineSentinelAutoConfiguration {
 
     private final static Logger logger = LoggerFactory.getLogger(SunshineSentinelAutoConfiguration.class);

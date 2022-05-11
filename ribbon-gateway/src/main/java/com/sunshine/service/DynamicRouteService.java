@@ -1,7 +1,7 @@
 package com.sunshine.service;
 
 import com.alibaba.fastjson.JSON;
-import com.sunshine.entity.Result;
+import com.sunshine.common.util.Result;
 import com.sunshine.entity.RouteForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * @Author huzhanglin
  * @Date 2022/5/5 10:22
  **/
-@Component
+//@Component
 public class DynamicRouteService implements ApplicationEventPublisherAware {
 
     @Autowired

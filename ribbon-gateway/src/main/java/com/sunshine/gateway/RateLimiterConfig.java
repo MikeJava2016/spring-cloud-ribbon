@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
  * @Author huzhanglin
  * @Date 2022/5/6 20:08
  **/
-@Configuration
+//@Configuration
 public class RateLimiterConfig {
 
     private final static Logger logger = LoggerFactory.getLogger(RateLimiterConfig.class);

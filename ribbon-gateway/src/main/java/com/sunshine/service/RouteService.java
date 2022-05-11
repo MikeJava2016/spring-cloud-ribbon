@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @Author huzhanglin
  * @Date 2022/5/5 10:23
  **/
-@Service
+//@Service
 public class RouteService {
 
     @Autowired

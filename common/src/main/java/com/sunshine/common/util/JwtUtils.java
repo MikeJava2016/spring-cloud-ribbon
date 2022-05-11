@@ -2,15 +2,13 @@ package com.sunshine.common.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.joda.time.DateTime;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,16 +58,19 @@ public class JwtUtils {
     }
 
     public static void main(String[] args) {
-        HashMap<String, Object> param = new HashMap<String, Object>();
+        /*HashMap<String, Object> param = new HashMap<String, Object>();
         param.put("id", "1234");
         param.put("username", "huzhanglin");
-        param.put("exp", DateTime.now().plusHours(1).toDate().getTime()/1000);
+        param.put("exp", DateTime.now().plusMinutes(1).toDate().getTime()/1000);
         String token = getToken(param);
-        System.out.println(token);
+        System.out.println(token);*/
 
-        Claims claims = parseToken(token);
+//        Claims claims = parseToken("eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEyMzQiLCJleHAiOjE2NTIxNjg2NDUsInVzZXJuYW1lIjoiaHV6aGFuZ2xpbiJ9.3W9NyEqJGnFWK6swb-dwDFivX8QgTCcgTYIS6NVQLnw");
+        Jwt<Header, Claims> jwt =   Jwts.parser().setSigningKey(getKeyInstance()).parseClaimsJwt("eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEyMzQiLCJleHAiOjE2NTIxNjg2NDUsInVzZXJuYW1lIjoiaHV6aGFuZ2xpbiJ9.3W9NyEqJGnFWK6swb-dwDFivX8QgTCcgTYIS6NVQLnw");
+     /*   Date expiration = claims.getExpiration();
+        System.out.println(expiration);
         claims.setExpiration( DateTime.now().plusHours(2).toDate());
         System.out.println(claims.get("id"));
-
+*/
     }
 }

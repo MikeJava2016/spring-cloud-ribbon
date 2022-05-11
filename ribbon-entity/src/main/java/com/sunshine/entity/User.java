@@ -51,4 +51,9 @@ public class User extends BaseAo {
                 ", password='" + password + '\'' +
                 '}';
     }
+
+    @Override
+    public void validate() {
+
+    }
 }

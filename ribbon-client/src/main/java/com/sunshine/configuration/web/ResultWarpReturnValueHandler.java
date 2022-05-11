@@ -2,13 +2,13 @@ package com.sunshine.configuration.web;
 
 import annotation.JsonEncrypt;
 import com.sunshine.common.util.ManagerTokenUtil;
-import com.sunshine.entity.Result;
+import com.sunshine.common.util.Result;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import utils.EncryptViewUtils;
+import com.sunshine.common.util.EncryptViewUtils;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
@@ -33,10 +33,13 @@ public class ResultWarpReturnValueHandler  implements HandlerMethodReturnValueHa
     }
 
     private Object convertReturnValue(Object source) {
-        if (null != source) {
+        if (null != source ){
             jsonEncrypt(source);
+            if (!(source instanceof  Result)){
+                source = Result.success(source);
+            }
         }
-        ManagerTokenUtil.removeThreadToken();
+        ManagerTokenUtil.removeUid();
         return source;
     }
 
@@ -62,6 +65,7 @@ public class ResultWarpReturnValueHandler  implements HandlerMethodReturnValueHa
         if(ArrayUtils.isNotEmpty(fields)) {
             for (Field field : fields) {
                 // 处理多个注解
+                // todo
                 JsonEncrypt jsonEncrypt = field.getAnnotation(JsonEncrypt.class);
                 if(null != jsonEncrypt) {
                     doJsonEncrypt(field, jsonEncrypt, object);

@@ -1,6 +1,7 @@
 package com.sunshine.controller;
 
-import com.sunshine.api.feign.UserFeignSerivce;
+import com.sunshine.api.feign.service.UserFeignSerivce;
+import com.sunshine.common.util.Result;
 import com.sunshine.entity.User;
 import com.sunshine.mapper.UserMapper;
 import org.apache.shardingsphere.core.strategy.keygen.SnowflakeShardingKeyGenerator;
@@ -21,36 +22,36 @@ public class UserController implements UserFeignSerivce {
 
     // url:http://localhost:8085/user/1
     @Override
-    public User getOne(Long id) {
+    public Result<User> getOne(Long id) {
         logger.info(" id = {}", id);
-        return userMapper.selectById(id);
+         return Result.success(userMapper.selectById(id));
     }
 
     @Override
-    public User post(User user) {
+    public Result<User> post(User user) {
         Comparable<?> comparable = snowflakeShardingKeyGenerator.generateKey();
 
         user.setId((Long) comparable);
         userMapper.insert(user);
         logger.info(" user = {}", user);
-        return user;
+        return Result.success(user);
     }
 
     @Override
-    public User put(User user) {
+    public Result<User> put(User user) {
         logger.info("put user = {}", user);
-        return user;
+        return Result.success(user);
     }
 
     @Override
-    public User delete(Long id) {
+    public Result<User> delete(Long id) {
         logger.info("delete id = {}", id);
-        return new User(id);
+        return Result.success(new User(id));
     }
 
     @Override
-    public User getInfoByUserName(String username) {
+    public Result<User> getInfoByUserName(String username) {
         User user = userMapper.selectByUsername(username);
-        return user;
+        return Result.success(user);
     }
 }

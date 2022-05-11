@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.sunshine.entity.Result;
+import com.sunshine.common.util.Result;
 import com.sunshine.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

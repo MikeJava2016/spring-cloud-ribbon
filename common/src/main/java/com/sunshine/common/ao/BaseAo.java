@@ -2,7 +2,7 @@ package com.sunshine.common.ao;
 
 import java.io.Serializable;
 
-public class BaseAo implements Serializable {
+public abstract class BaseAo implements Serializable {
 
     private String token;
 
@@ -13,4 +13,6 @@ public class BaseAo implements Serializable {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public  abstract void  validate();
 }

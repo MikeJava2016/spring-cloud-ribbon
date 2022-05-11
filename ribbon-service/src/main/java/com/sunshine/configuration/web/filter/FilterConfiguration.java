@@ -1,5 +1,6 @@
 package com.sunshine.configuration.web.filter;
 
+import com.sunshine.common.util.ManagerTokenUtil;
 import org.apache.catalina.connector.RequestFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +25,11 @@ public class FilterConfiguration {
     public FilterRegistrationBean filterRegistrationBean() {
         FilterRegistrationBean bean = new FilterRegistrationBean();
         bean.setFilter(new SunshineFilter());
+        bean.setName("SunshineFilter");//过滤器名称
+        bean.addUrlPatterns("/*");//过滤所有路径
+        bean.setOrder(1);//优先级，越低越优先
+        bean.addInitParameter("excludedUris", "/login,/token");//需要排除的uri
         bean.addUrlPatterns("/*");
-        bean.setOrder(100);
         return bean;
     }
 
@@ -60,17 +64,19 @@ public class FilterConfiguration {
             HttpServletRequest request = (HttpServletRequest) servletRequest;
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             // 从header中取数据
-            String token = request.getHeader("ribbon-client-token");
-            if (token!=null){
-                logger.info(" token = {}",token);
+            String uid = request.getHeader("uid");
+            if (uid != null) {
+                logger.info(" token = {}", uid);
             }
-             logger.info("filter");
+            logger.info("filter");
             String requestURI = request.getRequestURI();
             logger.info("requestURI = {}", requestURI);
             String method = request.getMethod();
 //            Object token = request.getAttribute("token");
-
+            ManagerTokenUtil.setUid(uid);
             filterChain.doFilter(request, response);
+            //
+            ManagerTokenUtil.removeUid();
         }
     }
 

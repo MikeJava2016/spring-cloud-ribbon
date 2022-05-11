@@ -1,14 +1,5 @@
 package com.sunshine.demo;
 
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.JedisSentinelPool;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * @version v1
  * @Description TODO
@@ -17,7 +8,7 @@ import java.util.Set;
  **/
 public class JedisDemo {
     public static void main(String[] args) {
-        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+     /*   JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxTotal(10);
         jedisPoolConfig.setMaxIdle(5);
         jedisPoolConfig.setMinIdle(5);
@@ -29,6 +20,6 @@ public class JedisDemo {
         Jedis jedis = pool.getResource();
 
         jedis.set("SentinelKey","SentinelValue2");
-        System.out.println(jedis.get("SentinelKey"));
+        System.out.println(jedis.get("SentinelKey"));*/
     }
 }
