@@ -50,7 +50,7 @@ public class GroovyScriptRest extends BaseRest {
         groovyScript.setOrderNum(orderNum + 1);
         groovyScriptService.save(groovyScript);
         //将ID推送到nacos注册发现与配置中心
-        customNacosConfigService.publishGroovyScriptNacosConfig(groovyScript.getId());
+        customNacosConfigService.publishGroovyScriptConfig(groovyScript.getId());
         return new ApiResult();
     }
 
@@ -77,7 +77,7 @@ public class GroovyScriptRest extends BaseRest {
         GroovyScript groovyScript = getGroovyScript(id);
         groovyScriptService.delete(groovyScript);
         if (Constants.YES.equals(groovyScript.getStatus())) {
-            customNacosConfigService.publishGroovyScriptNacosConfig(id);
+            customNacosConfigService.publishGroovyScriptConfig(id);
         }
         return new ApiResult();
     }
@@ -99,7 +99,7 @@ public class GroovyScriptRest extends BaseRest {
         groovyScriptService.instance(groovyScript);
         groovyScriptService.update(groovyScript);
         if (Constants.YES.equals(groovyScript.getStatus())) {
-            customNacosConfigService.publishGroovyScriptNacosConfig(id);
+            customNacosConfigService.publishGroovyScriptConfig(id);
         }
         return new ApiResult();
     }
@@ -116,7 +116,7 @@ public class GroovyScriptRest extends BaseRest {
             groovyScript.setStatus(Constants.YES);
             groovyScript.setUpdateTime(new Date());
             groovyScriptService.update(groovyScript);
-            customNacosConfigService.publishGroovyScriptNacosConfig(id);
+            customNacosConfigService.publishGroovyScriptConfig(id);
         }
         return new ApiResult();
     }
@@ -133,7 +133,7 @@ public class GroovyScriptRest extends BaseRest {
             groovyScript.setStatus(Constants.NO);
             groovyScript.setUpdateTime(new Date());
             groovyScriptService.update(groovyScript);
-            customNacosConfigService.publishGroovyScriptNacosConfig(id);
+            customNacosConfigService.publishGroovyScriptConfig(id);
         }
         return new ApiResult();
     }
@@ -147,7 +147,7 @@ public class GroovyScriptRest extends BaseRest {
     public ApiResult up(@RequestParam Long id) {
         GroovyScript groovyScript = getGroovyScript(id);
         if (groovyScriptService.upOrderNum(groovyScript)){
-            customNacosConfigService.publishGroovyScriptNacosConfig(id);
+            customNacosConfigService.publishGroovyScriptConfig(id);
         }
         return new ApiResult();
     }
@@ -161,7 +161,7 @@ public class GroovyScriptRest extends BaseRest {
     public ApiResult down(@RequestParam Long id) {
         GroovyScript groovyScript = getGroovyScript(id);
         if (groovyScriptService.downOrderNum(groovyScript)){
-            customNacosConfigService.publishGroovyScriptNacosConfig(id);
+            customNacosConfigService.publishGroovyScriptConfig(id);
         }
         return new ApiResult();
     }

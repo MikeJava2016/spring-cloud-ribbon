@@ -80,7 +80,7 @@ public class BalancedRest extends BaseRest {
                 loadServerService.save(loadServer);
             }
             //this.setRouteCacheVersion();
-            customNacosConfigService.publishBalancedNacosConfig(balanced.getId());
+            customNacosConfigService.publishBalancedConfig(balanced.getId());
         }
         return new ApiResult();
     }
@@ -95,7 +95,7 @@ public class BalancedRest extends BaseRest {
         Assert.isTrue(StringUtils.isNotBlank(id), "未获取到对象ID");
         balancedService.deleteAndServer(id);
         //this.setRouteCacheVersion();
-        customNacosConfigService.publishBalancedNacosConfig(id);
+        customNacosConfigService.publishBalancedConfig(id);
         return new ApiResult();
     }
 
@@ -120,7 +120,7 @@ public class BalancedRest extends BaseRest {
             balancedService.update(balanced);
             loadServerService.updates(balanced.getId(), balancedReq.getServerList());
             //this.setRouteCacheVersion();
-            customNacosConfigService.publishBalancedNacosConfig(balanced.getId());
+            customNacosConfigService.publishBalancedConfig(balanced.getId());
         }
         return new ApiResult();
     }
@@ -180,7 +180,7 @@ public class BalancedRest extends BaseRest {
         dbBalanced.setStatus(Constants.YES);
         balancedService.update(dbBalanced);
         //this.setRouteCacheVersion();
-        customNacosConfigService.publishBalancedNacosConfig(id);
+        customNacosConfigService.publishBalancedConfig(id);
         return new ApiResult();
     }
 
@@ -196,7 +196,7 @@ public class BalancedRest extends BaseRest {
         dbBalanced.setStatus(Constants.NO);
         balancedService.update(dbBalanced);
         //this.setRouteCacheVersion();
-        customNacosConfigService.publishBalancedNacosConfig(id);
+        customNacosConfigService.publishBalancedConfig(id);
         return new ApiResult();
     }
 

@@ -68,16 +68,16 @@ spring:
           args:
             # 限制请求大小为5000kb（不设置默认为5M），超过返回状态码413，参见：RequestSizeGatewayFilterFactory
             maxSize: 5000000
-      - id: ribbon_client
-        predicates:
-          - Path=/ribbon_client/**
-        filters:
-          - StripPrefix=1
-        uri: http://192.168.56.100:8761/
-      - id: lb_route
-        predicates:
-          - Path=/lb-ribbon-client/**
-        filters:
-          - StripPrefix=1
-          - Authorize=true
-        uri: lb://ribbon-client/
+#      - id: ribbon_client
+#        predicates:
+#          - Path=/ribbon_client/**
+#        filters:
+#          - StripPrefix=1
+#        uri: http://192.168.56.100:8761/
+#      - id: lb_route
+#        predicates:
+#          - Path=/lb-ribbon-client/**
+#        filters:
+#          - StripPrefix=1
+#          - Authorize=true
+#        uri: lb://ribbon-client/

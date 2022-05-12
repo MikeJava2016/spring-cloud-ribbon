@@ -52,7 +52,7 @@ public class SecureIpRest extends BaseRest {
         Assert.isTrue(count <= 0, "该IP已添加，请不要重复添加");
         secureIpService.save(secureIp);
         //this.setIpCacheVersion();
-        customNacosConfigService.publishIpNacosConfig(secureIp.getIp());
+        customNacosConfigService.publishIpConfig(secureIp.getIp());
         return new ApiResult();
     }
 
@@ -66,7 +66,7 @@ public class SecureIpRest extends BaseRest {
         Assert.isTrue(StringUtils.isNotBlank(ip), "IP值不能为空");
         secureIpService.deleteById(ip);
         //this.setIpCacheVersion();
-        customNacosConfigService.publishIpNacosConfig(ip);
+        customNacosConfigService.publishIpConfig(ip);
         return new ApiResult();
     }
 
@@ -83,7 +83,7 @@ public class SecureIpRest extends BaseRest {
         this.validate(secureIp);
         secureIpService.update(secureIp);
         //this.setIpCacheVersion();
-        customNacosConfigService.publishIpNacosConfig(secureIp.getIp());
+        customNacosConfigService.publishIpConfig(secureIp.getIp());
         return new ApiResult();
     }
 

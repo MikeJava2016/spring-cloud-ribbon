@@ -54,7 +54,7 @@ public class ClientRest extends BaseRest {
         Assert.isTrue(count <= 0, "客户端名称已存在，不能重复");
         //保存
         clientService.save(client);
-        customNacosConfigService.publishClientNacosConfig(client.getId());
+        customNacosConfigService.publishClientConfig(client.getId());
         return new ApiResult();
     }
 
@@ -69,7 +69,7 @@ public class ClientRest extends BaseRest {
         Client dbClient = clientService.findById(id);
         Assert.notNull(dbClient, "未获取到对象");
         clientService.delete(dbClient);
-        customNacosConfigService.publishClientNacosConfig(id);
+        customNacosConfigService.publishClientConfig(id);
         return new ApiResult();
     }
 
@@ -85,7 +85,7 @@ public class ClientRest extends BaseRest {
         client.setUpdateTime(new Date());
         this.validate(client);
         clientService.update(client);
-        customNacosConfigService.publishClientNacosConfig(client.getId());
+        customNacosConfigService.publishClientConfig(client.getId());
         return new ApiResult();
     }
 
@@ -143,7 +143,7 @@ public class ClientRest extends BaseRest {
         Client dbClient = clientService.findById(id);
         dbClient.setStatus(Constants.YES);
         clientService.update(dbClient);
-        customNacosConfigService.publishClientNacosConfig(id);
+        customNacosConfigService.publishClientConfig(id);
         return new ApiResult();
     }
 
@@ -158,7 +158,7 @@ public class ClientRest extends BaseRest {
         Client dbClient = clientService.findById(id);
         dbClient.setStatus(Constants.NO);
         clientService.update(dbClient);
-        customNacosConfigService.publishClientNacosConfig(id);
+        customNacosConfigService.publishClientConfig(id);
         return new ApiResult();
     }
 

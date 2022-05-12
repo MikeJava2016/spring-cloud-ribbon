@@ -17,6 +17,8 @@ spring:
         # 升级版本后，已包启BlockingLoadBalancerClient负载均衡客户端（spring-cloud-loadbalancer），不启用ribbon负载均衡服务
         enabled: false
     # 注册到nacos，服务注册发现和配置管理中心
+  main:
+    allow-bean-definition-overriding: true
 eureka:
   client:
     service-url:

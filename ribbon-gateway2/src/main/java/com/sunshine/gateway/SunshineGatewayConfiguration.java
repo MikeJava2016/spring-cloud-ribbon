@@ -49,7 +49,7 @@ public class SunshineGatewayConfiguration {
     private final static Logger logger = LoggerFactory.getLogger(SunshineGatewayConfiguration.class);
 
 
-    @Bean
+//    @Bean
     public GlobalFilter customFilter2(@Value("#{'${jwt.ignoreUrls}'.split(',')}")
                                               List<String> ignoreUrls, @Autowired AuthLoginClientAPI authLoginClientAPI) {
         AuthLoginGlobalFilter authLoginGlobalFilter = new AuthLoginGlobalFilter(ignoreUrls,authLoginClientAPI);

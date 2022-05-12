@@ -16,15 +16,17 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @Service
-public class CustomNacosConfigService {
+public class CustomNacosConfigService implements CustomConfigService {
     @Resource
     private NacosConfigProperties configProperties;
 
     /**
      * 将网关负载均衡配置推送到nacos中
+     *
      * @param balancedId
      */
-    public void publishBalancedNacosConfig(final String balancedId){
+    @Override
+    public void publishBalancedConfig(final String balancedId) {
         GatewayNacosConfigBean gatewayNacosConfig = new GatewayNacosConfigBean();
         gatewayNacosConfig.setBalancedId(balancedId);
         publishConfigToNacos(gatewayNacosConfig);
@@ -32,9 +34,11 @@ public class CustomNacosConfigService {
 
     /**
      * 将网关路由配置推送到nacos中
+     *
      * @param routeId
      */
-    public void publishRouteNacosConfig(final String routeId){
+    @Override
+    public void publishRouteConfig(final String routeId) {
         GatewayNacosConfigBean gatewayNacosConfig = new GatewayNacosConfigBean();
         gatewayNacosConfig.setRouteId(routeId);
         publishConfigToNacos(gatewayNacosConfig);
@@ -42,9 +46,11 @@ public class CustomNacosConfigService {
 
     /**
      * 将注册到网关路由的客户端服务配置推送到nacos中
+     *
      * @param regServerId
      */
-    public void publishRegServerNacosConfig(final Long regServerId){
+    @Override
+    public void publishRegServerConfig(final Long regServerId) {
         GatewayNacosConfigBean gatewayNacosConfig = new GatewayNacosConfigBean();
         gatewayNacosConfig.setRegServerId(regServerId);
         publishConfigToNacos(gatewayNacosConfig);
@@ -52,9 +58,11 @@ public class CustomNacosConfigService {
 
     /**
      * 将网关客户端ID推送到nacos中
+     *
      * @param clientId
      */
-    public void publishClientNacosConfig(final String clientId){
+    @Override
+    public void publishClientConfig(final String clientId) {
         GatewayNacosConfigBean gatewayNacosConfig = new GatewayNacosConfigBean();
         gatewayNacosConfig.setClientId(clientId);
         publishConfigToNacos(gatewayNacosConfig);
@@ -62,9 +70,11 @@ public class CustomNacosConfigService {
 
     /**
      * 将IP鉴权配置推送到nacos中
+     *
      * @param ip
      */
-    public void publishIpNacosConfig(final String ip){
+    @Override
+    public void publishIpConfig(final String ip) {
         GatewayNacosConfigBean gatewayNacosConfig = new GatewayNacosConfigBean();
         gatewayNacosConfig.setIp(ip);
         publishConfigToNacos(gatewayNacosConfig);
@@ -72,9 +82,11 @@ public class CustomNacosConfigService {
 
     /**
      * 将groovyScript规则引擎动态脚本ID配置推送到nacos中
+     *
      * @param groovyScriptId
      */
-    public void publishGroovyScriptNacosConfig(final Long groovyScriptId){
+    @Override
+    public void publishGroovyScriptConfig(final Long groovyScriptId) {
         GatewayNacosConfigBean gatewayNacosConfig = new GatewayNacosConfigBean();
         gatewayNacosConfig.setGroovyScriptId(groovyScriptId);
         publishConfigToNacos(gatewayNacosConfig);
@@ -83,23 +95,25 @@ public class CustomNacosConfigService {
     /**
      * 将网关配置推送到nacos中, dataId 的完整格式如下：
      * {prefix}-${spring.profiles.active}.${file-extension}
+     *
      * @param gatewayNacosConfig
      */
-    public void publishConfigToNacos(GatewayNacosConfigBean gatewayNacosConfig) {
+    private void publishConfigToNacos(GatewayNacosConfigBean gatewayNacosConfig) {
         String dataId = configProperties.getPrefix() + "." + configProperties.getFileExtension();
         publishConfig(dataId, configProperties.getGroup(), gatewayNacosConfig.getGatewayConfig());
     }
 
     /**
      * 推送配置到nacos指定dataId的group
+     *
      * @param dataId
      * @param group
      * @param content
      */
-    public void publishConfig(String dataId, String group, String content){
+    private void publishConfig(String dataId, String group, String content) {
         try {
             configProperties.configServiceInstance().publishConfig(dataId, group, content);
-        } catch(NacosException e){
+        } catch (NacosException e) {
             log.error("推送配置到Nacos异常！" + e.getErrMsg(), e);
         }
     }

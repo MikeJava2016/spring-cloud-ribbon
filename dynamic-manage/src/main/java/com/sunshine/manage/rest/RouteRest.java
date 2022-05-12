@@ -54,6 +54,7 @@ public class RouteRest extends BaseRest {
      */
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
     public ApiResult add(@RequestBody RouteReq routeReq){
+        log.info(" add param = {}",routeReq);
         Assert.notNull(routeReq, "未获取到对象");
         Route route = toRoute(routeReq);
         route.setCreateTime(new Date());
@@ -72,10 +73,11 @@ public class RouteRest extends BaseRest {
      */
     @RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult delete(@RequestParam String id){
+        log.info(" delete id = {}",id);
         Assert.isTrue(StringUtils.isNotBlank(id), "未获取到对象ID");
         routeService.delete(id);
         //this.setRouteCacheVersion();
-        customNacosConfigService.publishRouteNacosConfig(id);
+        customNacosConfigService.publishRouteConfig(id);
         return new ApiResult();
     }
 
@@ -86,6 +88,7 @@ public class RouteRest extends BaseRest {
      */
     @RequestMapping(value = "/update", method = {RequestMethod.POST})
     public ApiResult update(@RequestBody RouteReq routeReq){
+        log.info(" update param = {}",routeReq);
         Assert.notNull(routeReq, "未获取到对象");
         Route route = toRoute(routeReq);
         this.validate(route);
@@ -95,6 +98,7 @@ public class RouteRest extends BaseRest {
 
     @RequestMapping(value = "/findById", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult findById(@RequestParam String id){
+        log.info(" findById param = {}",id);
         Assert.notNull(id, "未获取到对象ID");
         Assert.isTrue(StringUtils.isNotBlank(id), "未获取到对象ID");
         return new ApiResult(routeService.findById(id));
@@ -136,7 +140,7 @@ public class RouteRest extends BaseRest {
         }
         //this.setRouteCacheVersion();
         //可以通过反复启用，刷新路由，防止发布失败或配置变更未生效
-        customNacosConfigService.publishRouteNacosConfig(id);
+        customNacosConfigService.publishRouteConfig(id);
         return new ApiResult();
     }
 
@@ -153,7 +157,7 @@ public class RouteRest extends BaseRest {
             dbRoute.setStatus(Constants.NO);
             routeService.update(dbRoute);
             //this.setRouteCacheVersion();
-            customNacosConfigService.publishRouteNacosConfig(id);
+            customNacosConfigService.publishRouteConfig(id);
         }
         return new ApiResult();
     }
@@ -169,7 +173,7 @@ public class RouteRest extends BaseRest {
         route.setUpdateTime(new Date());
         routeService.save(route);
         //this.setRouteCacheVersion();
-        customNacosConfigService.publishRouteNacosConfig(route.getId());
+        customNacosConfigService.publishRouteConfig(route.getId());
         //保存监控配置
         if (monitor != null) {
             monitor.setId(route.getId());

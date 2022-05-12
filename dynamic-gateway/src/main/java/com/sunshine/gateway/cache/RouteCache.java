@@ -36,37 +36,4 @@ public class RouteCache {
         cacheMap.clear();
     }
 
-    public static  Route convert(RouteDefinition routeDefinition){
-        Route route = new Route();
-        route.setId(routeDefinition.getId());
-        route.setName(routeDefinition.getId());
-        route.setSystemCode(routeDefinition.getId());
-        route.setGroupCode("other_api");
-        route.setUri(String.valueOf(routeDefinition.getUri()));
-        route.setPath(routeDefinition.getUri().getPath());
-//        route.getMethod(routeDefinition.get);
-//        route.setHost();
-//        route.setRemoteAddr();
-//        route.setHeader();
-//        route.setFilterGatewaName();
-//        route.setFilterHystrixName();
-//        route.setFilterRateLimiterName();
-//        route.setFilterAuthorizeName();
-//        route.setFallbackMsg();
-//        route.setFallbackTimeout();
-//        route.setReplenishRate();
-//        route.setBurstCapacity();
-//        route.setWeightName();
-//        route.setWeight();
-//        route.setStatus();
-        route.setStripPrefix(1);
-//        route.setRequestParameter();
-//        route.setRewritePath();
-//        route.setAccessHeader();
-//        route.setAccessIp();
-//        route.setAccessParameter();
-//        route.setAccessTime();
-//        route.setAccessCookie();
-        return route;
-    }
 }

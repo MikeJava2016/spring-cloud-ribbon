@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication(scanBasePackages = {"com.sunshine"})
 @EnableEurekaClient
 @EnableScheduling
-@EnableFeignClients(basePackages = "com.sunshine")
+//@EnableFeignClients(basePackages = "com.sunshine")
 //@PropertySource("classpath:application.yml")
 public class DynamicGatewayApplication {
 

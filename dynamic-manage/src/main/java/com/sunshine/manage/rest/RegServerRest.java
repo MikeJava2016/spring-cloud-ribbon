@@ -57,7 +57,7 @@ public class RegServerRest extends BaseRest {
         //保存
         regServerService.save(regServer);
         //this.setClientCacheVersion();
-        customNacosConfigService.publishRegServerNacosConfig(regServer.getId());
+        customNacosConfigService.publishRegServerConfig(regServer.getId());
         return new ApiResult();
     }
 
@@ -72,7 +72,7 @@ public class RegServerRest extends BaseRest {
         Assert.isTrue(id>0, "ID值错误");
         regServerService.deleteById(id);
         //this.setClientCacheVersion();
-        customNacosConfigService.publishRegServerNacosConfig(id);
+        customNacosConfigService.publishRegServerConfig(id);
         return new ApiResult();
     }
 
@@ -88,7 +88,7 @@ public class RegServerRest extends BaseRest {
         this.validate(regServer);
         regServerService.update(regServer);
         //this.setClientCacheVersion();
-        customNacosConfigService.publishRegServerNacosConfig(regServer.getId());
+        customNacosConfigService.publishRegServerConfig(regServer.getId());
         return new ApiResult();
     }
 
@@ -164,7 +164,7 @@ public class RegServerRest extends BaseRest {
         dbRegServer.setUpdateTime(new Date());
         regServerService.update(dbRegServer);
         //this.setClientCacheVersion();
-        customNacosConfigService.publishRegServerNacosConfig(id);
+        customNacosConfigService.publishRegServerConfig(id);
         return new ApiResult();
     }
 
@@ -182,7 +182,7 @@ public class RegServerRest extends BaseRest {
         dbRegServer.setUpdateTime(new Date());
         regServerService.update(dbRegServer);
         //this.setClientCacheVersion();
-        customNacosConfigService.publishRegServerNacosConfig(id);
+        customNacosConfigService.publishRegServerConfig(id);
         return new ApiResult();
     }
 
@@ -195,7 +195,7 @@ public class RegServerRest extends BaseRest {
     public ApiResult stopClientAllRoute(@RequestParam String clientId) {
         Assert.isTrue(StringUtils.isNotBlank(clientId), "未获取到对象ID");
         regServerService.stopClientAllRoute(clientId);
-        customNacosConfigService.publishClientNacosConfig(clientId);
+        customNacosConfigService.publishClientConfig(clientId);
         return new ApiResult();
     }
 
@@ -208,7 +208,7 @@ public class RegServerRest extends BaseRest {
     public ApiResult startClientAllRoute(@RequestParam String clientId) {
         Assert.isTrue(StringUtils.isNotBlank(clientId), "未获取到对象ID");
         regServerService.startClientAllRoute(clientId);
-        customNacosConfigService.publishClientNacosConfig(clientId);
+        customNacosConfigService.publishClientConfig(clientId);
         return new ApiResult();
     }
 
@@ -221,7 +221,7 @@ public class RegServerRest extends BaseRest {
     public ApiResult stopRouteAllClient(@RequestParam String routeId) {
         Assert.isTrue(StringUtils.isNotBlank(routeId), "未获取到对象ID");
         regServerService.stopRouteAllClient(routeId);
-        customNacosConfigService.publishRouteNacosConfig(routeId);
+        customNacosConfigService.publishRouteConfig(routeId);
         return new ApiResult();
     }
 
@@ -234,7 +234,7 @@ public class RegServerRest extends BaseRest {
     public ApiResult startRouteAllClient(@RequestParam String routeId) {
         Assert.isTrue(StringUtils.isNotBlank(routeId), "未获取到对象ID");
         regServerService.startRouteAllClient(routeId);
-        customNacosConfigService.publishRouteNacosConfig(routeId);
+        customNacosConfigService.publishRouteConfig(routeId);
         return new ApiResult();
     }
 
