@@ -1,5 +1,6 @@
 package com.sunshine.gateway.service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sunshine.formwork.bean.GatewayNacosConfigBean;
 import com.sunshine.formwork.entity.*;
@@ -63,7 +64,7 @@ public class ConfigRefreshService {
     public void setGatewayConfig(String gatewayConfig){
         log.info("获取Nacos中网关路由配置内容，gateway={}" , gatewayConfig);
         try {
-            GatewayNacosConfigBean gatewayNacosConfig = JSONObject.parseObject(gatewayConfig, GatewayNacosConfigBean.class);
+            GatewayNacosConfigBean gatewayNacosConfig = JSON.parseObject(gatewayConfig, GatewayNacosConfigBean.class);
             refreshGatewayConfig(gatewayNacosConfig);
         } catch (Exception e){
             log.error("加载Nacos中网关路由配置异常！" + e.getMessage() + "\n", e);

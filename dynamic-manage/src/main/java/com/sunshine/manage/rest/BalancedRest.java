@@ -1,11 +1,13 @@
 package com.sunshine.manage.rest;
 
+import com.sunshine.common.enums.StatusUpdateEnum;
 import com.sunshine.formwork.base.BaseRest;
 import com.sunshine.formwork.bean.BalancedReq;
 import com.sunshine.formwork.bean.BalancedRsp;
 import com.sunshine.formwork.entity.Balanced;
 import com.sunshine.formwork.entity.LoadServer;
 import com.sunshine.formwork.service.BalancedService;
+import com.sunshine.formwork.service.CustomConfigService;
 import com.sunshine.formwork.service.CustomNacosConfigService;
 import com.sunshine.formwork.service.LoadServerService;
 import com.sunshine.formwork.util.ApiResult;
@@ -44,7 +46,7 @@ public class BalancedRest extends BaseRest {
     private RedisTemplate redisTemplate;
 
     @Resource
-    private CustomNacosConfigService customNacosConfigService;
+    private CustomConfigService customNacosConfigService;
 
     /**
      * 添加负载配置
@@ -80,7 +82,7 @@ public class BalancedRest extends BaseRest {
                 loadServerService.save(loadServer);
             }
             //this.setRouteCacheVersion();
-            customNacosConfigService.publishBalancedConfig(balanced.getId());
+            customNacosConfigService.publishBalancedConfig(balanced.getId(), StatusUpdateEnum.INSERT);
         }
         return new ApiResult();
     }
@@ -95,7 +97,7 @@ public class BalancedRest extends BaseRest {
         Assert.isTrue(StringUtils.isNotBlank(id), "未获取到对象ID");
         balancedService.deleteAndServer(id);
         //this.setRouteCacheVersion();
-        customNacosConfigService.publishBalancedConfig(id);
+        customNacosConfigService.publishBalancedConfig(id,StatusUpdateEnum.DELETE);
         return new ApiResult();
     }
 
@@ -120,7 +122,7 @@ public class BalancedRest extends BaseRest {
             balancedService.update(balanced);
             loadServerService.updates(balanced.getId(), balancedReq.getServerList());
             //this.setRouteCacheVersion();
-            customNacosConfigService.publishBalancedConfig(balanced.getId());
+            customNacosConfigService.publishBalancedConfig(balanced.getId(),StatusUpdateEnum.UPDATE);
         }
         return new ApiResult();
     }
@@ -180,7 +182,7 @@ public class BalancedRest extends BaseRest {
         dbBalanced.setStatus(Constants.YES);
         balancedService.update(dbBalanced);
         //this.setRouteCacheVersion();
-        customNacosConfigService.publishBalancedConfig(id);
+        customNacosConfigService.publishBalancedConfig(id,StatusUpdateEnum.START);
         return new ApiResult();
     }
 
@@ -196,7 +198,7 @@ public class BalancedRest extends BaseRest {
         dbBalanced.setStatus(Constants.NO);
         balancedService.update(dbBalanced);
         //this.setRouteCacheVersion();
-        customNacosConfigService.publishBalancedConfig(id);
+        customNacosConfigService.publishBalancedConfig(id,StatusUpdateEnum.STOP);
         return new ApiResult();
     }
 

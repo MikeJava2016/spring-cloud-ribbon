@@ -7,10 +7,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 //https://gitee.com/mirrors/fizz-gateway?_from=gitee_search
 @SpringBootApplication(scanBasePackages={"com.sunshine"})
 @EnableFeignClients(basePackages = "com.sunshine")
-public class RibbonGatewayApplication {
+public class RibbonGatewayApplication2 {
 
     public static void main(String[] args) {
-        SpringApplication.run(RibbonGatewayApplication.class, args);
+        SpringApplication.run(RibbonGatewayApplication2.class, args);
     }
 
 }

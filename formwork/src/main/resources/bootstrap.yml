@@ -31,4 +31,16 @@ spring:
         file-extension: properties
         # dataId名称，程序注册事件监听此dataId下的配置变化
         prefix: flying-fish-gateway
-        
+  rabbitmq:
+    host: localhost  #mq服务器ip,默认为localhost
+    port: 5672          #mq服务器port,默认为5672
+    username: guest     #mq服务器username,默认为gust
+    password: guest     #mq服务器password,默认为guest
+    listener:
+      direct:
+        retry:
+          enabled: true
+      type: simple
+      simple:
+        acknowledge-mode: auto
+        prefetch: 1

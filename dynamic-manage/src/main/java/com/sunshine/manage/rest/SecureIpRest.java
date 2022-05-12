@@ -1,8 +1,10 @@
 package com.sunshine.manage.rest;
 
+import com.sunshine.common.enums.StatusUpdateEnum;
 import com.sunshine.formwork.base.BaseRest;
 import com.sunshine.formwork.bean.SecureIpReq;
 import com.sunshine.formwork.entity.SecureIp;
+import com.sunshine.formwork.service.CustomConfigService;
 import com.sunshine.formwork.service.CustomNacosConfigService;
 import com.sunshine.formwork.service.SecureIpService;
 import com.sunshine.formwork.util.ApiResult;
@@ -32,7 +34,7 @@ public class SecureIpRest extends BaseRest {
     private RedisTemplate redisTemplate;
 
     @Resource
-    private CustomNacosConfigService customNacosConfigService;
+    private CustomConfigService customNacosConfigService;
 
     /**
      * 添加IP
@@ -52,7 +54,7 @@ public class SecureIpRest extends BaseRest {
         Assert.isTrue(count <= 0, "该IP已添加，请不要重复添加");
         secureIpService.save(secureIp);
         //this.setIpCacheVersion();
-        customNacosConfigService.publishIpConfig(secureIp.getIp());
+        customNacosConfigService.publishIpConfig(secureIp.getIp(), StatusUpdateEnum.INSERT);
         return new ApiResult();
     }
 
@@ -66,7 +68,7 @@ public class SecureIpRest extends BaseRest {
         Assert.isTrue(StringUtils.isNotBlank(ip), "IP值不能为空");
         secureIpService.deleteById(ip);
         //this.setIpCacheVersion();
-        customNacosConfigService.publishIpConfig(ip);
+        customNacosConfigService.publishIpConfig(ip,StatusUpdateEnum.DELETE);
         return new ApiResult();
     }
 
@@ -83,7 +85,7 @@ public class SecureIpRest extends BaseRest {
         this.validate(secureIp);
         secureIpService.update(secureIp);
         //this.setIpCacheVersion();
-        customNacosConfigService.publishIpConfig(secureIp.getIp());
+        customNacosConfigService.publishIpConfig(secureIp.getIp(),StatusUpdateEnum.UPDATE);
         return new ApiResult();
     }
 

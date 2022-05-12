@@ -1,7 +1,9 @@
 package com.sunshine.manage.rest;
 
+import com.sunshine.common.enums.StatusUpdateEnum;
 import com.sunshine.formwork.base.BaseRest;
 import com.sunshine.formwork.entity.GroovyScript;
+import com.sunshine.formwork.service.CustomConfigService;
 import com.sunshine.formwork.service.CustomNacosConfigService;
 import com.sunshine.formwork.service.GroovyScriptService;
 import com.sunshine.formwork.util.ApiResult;
@@ -29,7 +31,7 @@ public class GroovyScriptRest extends BaseRest {
     private GroovyScriptService groovyScriptService;
 
     @Resource
-    private CustomNacosConfigService customNacosConfigService;
+    private CustomConfigService customNacosConfigService;
 
     /**
      * 添加动态脚本
@@ -50,7 +52,7 @@ public class GroovyScriptRest extends BaseRest {
         groovyScript.setOrderNum(orderNum + 1);
         groovyScriptService.save(groovyScript);
         //将ID推送到nacos注册发现与配置中心
-        customNacosConfigService.publishGroovyScriptConfig(groovyScript.getId());
+        customNacosConfigService.publishGroovyScriptConfig(groovyScript.getId(), StatusUpdateEnum.INSERT);
         return new ApiResult();
     }
 
@@ -77,7 +79,7 @@ public class GroovyScriptRest extends BaseRest {
         GroovyScript groovyScript = getGroovyScript(id);
         groovyScriptService.delete(groovyScript);
         if (Constants.YES.equals(groovyScript.getStatus())) {
-            customNacosConfigService.publishGroovyScriptConfig(id);
+            customNacosConfigService.publishGroovyScriptConfig(id,StatusUpdateEnum.DELETE);
         }
         return new ApiResult();
     }
@@ -99,7 +101,7 @@ public class GroovyScriptRest extends BaseRest {
         groovyScriptService.instance(groovyScript);
         groovyScriptService.update(groovyScript);
         if (Constants.YES.equals(groovyScript.getStatus())) {
-            customNacosConfigService.publishGroovyScriptConfig(id);
+            customNacosConfigService.publishGroovyScriptConfig(id,StatusUpdateEnum.UPDATE);
         }
         return new ApiResult();
     }
@@ -116,7 +118,7 @@ public class GroovyScriptRest extends BaseRest {
             groovyScript.setStatus(Constants.YES);
             groovyScript.setUpdateTime(new Date());
             groovyScriptService.update(groovyScript);
-            customNacosConfigService.publishGroovyScriptConfig(id);
+            customNacosConfigService.publishGroovyScriptConfig(id,StatusUpdateEnum.START);
         }
         return new ApiResult();
     }
@@ -133,7 +135,7 @@ public class GroovyScriptRest extends BaseRest {
             groovyScript.setStatus(Constants.NO);
             groovyScript.setUpdateTime(new Date());
             groovyScriptService.update(groovyScript);
-            customNacosConfigService.publishGroovyScriptConfig(id);
+            customNacosConfigService.publishGroovyScriptConfig(id,StatusUpdateEnum.STOP);
         }
         return new ApiResult();
     }
@@ -147,7 +149,7 @@ public class GroovyScriptRest extends BaseRest {
     public ApiResult up(@RequestParam Long id) {
         GroovyScript groovyScript = getGroovyScript(id);
         if (groovyScriptService.upOrderNum(groovyScript)){
-            customNacosConfigService.publishGroovyScriptConfig(id);
+            customNacosConfigService.publishGroovyScriptConfig(id,StatusUpdateEnum.UPDATE);
         }
         return new ApiResult();
     }
@@ -161,7 +163,7 @@ public class GroovyScriptRest extends BaseRest {
     public ApiResult down(@RequestParam Long id) {
         GroovyScript groovyScript = getGroovyScript(id);
         if (groovyScriptService.downOrderNum(groovyScript)){
-            customNacosConfigService.publishGroovyScriptConfig(id);
+            customNacosConfigService.publishGroovyScriptConfig(id,StatusUpdateEnum.UPDATE);
         }
         return new ApiResult();
     }

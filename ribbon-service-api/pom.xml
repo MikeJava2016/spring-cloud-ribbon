@@ -11,7 +11,7 @@
 
     <properties>
         <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
-        <spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
         <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
         <hutool-all.version>5.4.5</hutool-all.version>
         <apollo-client.version>1.8.0</apollo-client.version>

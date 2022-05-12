@@ -1,3 +1,4 @@
+/*
 package com.sunshine.gateway.rest;
 
 import brave.Span;
@@ -12,12 +13,14 @@ import reactor.core.publisher.Mono;
 
 import java.util.concurrent.*;
 
+*/
 /**
  * @Description
  * @Author jianglong
  * @Date 2020/06/02
  * @Version V1.0
- */
+ *//*
+
 @Log4j2
 @RestController
 public class TestController {
@@ -37,10 +40,12 @@ public class TestController {
         ThreadFactory build = (new ThreadFactoryBuilder()).setNameFormat("test_service_executor-%d").build();
         private ExecutorService executorService = new ThreadPoolExecutor(50, 50, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue(131072), build, new ThreadPoolExecutor.AbortPolicy());
 
-        /**
+        */
+/**
          * CompletableFuture线程池管理，并添加日志追踪
          * @return
-         */
+         *//*
+
         public CompletableFuture<String> simulateIOTest() {
             Span span = tracer.currentSpan();
             return CompletableFuture.supplyAsync(() -> {
@@ -56,4 +61,4 @@ public class TestController {
             }, executorService);
         }
     }
-}
+}*/

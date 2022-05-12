@@ -1,9 +1,11 @@
 package com.sunshine.manage.rest;
 
+import com.sunshine.common.enums.StatusUpdateEnum;
 import com.sunshine.formwork.base.BaseRest;
 import com.sunshine.formwork.bean.*;
 import com.sunshine.formwork.entity.Monitor;
 import com.sunshine.formwork.entity.Route;
+import com.sunshine.formwork.service.CustomConfigService;
 import com.sunshine.formwork.service.CustomNacosConfigService;
 import com.sunshine.formwork.service.MonitorService;
 import com.sunshine.formwork.service.RouteService;
@@ -45,7 +47,7 @@ public class RouteRest extends BaseRest {
     private MonitorService monitorService;
 
     @Resource
-    private CustomNacosConfigService customNacosConfigService;
+    private CustomConfigService customNacosConfigService;
 
     /**
      * 添加网关路由
@@ -77,7 +79,7 @@ public class RouteRest extends BaseRest {
         Assert.isTrue(StringUtils.isNotBlank(id), "未获取到对象ID");
         routeService.delete(id);
         //this.setRouteCacheVersion();
-        customNacosConfigService.publishRouteConfig(id);
+        customNacosConfigService.publishRouteConfig(id, StatusUpdateEnum.DELETE);
         return new ApiResult();
     }
 
@@ -140,7 +142,7 @@ public class RouteRest extends BaseRest {
         }
         //this.setRouteCacheVersion();
         //可以通过反复启用，刷新路由，防止发布失败或配置变更未生效
-        customNacosConfigService.publishRouteConfig(id);
+        customNacosConfigService.publishRouteConfig(id,StatusUpdateEnum.START);
         return new ApiResult();
     }
 
@@ -157,7 +159,7 @@ public class RouteRest extends BaseRest {
             dbRoute.setStatus(Constants.NO);
             routeService.update(dbRoute);
             //this.setRouteCacheVersion();
-            customNacosConfigService.publishRouteConfig(id);
+            customNacosConfigService.publishRouteConfig(id,StatusUpdateEnum.STOP);
         }
         return new ApiResult();
     }
@@ -173,7 +175,7 @@ public class RouteRest extends BaseRest {
         route.setUpdateTime(new Date());
         routeService.save(route);
         //this.setRouteCacheVersion();
-        customNacosConfigService.publishRouteConfig(route.getId());
+        customNacosConfigService.publishRouteConfig(route.getId(),isNews?StatusUpdateEnum.INSERT:StatusUpdateEnum.UPDATE);
         //保存监控配置
         if (monitor != null) {
             monitor.setId(route.getId());

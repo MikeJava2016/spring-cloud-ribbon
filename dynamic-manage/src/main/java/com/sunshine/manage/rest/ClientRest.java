@@ -1,9 +1,11 @@
 package com.sunshine.manage.rest;
 
+import com.sunshine.common.enums.StatusUpdateEnum;
 import com.sunshine.formwork.base.BaseRest;
 import com.sunshine.formwork.bean.ClientReq;
 import com.sunshine.formwork.entity.Client;
 import com.sunshine.formwork.service.ClientService;
+import com.sunshine.formwork.service.CustomConfigService;
 import com.sunshine.formwork.service.CustomNacosConfigService;
 import com.sunshine.formwork.util.ApiResult;
 import com.sunshine.formwork.util.Constants;
@@ -34,7 +36,7 @@ public class ClientRest extends BaseRest {
     private RedisTemplate redisTemplate;
 
     @Resource
-    private CustomNacosConfigService customNacosConfigService;
+    private CustomConfigService customNacosConfigService;
 
     /**
      * 添加客户端
@@ -54,7 +56,7 @@ public class ClientRest extends BaseRest {
         Assert.isTrue(count <= 0, "客户端名称已存在，不能重复");
         //保存
         clientService.save(client);
-        customNacosConfigService.publishClientConfig(client.getId());
+        customNacosConfigService.publishClientConfig(client.getId(), StatusUpdateEnum.INSERT);
         return new ApiResult();
     }
 
@@ -69,7 +71,7 @@ public class ClientRest extends BaseRest {
         Client dbClient = clientService.findById(id);
         Assert.notNull(dbClient, "未获取到对象");
         clientService.delete(dbClient);
-        customNacosConfigService.publishClientConfig(id);
+        customNacosConfigService.publishClientConfig(id,StatusUpdateEnum.DELETE);
         return new ApiResult();
     }
 
@@ -85,7 +87,7 @@ public class ClientRest extends BaseRest {
         client.setUpdateTime(new Date());
         this.validate(client);
         clientService.update(client);
-        customNacosConfigService.publishClientConfig(client.getId());
+        customNacosConfigService.publishClientConfig(client.getId(),StatusUpdateEnum.UPDATE);
         return new ApiResult();
     }
 
@@ -143,7 +145,7 @@ public class ClientRest extends BaseRest {
         Client dbClient = clientService.findById(id);
         dbClient.setStatus(Constants.YES);
         clientService.update(dbClient);
-        customNacosConfigService.publishClientConfig(id);
+        customNacosConfigService.publishClientConfig(id,StatusUpdateEnum.START);
         return new ApiResult();
     }
 
@@ -158,7 +160,7 @@ public class ClientRest extends BaseRest {
         Client dbClient = clientService.findById(id);
         dbClient.setStatus(Constants.NO);
         clientService.update(dbClient);
-        customNacosConfigService.publishClientConfig(id);
+        customNacosConfigService.publishClientConfig(id,StatusUpdateEnum.STOP);
         return new ApiResult();
     }
 

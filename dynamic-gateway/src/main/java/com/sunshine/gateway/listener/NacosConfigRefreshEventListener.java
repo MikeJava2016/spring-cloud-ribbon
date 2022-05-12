@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.cloud.alibaba.nacos.NacosConfigProperties;
 import org.springframework.cloud.alibaba.nacos.client.NacosPropertySource;
 import org.springframework.cloud.alibaba.nacos.client.NacosPropertySourceLocator;
 import org.springframework.cloud.bootstrap.config.PropertySourceLocator;
@@ -38,8 +39,8 @@ public class NacosConfigRefreshEventListener implements SmartApplicationListener
 
     private ContextRefresher refresh;
 
-//    @Autowired
-//    private NacosConfigProperties configProperties;
+    @Autowired
+    private NacosConfigProperties configProperties;
 
     @Autowired(required = false)
     private List<PropertySourceLocator> propertySourceLocators = new ArrayList<>();

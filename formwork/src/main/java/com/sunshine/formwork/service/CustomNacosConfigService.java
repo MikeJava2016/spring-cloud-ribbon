@@ -1,6 +1,8 @@
 package com.sunshine.formwork.service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.nacos.api.exception.NacosException;
+import com.sunshine.common.enums.StatusUpdateEnum;
 import com.sunshine.formwork.bean.GatewayNacosConfigBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.alibaba.nacos.NacosConfigProperties;
@@ -15,7 +17,7 @@ import javax.annotation.Resource;
  * @Version V1.0
  */
 @Slf4j
-@Service
+//@Service
 public class CustomNacosConfigService implements CustomConfigService {
     @Resource
     private NacosConfigProperties configProperties;
@@ -26,10 +28,11 @@ public class CustomNacosConfigService implements CustomConfigService {
      * @param balancedId
      */
     @Override
-    public void publishBalancedConfig(final String balancedId) {
+    public void publishBalancedConfig(final String balancedId,final StatusUpdateEnum statusUpdateEnum) {
         GatewayNacosConfigBean gatewayNacosConfig = new GatewayNacosConfigBean();
         gatewayNacosConfig.setBalancedId(balancedId);
-        publishConfigToNacos(gatewayNacosConfig);
+        gatewayNacosConfig.setStatusUpdateEnum(statusUpdateEnum);
+        publishConfigToNacos(gatewayNacosConfig,statusUpdateEnum);
     }
 
     /**
@@ -38,10 +41,11 @@ public class CustomNacosConfigService implements CustomConfigService {
      * @param routeId
      */
     @Override
-    public void publishRouteConfig(final String routeId) {
+    public void publishRouteConfig(final String routeId,final StatusUpdateEnum statusUpdateEnum) {
         GatewayNacosConfigBean gatewayNacosConfig = new GatewayNacosConfigBean();
         gatewayNacosConfig.setRouteId(routeId);
-        publishConfigToNacos(gatewayNacosConfig);
+        gatewayNacosConfig.setStatusUpdateEnum(statusUpdateEnum);
+        publishConfigToNacos(gatewayNacosConfig,statusUpdateEnum);
     }
 
     /**
@@ -50,10 +54,11 @@ public class CustomNacosConfigService implements CustomConfigService {
      * @param regServerId
      */
     @Override
-    public void publishRegServerConfig(final Long regServerId) {
+    public void publishRegServerConfig(final Long regServerId,final StatusUpdateEnum statusUpdateEnum) {
         GatewayNacosConfigBean gatewayNacosConfig = new GatewayNacosConfigBean();
         gatewayNacosConfig.setRegServerId(regServerId);
-        publishConfigToNacos(gatewayNacosConfig);
+        gatewayNacosConfig.setStatusUpdateEnum(statusUpdateEnum);
+        publishConfigToNacos(gatewayNacosConfig,statusUpdateEnum);
     }
 
     /**
@@ -62,10 +67,11 @@ public class CustomNacosConfigService implements CustomConfigService {
      * @param clientId
      */
     @Override
-    public void publishClientConfig(final String clientId) {
+    public void publishClientConfig(final String clientId,final StatusUpdateEnum statusUpdateEnum) {
         GatewayNacosConfigBean gatewayNacosConfig = new GatewayNacosConfigBean();
         gatewayNacosConfig.setClientId(clientId);
-        publishConfigToNacos(gatewayNacosConfig);
+        gatewayNacosConfig.setStatusUpdateEnum(statusUpdateEnum);
+        publishConfigToNacos(gatewayNacosConfig,statusUpdateEnum);
     }
 
     /**
@@ -74,10 +80,11 @@ public class CustomNacosConfigService implements CustomConfigService {
      * @param ip
      */
     @Override
-    public void publishIpConfig(final String ip) {
+    public void publishIpConfig(final String ip,final StatusUpdateEnum statusUpdateEnum) {
         GatewayNacosConfigBean gatewayNacosConfig = new GatewayNacosConfigBean();
         gatewayNacosConfig.setIp(ip);
-        publishConfigToNacos(gatewayNacosConfig);
+        gatewayNacosConfig.setStatusUpdateEnum(statusUpdateEnum);
+        publishConfigToNacos(gatewayNacosConfig,statusUpdateEnum);
     }
 
     /**
@@ -86,10 +93,11 @@ public class CustomNacosConfigService implements CustomConfigService {
      * @param groovyScriptId
      */
     @Override
-    public void publishGroovyScriptConfig(final Long groovyScriptId) {
+    public void publishGroovyScriptConfig(final Long groovyScriptId,final StatusUpdateEnum statusUpdateEnum) {
         GatewayNacosConfigBean gatewayNacosConfig = new GatewayNacosConfigBean();
         gatewayNacosConfig.setGroovyScriptId(groovyScriptId);
-        publishConfigToNacos(gatewayNacosConfig);
+        gatewayNacosConfig.setStatusUpdateEnum(statusUpdateEnum);
+        publishConfigToNacos(gatewayNacosConfig,statusUpdateEnum);
     }
 
     /**
@@ -98,9 +106,10 @@ public class CustomNacosConfigService implements CustomConfigService {
      *
      * @param gatewayNacosConfig
      */
-    private void publishConfigToNacos(GatewayNacosConfigBean gatewayNacosConfig) {
+    private void publishConfigToNacos(GatewayNacosConfigBean gatewayNacosConfig,final StatusUpdateEnum statusUpdateEnum) {
         String dataId = configProperties.getPrefix() + "." + configProperties.getFileExtension();
-        publishConfig(dataId, configProperties.getGroup(), gatewayNacosConfig.getGatewayConfig());
+        gatewayNacosConfig.setStatusUpdateEnum(statusUpdateEnum);
+        publishConfig(dataId, configProperties.getGroup(), JSON.toJSONString(gatewayNacosConfig));
     }
 
     /**

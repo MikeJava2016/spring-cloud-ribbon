@@ -1,5 +1,6 @@
 package com.sunshine.formwork.bean;
 
+import com.sunshine.common.enums.StatusUpdateEnum;
 import lombok.Data;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
@@ -47,34 +48,10 @@ public class GatewayNacosConfigBean implements java.io.Serializable {
      */
     private Long createTime;
 
-    /**
-     * 生成nacos网关配置
-     * @return
-     */
-    public String getGatewayConfig(){
-        String str = "\"createTime\":" + System.currentTimeMillis()/1000;
-        if (StringUtils.isNotBlank(balancedId)){
-            str += ",\"balancedId\":\"" + balancedId + "\"";
-        }
-        if (StringUtils.isNotBlank(routeId)){
-            str += ",\"routeId\":\"" + routeId + "\"";
-        }
-        if (regServerId != null){
-            str += ",\"regServerId\":" + regServerId ;
-        }
-        if (StringUtils.isNotBlank(clientId)){
-            str += ",\"clientId\":\"" + clientId + "\"";
-        }
-//        if (StringUtils.isNotBlank(clientIp)){
-//            str += ",\"clientIp\":\"" + clientIp + "\"";
-//        }
-        if (StringUtils.isNotBlank(ip)){
-            str += ",\"ip\":\"" + ip + "\"";
-        }
-        if (groovyScriptId != null){
-            str += ",\"groovyScriptId\":" + groovyScriptId ;
-        }
-        return "gateway={" + str + "}";
-    }
+
+
+    private StatusUpdateEnum statusUpdateEnum;
+
+    private String type;
 
 }

@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
-        <spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
         <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
 
         <hutool-all.version>5.4.5</hutool-all.version>
@@ -157,7 +157,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>com.sunshine.RibbonGatewayApplication</mainClass>
+                    <mainClass>com.sunshine.RibbonGatewayApplication2</mainClass>
                 </configuration>
                 <executions>
                     <execution>
