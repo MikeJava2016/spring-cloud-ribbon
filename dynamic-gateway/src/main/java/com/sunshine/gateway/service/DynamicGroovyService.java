@@ -243,7 +243,7 @@ public class DynamicGroovyService {
             }
             isNews = false;
         }
-        instance(script, md5 , isNews, groovyServiceData);
+        instance(script, md5 , isNews, true);
     }
 
     /**
@@ -252,8 +252,8 @@ public class DynamicGroovyService {
      * @param md5
      * @param isNew
      */
-    public void instance(GroovyScript script, String md5, boolean isNew){
-        instance(script, md5, isNew, null);
+    public void instance(GroovyScript script, String md5, boolean isNew,Boolean forceResh){
+        instance(script, md5, isNew, null,forceResh);
     }
 
     /**
@@ -261,12 +261,13 @@ public class DynamicGroovyService {
      * @param script
      * @param md5
      */
-    public void instance(GroovyScript script, String md5, boolean isNews, GroovyCache.GroovyServiceData groovyServiceData){
+    public void instance(GroovyScript script, String md5, boolean isNews, GroovyCache.GroovyServiceData groovyServiceData,Boolean forceResh){
         //编译
         BaseGroovyService groovyService;
         try {
-            groovyService = (BaseGroovyService) groovyScriptService.instance(script);
+            groovyService = (BaseGroovyService) groovyScriptService.instance(script,forceResh);
         }catch(Exception e){
+            e.printStackTrace();
             return;
         }
 

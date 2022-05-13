@@ -17,6 +17,7 @@ package com.sunshine.gateway.filter;
  */
 
 import com.sunshine.gateway.event.WeightRemoveApplicationEvent;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.ObjectProvider;
@@ -124,6 +125,7 @@ public class CustomWeightCalculatorWebFilter
 
     @Override
     public boolean supportsEventType(Class<? extends ApplicationEvent> eventType) {
+        log.debug("eventType = {ApplicationEvent} ");
         // from config file
         return PredicateArgsEvent.class.isAssignableFrom(eventType) ||
                 // from java dsl
@@ -153,6 +155,7 @@ public class CustomWeightCalculatorWebFilter
         }else if (event instanceof WeightRemoveApplicationEvent) {
             // remove group
             String group = ((WeightRemoveApplicationEvent) event).getGroup();
+            log.info(" remove group = "+group);
             if (groupWeights.containsKey(group)) {
                 groupWeights.remove(group);
             }

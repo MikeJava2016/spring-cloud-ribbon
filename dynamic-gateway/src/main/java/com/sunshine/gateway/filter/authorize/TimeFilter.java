@@ -22,14 +22,14 @@ public class TimeFilter extends FilterHandler {
     private final String PATTERNS = "YYYY-MM-DD HH:mm:ss";
 
     public TimeFilter(FilterHandler handler){
-        this.handler = handler;
+        super(handler);
     }
 
     @Override
     public void handleRequest(ServerHttpRequest request){
-        if (route.getFilterAuthorizeName().contains("time")){
-            log.info("处理网关路由请求{},执行time过滤 ", route.getId());
-            String accessTime = route.getAccessTime();
+        if (this.getRoute().getFilterAuthorizeName().contains("time")){
+            log.info("处理网关路由请求{},执行time过滤 ", this.getRoute().getId());
+            String accessTime = this.getRoute().getAccessTime();
             Assert.isTrue(StringUtils.isNotBlank(accessTime),"自定义time时间段不能为空");
             Assert.isTrue(accessTime.contains(","),"自定义time时间段格式错误");
             String [] times = accessTime.split(",");

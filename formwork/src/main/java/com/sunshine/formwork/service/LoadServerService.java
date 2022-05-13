@@ -1,5 +1,6 @@
 package com.sunshine.formwork.service;
 
+import com.alibaba.fastjson.JSON;
 import com.sunshine.formwork.base.BaseService;
 import com.sunshine.formwork.dao.LoadServerDao;
 import com.sunshine.formwork.entity.Balanced;
@@ -7,6 +8,7 @@ import com.sunshine.formwork.entity.LoadServer;
 import com.sunshine.formwork.entity.Route;
 import com.sunshine.formwork.util.PageResult;
 import com.sunshine.formwork.util.RouteConstants;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -21,6 +23,7 @@ import java.util.*;
  * @Version V1.0
  */
 @Service
+@Slf4j
 public class LoadServerService extends BaseService<LoadServer, Long, LoadServerDao> {
 
     @Resource
@@ -119,6 +122,7 @@ public class LoadServerService extends BaseService<LoadServer, Long, LoadServerD
     public void setBalancedRoute(Balanced balanced, LoadServer loadServer, Route route){
         //获取route，改变参数，构造一个新route对象
         String routeId = this.setBalancedRouteId(balanced.getId(), route.getId());
+        log.info(" setBalancedRoute routeId = {}",routeId);
         route.setId(routeId);
         //设置断言路径
         route.setPath(RouteConstants.PARENT_PATH + balanced.getLoadUri());
@@ -129,6 +133,7 @@ public class LoadServerService extends BaseService<LoadServer, Long, LoadServerD
         route.setWeight(loadServer.getWeight());
         //默认负载的断言路径截取级别为1
         route.setStripPrefix(1);
+        log.info(" setBalancedRoute  route = {} ", JSON.toJSONString(route));
     }
 
     /**

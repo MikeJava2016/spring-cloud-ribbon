@@ -18,15 +18,15 @@ import java.util.List;
 public class ParameterFilter extends FilterHandler {
 
     public ParameterFilter(FilterHandler handler){
-        this.handler = handler;
+        super(handler);
     }
 
     @Override
     public void handleRequest(ServerHttpRequest request){
         //header,ip,parameter,time,cookie
-        if (route.getFilterAuthorizeName().contains("parameter")){
-            log.info("处理网关路由请求{},执行parameter过滤 ", route.getId());
-            String accessParameter = route.getAccessParameter();
+        if (this.getRoute().getFilterAuthorizeName().contains("parameter")){
+            log.info("处理网关路由请求{},执行parameter过滤 ", this.getRoute().getId());
+            String accessParameter = this.getRoute().getAccessParameter();
             Assert.isTrue(StringUtils.isNotBlank(accessParameter),"自定义参数不能为空");
             Assert.isTrue(accessParameter.contains("="),"自定义参数格式错误");
             List<String[]> dataList =  new ArrayList<>();

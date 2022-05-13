@@ -77,6 +77,7 @@ public class CustomHystrixGatewayFilterFactory extends AbstractGatewayFilterFact
 
     @Override
     public GatewayFilter apply(String routeId, Consumer<Config> consumer) {
+        log.debug(" CustomHystrixGatewayFilterFactory apply routeId = {}",routeId );
         Config config = newConfig();
         consumer.accept(config);
         if (StringUtils.isEmpty(config.getName()) && !StringUtils.isEmpty(routeId)) {

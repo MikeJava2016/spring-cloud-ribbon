@@ -44,7 +44,7 @@ public class InitGroovyService {
         String md5;
         for (GroovyScript script : groovyScriptList){
             md5 = Md5Utils.md5Str(script.getId() + script.getContent());
-            dynamicGroovyService.instance(script, md5, true);
+            dynamicGroovyService.instance(script, md5, true,true);
         }
     }
 

@@ -16,15 +16,15 @@ import org.springframework.util.Assert;
 public class HeaderFilter extends FilterHandler {
 
     public HeaderFilter(FilterHandler handler){
-        this.handler = handler;
+        super(handler);
     }
 
     @Override
     public void handleRequest(ServerHttpRequest request){
         //header,ip,parameter,time,cookie
-        if (route.getFilterAuthorizeName().contains("header")){
-            log.info("处理网关路由请求{},执行header过滤 ", route.getId());
-            String accessHeader = route.getAccessHeader();
+        if (this.getRoute().getFilterAuthorizeName().contains("header")){
+            log.info("处理网关路由请求{},执行header过滤 ", this.getRoute().getId());
+            String accessHeader = this.getRoute().getAccessHeader();
             Assert.isTrue(StringUtils.isNotBlank(accessHeader),"自定义header不能为空");
             Assert.isTrue(accessHeader.contains(":"),"自定义header格式错误");
             String[] datas = accessHeader.split(":");

@@ -14,6 +14,7 @@ import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandKey;
 import com.netflix.hystrix.HystrixCommandProperties;
 import com.netflix.hystrix.HystrixObservableCommand;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
@@ -34,6 +35,7 @@ import java.util.*;
  * @Date 2020/05/25
  * @Version V1.0
  */
+@Slf4j
 @Service
 public class LoadRouteService {
 
@@ -88,6 +90,7 @@ public class LoadRouteService {
      * @return
      */
     public RouteDefinition loadRouteDefinition(Route r){
+        log.info("LoadRouteService r= {}",r.getId() );
         RouteDefinition definition = new RouteDefinition();
         definition.setId(r.getId());
         definition.setOrder(0);
@@ -236,6 +239,7 @@ public class LoadRouteService {
      * @return
      */
     private URI getURI(String uriStr){
+        log.debug(" uriStr = {}",uriStr);
         URI uri ;
         if(uriStr.startsWith(Constants.HTTP)){
             uri = UriComponentsBuilder.fromHttpUrl(uriStr).build().toUri();
@@ -252,6 +256,7 @@ public class LoadRouteService {
      * @return
      */
     public GatewayRouteConfig loadRouteConfig(Route r){
+        log.debug(" loadRouteConfig = {}",r);
         GatewayRouteConfig config = new GatewayRouteConfig();
         config.setId(r.getId());
         config.setOrder(0);
@@ -290,43 +295,11 @@ public class LoadRouteService {
         }
         //过滤器,id,ip,token
         if (StringUtils.isNotBlank(r.getFilterGatewaName())) {
-            List<GatewayFilter> filters = new ArrayList<>();
-            String names = r.getFilterGatewaName();
-            if (names.contains(RouteConstants.IP)) {
-                filters.add(new IpGatewayFilter(r.getId()));
-            }
-            if (names.contains(RouteConstants.ID)) {
-                filters.add(new ClientIdGatewayFilter(r.getId()));
-            }
-            if (names.contains(RouteConstants.TOKEN)) {
-                filters.add(new TokenGatewayFilter(r.getId()));
-            }
-            config.setGatewayFilter(filters.toArray(new GatewayFilter[]{}));
+            handlerFilterGatewa(r, config);
         }
         //熔断
         if (StringUtils.isNotBlank(r.getFilterHystrixName())) {
-            //默认内置熔断
-            if (r.getFilterHystrixName().equals(RouteConstants.Hystrix.DEFAULT)) {
-                config.setHystrixName(RouteConstants.Hystrix.DEFAULT_HYSTRIX_NAME);
-                config.setFallbackUri(RouteConstants.Hystrix.DEFAULT_FALLBACK_URI + r.getId());
-                //自定义熔断
-            } else {
-                //自定义名称必需保持业务的唯一性，否则所有自定义熔断将共用一个配置（用id是因为值短，只要能保证hystrixName不重复就行）
-                config.setHystrixName(RouteConstants.Hystrix.CUSTOM_HYSTRIX_NAME + r.getId());
-                config.setFallbackUri(RouteConstants.Hystrix.CUSTOM_FALLBACK_URI + r.getId());
-                //添加自定义熔断器
-                HystrixObservableCommand.Setter setter = HystrixObservableCommand.Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey(config.getHystrixName()));
-                setter.andCommandKey(HystrixCommandKey.Factory.asKey(config.getHystrixName()));
-                HystrixCommandProperties.Setter propertiesSetter = HystrixCommandProperties.Setter();
-                //启用回调
-                propertiesSetter.withFallbackEnabled(true);
-                //启用超时检测
-                propertiesSetter.withExecutionTimeoutEnabled(true);
-                //设置超时时长
-                propertiesSetter.withExecutionTimeoutInMilliseconds(r.getFallbackTimeout().intValue());
-                setter.andCommandPropertiesDefaults(propertiesSetter);
-                config.setSetter(setter);
-            }
+            handlerFilterHystrix(r, config);
         }
         //限流
         if (StringUtils.isNotBlank(r.getFilterRateLimiterName())) {
@@ -348,6 +321,46 @@ public class LoadRouteService {
             config.setAuthorize(true);
         }
         return config;
+    }
+
+    private void handlerFilterGatewa(Route r, GatewayRouteConfig config) {
+        List<GatewayFilter> filters = new ArrayList<>();
+        String names = r.getFilterGatewaName();
+        if (names.contains(RouteConstants.IP)) {
+            filters.add(new IpGatewayFilter(r.getId()));
+        }
+        if (names.contains(RouteConstants.ID)) {
+            filters.add(new ClientIdGatewayFilter(r.getId()));
+        }
+        if (names.contains(RouteConstants.TOKEN)) {
+            filters.add(new TokenGatewayFilter(r.getId()));
+        }
+        config.setGatewayFilter(filters.toArray(new GatewayFilter[]{}));
+    }
+
+    private void handlerFilterHystrix(Route r, GatewayRouteConfig config) {
+        //默认内置熔断
+        if (r.getFilterHystrixName().equals(RouteConstants.Hystrix.DEFAULT)) {
+            config.setHystrixName(RouteConstants.Hystrix.DEFAULT_HYSTRIX_NAME);
+            config.setFallbackUri(RouteConstants.Hystrix.DEFAULT_FALLBACK_URI + r.getId());
+            //自定义熔断
+        } else {
+            //自定义名称必需保持业务的唯一性，否则所有自定义熔断将共用一个配置（用id是因为值短，只要能保证hystrixName不重复就行）
+            config.setHystrixName(RouteConstants.Hystrix.CUSTOM_HYSTRIX_NAME + r.getId());
+            config.setFallbackUri(RouteConstants.Hystrix.CUSTOM_FALLBACK_URI + r.getId());
+            //添加自定义熔断器
+            HystrixObservableCommand.Setter setter = HystrixObservableCommand.Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey(config.getHystrixName()));
+            setter.andCommandKey(HystrixCommandKey.Factory.asKey(config.getHystrixName()));
+            HystrixCommandProperties.Setter propertiesSetter = HystrixCommandProperties.Setter();
+            //启用回调
+            propertiesSetter.withFallbackEnabled(true);
+            //启用超时检测
+            propertiesSetter.withExecutionTimeoutEnabled(true);
+            //设置超时时长
+            propertiesSetter.withExecutionTimeoutInMilliseconds(r.getFallbackTimeout().intValue());
+            setter.andCommandPropertiesDefaults(propertiesSetter);
+            config.setSetter(setter);
+        }
     }
 
 

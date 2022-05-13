@@ -47,6 +47,7 @@ public class InitClientService {
             while (iterator.hasNext()){
                 object = (Object[]) iterator.next();
                 routeId = String.valueOf(object[0]);
+//                s.routeId,c.id,c.ip,s.token,s.secretKey
                 //添加网关路由注册的客户端ID
                 id = String.valueOf(object[1]);
                 //添加网关路由注册的客户端IP

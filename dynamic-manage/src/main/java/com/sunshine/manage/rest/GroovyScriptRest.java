@@ -45,12 +45,13 @@ public class GroovyScriptRest extends BaseRest {
         groovyScript.setStatus(Constants.NO);
         groovyScript.setCreateTime(new Date());
         this.validate(groovyScript);
-        // 编译一下
-        groovyScriptService.instance(groovyScript);
+
         //查询最大orderNum
         int orderNum = groovyScriptService.findMaxOrderNum(groovyScript.getRouteId(), groovyScript.getEvent());
         groovyScript.setOrderNum(orderNum + 1);
         groovyScriptService.save(groovyScript);
+        // 编译一下
+        groovyScriptService.instance(groovyScript,true);
         //将ID推送到nacos注册发现与配置中心
         customNacosConfigService.publishGroovyScriptConfig(groovyScript.getId(), StatusUpdateEnum.INSERT);
         return new ApiResult();
@@ -98,7 +99,7 @@ public class GroovyScriptRest extends BaseRest {
         groovyScript.setUpdateTime(new Date());
         this.validate(groovyScript);
         // 编译一下
-        groovyScriptService.instance(groovyScript);
+        groovyScriptService.instance(groovyScript,true);
         groovyScriptService.update(groovyScript);
         if (Constants.YES.equals(groovyScript.getStatus())) {
             customNacosConfigService.publishGroovyScriptConfig(id,StatusUpdateEnum.UPDATE);

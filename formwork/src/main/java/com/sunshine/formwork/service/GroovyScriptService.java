@@ -150,9 +150,9 @@ public class GroovyScriptService extends BaseService<GroovyScript, Long, GroovyS
      * 初始化GroovyScript规则擎动态脚本，并实例化对象
      * @param script
      */
-    public Object instance(GroovyScript script) throws Exception {
+    public Object instance(GroovyScript script,Boolean forceResh) throws Exception {
         try {
-            return GroovyScriptUtils.newObjectInstance(script.getContent());
+            return GroovyScriptUtils.newObjectInstance(script.getContent(),script.getId(),forceResh);
         }catch(CompilationFailedException e){
             log.error("groovyScript规则引擎动态脚本编译错误！脚本ID：" + script.getId() + "，文件名" + script.getName() , e);
             throw e;

@@ -62,6 +62,7 @@ public class AuthorizeGatewayFilterFactory extends AbstractGatewayFilterFactory<
                 ServerHttpRequest request = exchange.getRequest();
                 String clientIp = NetworkIpUtils.getIpAddress(request);
                 Route route = exchange.getRequiredAttribute(GATEWAY_ROUTE_ATTR);
+
                 FilterHandler headerFilter = this.createHandler();
                 //获取缓存中的指定key路由对象
                 Object obj = RouteCache.get(route.getId());
@@ -71,6 +72,7 @@ public class AuthorizeGatewayFilterFactory extends AbstractGatewayFilterFactory<
                 try {
                     //执行header,ip,parameter,time,cookie验证
                     headerFilter.handler(request, (com.sunshine.formwork.entity.Route) obj);
+
                 }catch(Exception e){
                     log.error("网关转发客户端【{}】路由请求【{}】，执行验证异常：", clientIp, route.getId(), e);
                     return HttpResponseUtils.writeUnauth(exchange.getResponse(), "网关转发客户端【"+clientIp+"】路由请求【"+route.getId()+"】，执行验证异常：" + e.getMessage());

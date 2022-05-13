@@ -50,6 +50,7 @@ public class DynamicRouteService {
      */
     public void add(RouteDefinition routeDefinition) {
         try {
+            log.info("DynamicRouteService add id = {}",routeDefinition.getId());
             inMemoryRouteDefinitionRepository.save(Mono.just(routeDefinition)).subscribe();
         } catch (Exception e) {
             throw new IllegalArgumentException("添加网关路由失败:" + e.getMessage(), e);
@@ -77,6 +78,7 @@ public class DynamicRouteService {
                     then(Mono.defer(() -> Mono.just(ResponseEntity.ok().build()))).
                     onErrorResume((t) -> t instanceof NotFoundException, (t) -> Mono.just(ResponseEntity.notFound().build())).
                     subscribe();
+            log.info("DynamicRouteService delete id = {}",id);
         }catch(Exception e){
             throw new IllegalArgumentException("删除网关路由"+ id +"失败:" + e.getMessage(), e);
         }
@@ -94,6 +96,7 @@ public class DynamicRouteService {
                     .forEach(r->{
                         try {
                             delete(r.getId());
+                            log.info("DynamicRouteService deleteBalanced id = {}",r.getId());
                         } catch (Exception e) {
                             log.error("删除网关路由" + balancedId + "失败:" + e.getMessage(),  e);
                         }
@@ -115,6 +118,8 @@ public class DynamicRouteService {
      * @return
      */
     public Flux<RouteDefinition> getRouteDefinitions() {
-        return inMemoryRouteDefinitionRepository.getRouteDefinitions();
+        Flux<RouteDefinition> routeDefinitions = inMemoryRouteDefinitionRepository.getRouteDefinitions();
+        log.info("DynamicRouteService getRouteDefinitions  ",routeDefinitions.count());
+        return routeDefinitions;
     }
 }
