@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.sunshine</groupId>
             <artifactId>formwork</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <!-- 高性能Disruptor并发架构（log4j2异步日志使用） -->

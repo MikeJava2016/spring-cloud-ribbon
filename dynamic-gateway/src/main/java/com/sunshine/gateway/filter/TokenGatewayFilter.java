@@ -103,7 +103,8 @@ public class TokenGatewayFilter implements GatewayFilter, Ordered {
     public String getToken(ServerHttpRequest request){
         HttpHeaders headers = request.getHeaders();
         //验证是否带token
-        String token = request.getQueryParams().getFirst(RouteConstants.TOKEN);
+//        String token = request.getQueryParams().getFirst(RouteConstants.TOKEN);
+        String token = request.getHeaders().getFirst(RouteConstants.TOKEN);
         if (StringUtils.isBlank(token)){
             token = headers.getFirst(RouteConstants.TOKEN);
         }

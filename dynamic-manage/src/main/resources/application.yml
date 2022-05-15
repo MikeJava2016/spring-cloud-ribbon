@@ -19,6 +19,11 @@ spring:
     # 注册到nacos，服务注册发现和配置管理中心
   main:
     allow-bean-definition-overriding: true
+  # redis连接配置
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
 eureka:
   client:
     service-url:

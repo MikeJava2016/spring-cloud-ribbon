@@ -1,0 +1,7 @@
+GET http://127.0.0.1:8771/api/ribbon-client-gateway/ribbon-client/hello/hello
+
+###
+GET  http://10.208.6.82:8771/gateway/lb-ribbon-client/hello/hello?name=123
+token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXRld2F5LTgwODAtMiwzY2Y1YTZlM2FlNDU0Yzg2OTM0Y2Y1NGU5YzExZmU1OSwxNjUyNDk3NDQ3NjE1IiwiaXNzIjoicHJvLXNlcnZlciIsImV4cCI6MTg2ODExMjAwMH0.lVoKVd_nHYdGN2azxSoZ2-KOlYXwRj-7cZ4nku_NjXg
+###
+
