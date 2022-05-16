@@ -1,11 +1,14 @@
 package com.sunshine.oauthauthorizationserver.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -28,6 +31,9 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 @Configuration
 @EnableAuthorizationServer
 public class OauthAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+
+    private final static Logger logger = LoggerFactory.getLogger(OauthAuthorizationServerConfig.class);
+
     @Autowired
     private TokenStore tokenStore;
 
@@ -41,6 +47,8 @@ public class OauthAuthorizationServerConfig extends AuthorizationServerConfigure
     private AuthenticationManager authenticationManager;
 
 
+
+    private InMemoryClientDetailsServiceBuilder inMemoryClientDetailsServiceBuilder;
     /**
      * 配置客户端信息
      *
@@ -49,7 +57,9 @@ public class OauthAuthorizationServerConfig extends AuthorizationServerConfigure
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory() // 使用内存来存储客户端的信息
+        InMemoryClientDetailsServiceBuilder inMemoryClientDetailsServiceBuilder = clients.inMemory();
+        this.inMemoryClientDetailsServiceBuilder = inMemoryClientDetailsServiceBuilder;
+        inMemoryClientDetailsServiceBuilder // 使用内存来存储客户端的信息
                 .withClient("c1") // 客户端编号
                 .secret(new BCryptPasswordEncoder().encode("secret"))
                 .resourceIds("res1")//可以访问的资源的编号
@@ -57,8 +67,20 @@ public class OauthAuthorizationServerConfig extends AuthorizationServerConfigure
                 .scopes("all") // 允许授权的范围  我们对资源操作的作用域 读 写
                 .autoApprove(false) // false的话 请求到来的时候会跳转到授权页面
                 .redirectUris("http://www.baidu.com") // 回调的地址  授权码会作为参赛绑定在重定向的地址中
+
+                .and()
+                .withClient("c2")
+                .secret(new BCryptPasswordEncoder().encode("secret"))
+                .resourceIds("res1")//可以访问的资源的编号
+                .authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token") //该客户端允许的授权类型
+
+                .scopes("all") // 允许授权的范围  我们对资源操作的作用域 读 写
+                .autoApprove(false) // false的话 请求到来的时候会跳转到授权页面
+                .redirectUris("http://www.baidu.com") // 回调的地址  授权码会作为参赛绑定在重定向的地址中
         ;
     }
+
+
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
