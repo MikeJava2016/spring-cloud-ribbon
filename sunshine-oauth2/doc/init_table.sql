@@ -5,9 +5,9 @@ USE `oauth2` ;
 -- Table `oauth2`.`clientdetails`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `oauth2`.`clientdetails` (
-  `appId` VARCHAR(128) NOT NULL,
-  `resourceIds` VARCHAR(256) NULL DEFAULT NULL,
-  `appSecret` VARCHAR(256) NULL DEFAULT NULL,
+  `appId` VARCHAR(128) NOT NULL comment '客户段id',
+  `resourceIds` VARCHAR(256) NULL DEFAULT NULL comment '资源id',
+  `appSecret` VARCHAR(256) NULL DEFAULT NULL comment '',
   `scope` VARCHAR(256) NULL DEFAULT NULL,
   `grantTypes` VARCHAR(256) NULL DEFAULT NULL,
   `redirectUrl` VARCHAR(256) NULL DEFAULT NULL,

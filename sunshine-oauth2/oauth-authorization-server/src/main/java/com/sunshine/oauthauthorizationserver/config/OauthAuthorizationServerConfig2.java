@@ -8,9 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.common.OAuth2RefreshToken;
-import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -18,17 +15,18 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.token.AuthenticationKeyGenerator;
+import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
-import java.util.Collection;
 
 /**
  * @version v1
@@ -36,17 +34,19 @@ import java.util.Collection;
  * @Author huzhanglin
  * @Date 2022/5/14 22:45
  **/
-@Configuration
-@EnableAuthorizationServer
-public class OauthAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+//@Configuration
+//@EnableAuthorizationServer
+public class OauthAuthorizationServerConfig2 extends AuthorizationServerConfigurerAdapter {
 
-    private final static Logger logger = LoggerFactory.getLogger(OauthAuthorizationServerConfig.class);
+    private final static Logger logger = LoggerFactory.getLogger(OauthAuthorizationServerConfig2.class);
+
+    @Autowired
+    private DataSource dataSource;
 
     @Autowired
     private TokenStore tokenStore;
 
-    @Autowired
-    private ClientDetailsService clientDetailsService;
+
 
     @Autowired
     private AuthorizationCodeServices authorizationCodeServices;
@@ -54,9 +54,11 @@ public class OauthAuthorizationServerConfig extends AuthorizationServerConfigure
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Bean
+    public ClientDetailsService clientDetailsService(){
+        return new JdbcClientDetailsService(dataSource);
+    }
 
-
-    private InMemoryClientDetailsServiceBuilder inMemoryClientDetailsServiceBuilder;
     /**
      * 配置客户端信息
      *
@@ -65,34 +67,13 @@ public class OauthAuthorizationServerConfig extends AuthorizationServerConfigure
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        InMemoryClientDetailsServiceBuilder inMemoryClientDetailsServiceBuilder = clients.inMemory();
-        this.inMemoryClientDetailsServiceBuilder = inMemoryClientDetailsServiceBuilder;
-        inMemoryClientDetailsServiceBuilder // 使用内存来存储客户端的信息
-                .withClient("c1") // 客户端编号
-                .secret(new BCryptPasswordEncoder().encode("secret"))
-                .resourceIds("res1")//可以访问的资源的编号
-                .authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token") //该客户端允许的授权类型
-                .scopes("all") // 允许授权的范围  我们对资源操作的作用域 读 写
-                .autoApprove(false) // false的话 请求到来的时候会跳转到授权页面
-                .redirectUris("http://www.baidu.com") // 回调的地址  授权码会作为参赛绑定在重定向的地址中
-
-                .and()
-                .withClient("c2")
-                .secret(new BCryptPasswordEncoder().encode("secret"))
-                .resourceIds("res1")//可以访问的资源的编号
-                .authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token") //该客户端允许的授权类型
-
-                .scopes("all") // 允许授权的范围  我们对资源操作的作用域 读 写
-                .autoApprove(true) // false的话 请求到来的时候会跳转到授权页面
-                //.redirectUris("http://www.baidu.com") // 回调的地址  授权码会作为参赛绑定在重定向的地址中
-        ;
+        clients.withClientDetails(clientDetailsService());
     }
 
 
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        logger.info("configure(AuthorizationServerEndpointsConfigurer endpoints)...");
         endpoints.authenticationManager(authenticationManager) // 管理认证管理器
                 .authorizationCodeServices(authorizationCodeServices) // 授权码服务
                 .tokenServices(tokenServices()) // token服务
@@ -101,7 +82,6 @@ public class OauthAuthorizationServerConfig extends AuthorizationServerConfigure
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        logger.info("configure(AuthorizationServerSecurityConfigurer security)...");
         security.tokenKeyAccess("permitAll()")
                 .checkTokenAccess("permitAll()")
                 .allowFormAuthenticationForClients()
@@ -115,9 +95,8 @@ public class OauthAuthorizationServerConfig extends AuthorizationServerConfigure
      */
     @Bean
     public AuthorizationServerTokenServices tokenServices() {
-        logger.info("tokenServices...");
         DefaultTokenServices services = new DefaultTokenServices();
-        services.setClientDetailsService(clientDetailsService); // 客户端的配置信息
+        services.setClientDetailsService(clientDetailsService()); // 客户端的配置信息
         services.setSupportRefreshToken(true); // 支持刷新token
         services.setTokenStore(tokenStore); // 关联存储方式
         services.setAccessTokenValiditySeconds(7200); // 令牌默认的有效期2小时
@@ -127,28 +106,7 @@ public class OauthAuthorizationServerConfig extends AuthorizationServerConfigure
 
     @Bean
     public AuthorizationCodeServices authorizationCodeServices() {
-        return new InMemoryAuthorizationCodeServices(){
-            @Override
-            protected void store(String code, OAuth2Authentication authentication) {
-                logger.debug("");
-                super.store(code, authentication);
-            }
-
-            @Override
-            public OAuth2Authentication remove(String code) {
-                return super.remove(code);
-            }
-
-            @Override
-            public String createAuthorizationCode(OAuth2Authentication authentication) {
-                return super.createAuthorizationCode(authentication);
-            }
-
-            @Override
-            public OAuth2Authentication consumeAuthorizationCode(String code) throws InvalidGrantException {
-                return super.consumeAuthorizationCode(code);
-            }
-        };
+        return new JdbcAuthorizationCodeServices(dataSource);
     }
 
     /**
@@ -158,9 +116,12 @@ public class OauthAuthorizationServerConfig extends AuthorizationServerConfigure
      */
     @Bean
     public TokenStore tokenStore() {
-        return new InMemoryTokenStore(){
+        return new JdbcTokenStore(dataSource);
+    }
 
-        };
+    @Bean
+    public JdbcApprovalStore jdbcApprovalStore(){
+        return new JdbcApprovalStore(dataSource);
     }
 
 }

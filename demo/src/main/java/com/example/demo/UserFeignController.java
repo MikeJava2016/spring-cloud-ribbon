@@ -22,9 +22,9 @@ public class UserFeignController {
     public Result<User> postUser(@RequestBody User user) {
         User rest = new User(1L);
         Result<User> userResult = new Result<>();
-        userResult.setData(rest);
-        userResult.setCode(0);
-        userResult.setMsg("success");
+//        userResult.setData(rest);
+//        userResult.setCode(0);
+//        userResult.setMsg("success");
         return userResult;
     }
 

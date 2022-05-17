@@ -1,6 +1,8 @@
 package com.gupaoedu.security.service.impl;
 
 import com.gupaoedu.security.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -19,6 +21,9 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     /**
      *   实现自定义的认证流程
      * @param s
@@ -27,6 +32,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+
         if(!"zhang".equals(s)){
             return null;
         }

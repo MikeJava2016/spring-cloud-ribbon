@@ -1,5 +1,7 @@
 package com.sunshine.oauthauthorizationserver.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  **/
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final static Logger logger = LoggerFactory.getLogger(OauthAuthorizationServerConfig.class);
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -41,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        logger.info("configure(HttpSecurity http)...");
         http.csrf().disable()
                 .authorizeRequests()
                 //.antMatchers("/gp/gp1").hasAnyAuthority("p1")
@@ -54,6 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        logger.info("configure(AuthenticationManagerBuilder auth)...");
         auth.inMemoryAuthentication()
                 .withUser("zhang")
                 .password(new BCryptPasswordEncoder().encode("123"))
