@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-import org.thymeleaf.expression.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,7 @@ import java.util.List;
  * @Author huzhanglin
  * @Date 2022/5/18 9:00
  **/
-@Service
+//@Service
 public class UserNameDetailServiceImpl implements UserDetailsService {
 
     private final Logger logger = LoggerFactory.getLogger(UserNameDetailServiceImpl.class);

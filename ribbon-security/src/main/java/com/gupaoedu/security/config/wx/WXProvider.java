@@ -16,7 +16,11 @@ import org.springframework.security.core.AuthenticationException;
 @Data
 public class WXProvider implements AuthenticationProvider {
 
-    private UserOpenIdDetailsService userOpenIdDetailsService;
+    final private UserOpenIdDetailsService userOpenIdDetailsService;
+
+    public WXProvider(UserOpenIdDetailsService userOpenIdDetailsService) {
+        this.userOpenIdDetailsService = userOpenIdDetailsService;
+    }
 
     /**
      * 取到authentication中的openId，根据openId查询信息，能查到信息表示登陆成功

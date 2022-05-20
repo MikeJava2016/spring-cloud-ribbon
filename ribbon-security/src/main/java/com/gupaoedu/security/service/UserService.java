@@ -1,5 +1,6 @@
 package com.gupaoedu.security.service;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
@@ -8,4 +9,5 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @author 波波老师【咕泡学院】
  */
 public interface UserService extends UserDetailsService {
+    User queryByPhoneNumber(String mobile);
 }

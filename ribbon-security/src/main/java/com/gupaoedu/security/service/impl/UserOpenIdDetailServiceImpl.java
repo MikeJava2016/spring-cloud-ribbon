@@ -16,7 +16,7 @@ import java.util.List;
  * @Author huzhanglin
  * @Date 2022/5/18 8:45
  **/
-@Service
+//@Service
 public class UserOpenIdDetailServiceImpl implements UserOpenIdDetailsService {
     @Override
     public UserDetails loadUserByOpenId(String openId) {

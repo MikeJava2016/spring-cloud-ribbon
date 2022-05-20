@@ -18,30 +18,30 @@ import org.springframework.web.bind.annotation.*;
  *
  * @author 波波老师【咕泡学院】
  */
-@Controller
+//@Controller
 public class BaseController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
+    @Autowired(required = false)
     private LoginService loginService;
 
-    @GetMapping("/login.html")
+    @GetMapping("/login")
     public String loginPage(){
         return "/login.html";
     }
 
-    @GetMapping("/home.html")
+    @GetMapping("/home")
     public String home(){
         return "/home.html";
     }
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public String basePage(){
         return "/home.html";
-    }
+    }*/
 
-    @GetMapping("/error.html")
+    @GetMapping("/error")
     public String error(){
         return "/error.html";
     }

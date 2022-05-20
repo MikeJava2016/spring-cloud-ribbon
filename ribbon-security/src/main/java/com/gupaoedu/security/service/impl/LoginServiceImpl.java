@@ -22,11 +22,10 @@ import java.util.HashMap;
  * @Author huzhanglin
  * @Date 2022/5/18 8:30
  **/
-@Service
+//@Service
 public class LoginServiceImpl implements LoginService {
 
-    @Autowired
-    @Qualifier("myAuthenticationManager")
+//    @Autowired
     AuthenticationManager authenticationManager;
 
   /*  @Autowired

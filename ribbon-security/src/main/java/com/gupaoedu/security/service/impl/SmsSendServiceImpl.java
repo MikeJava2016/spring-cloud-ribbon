@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 /**
  * 发送短信验证码
  */
-@Service
+//@Service
 public class SmsSendServiceImpl implements SmsSendService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

@@ -20,26 +20,42 @@ import java.util.List;
  * @author 波波老师【咕泡学院】
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserNamePasswordServiceImpl implements UserService {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      *   实现自定义的认证流程
-     * @param s
+     * @param username
      * @return
      * @throws UsernameNotFoundException
      */
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        if(!"zhang".equals(s)){
+        /*if(!"zhang".equals(username)){
             return null;
         }
         List<GrantedAuthority> authorities = new ArrayList<>();
         SimpleGrantedAuthority auth = new SimpleGrantedAuthority("ROLE_ROOT");
         authorities.add(auth);
-        UserDetails user = new User(s
+        UserDetails user = new User(username
+                ,"$2a$10$YOWyHqvtg.gqrbiSTlYQx.nu2j0psWsrs/JIiuzav7IDX7r93WGIe"
+                ,true
+                ,true
+                ,true
+                ,true
+                ,authorities);
+        return user;*/
+        return null;
+    }
+
+    @Override
+    public User queryByPhoneNumber(String mobile) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        SimpleGrantedAuthority auth = new SimpleGrantedAuthority("ROLE_ROOT");
+        authorities.add(auth);
+        User user = new User(mobile
                 ,"$2a$10$YOWyHqvtg.gqrbiSTlYQx.nu2j0psWsrs/JIiuzav7IDX7r93WGIe"
                 ,true
                 ,true
