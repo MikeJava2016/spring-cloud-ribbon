@@ -1,7 +1,7 @@
 package com.gupaoedu.security.config.phoneNumber;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sunshine.common.util.HttpRequestUtil;
+import com.sunshine.common.util.web.HttpRequestUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 
 /**
  * @version v1
@@ -25,7 +24,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private String mobileParameter = "phone";
+    private String mobileParameter = "mobile";
 
     private String smsCodeParameter = "smsCode";
     /**

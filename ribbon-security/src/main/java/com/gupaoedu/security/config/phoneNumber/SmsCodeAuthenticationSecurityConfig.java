@@ -2,7 +2,7 @@ package com.gupaoedu.security.config.phoneNumber;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sunshine.common.util.HttpRequestUtil;
+import com.sunshine.common.util.web.HttpRequestUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

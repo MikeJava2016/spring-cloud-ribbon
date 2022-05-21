@@ -3,30 +3,26 @@ package com.gupaoedu.security.config.phoneNumber;
 import com.alibaba.fastjson.JSONObject;
 import com.gupaoedu.security.entity.SmsCode;
 import com.gupaoedu.security.service.UserService;
-import com.sunshine.common.util.HttpRequestUtil;
+import com.sunshine.common.util.web.HttpRequestUtil;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.Duration;
 import java.util.Objects;
 
 /**
@@ -71,7 +67,7 @@ public class SmsCodeValidateFilter extends OncePerRequestFilter {
             logger.info("开始校验手机号。。。");
             try {
                 //验证谜底与用户输入是否匹配
-                validate(new ServletWebRequest(request));
+                this.validate(request);
             } catch (AuthenticationException e) {
                 publicAuthenticationFailureHandler.onAuthenticationFailure(request, response, e);
                 return;
@@ -82,28 +78,16 @@ public class SmsCodeValidateFilter extends OncePerRequestFilter {
 
     }
 
-    private void validate(ServletWebRequest request) throws SessionAuthenticationException {
+    private void validate(HttpServletRequest request) throws SessionAuthenticationException {
         Logger logger = LoggerFactory.getLogger(getClass());
-
-        HttpSession session = request.getRequest().getSession();
+        HttpSession session = request.getSession();
         SmsCode codeInSession = (SmsCode) session.getAttribute("sms_key");
-        StringBuilder content = new StringBuilder();
-        try {
-            ServletInputStream ris = request.getRequest().getInputStream();
-
-            byte[] b = new byte[1024];
-            int lens = -1;
-            while ((lens = ris.read(b)) > 0) {
-                content.append(new String(b, 0, lens));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        JSONObject jsonObject = JSONObject.parseObject(content.toString());
+        String requestJson = HttpRequestUtil.getRequestBody(request);
+        JSONObject jsonObject = JSONObject.parseObject(requestJson);
         String mobileInRequest = jsonObject.getString("mobile");
         String codeInRequest = jsonObject.getString("smsCode");
 
-        codeInSession = new SmsCode(mobileInRequest,codeInRequest, LocalDateTime.now());
+        codeInSession = new SmsCode(mobileInRequest,codeInRequest, LocalDateTime.now().plusYears(3));
 
         logger.info("SmsCodeValidateFilter--->" + codeInSession.toString() + mobileInRequest + codeInRequest);
 

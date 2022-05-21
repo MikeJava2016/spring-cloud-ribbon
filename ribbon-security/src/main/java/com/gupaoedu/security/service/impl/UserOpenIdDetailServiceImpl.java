@@ -4,7 +4,6 @@ import com.gupaoedu.security.entity.LoginUser;
 import com.gupaoedu.security.entity.SysUser;
 import com.gupaoedu.security.service.UserOpenIdDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;

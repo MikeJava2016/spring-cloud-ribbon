@@ -1,7 +1,4 @@
-package com.sunshine.common.util;
-
-import cn.hutool.http.HttpUtil;
-import com.sunshine.common.util.web.BodyReaderHttpServletRequestWrapper;
+package com.sunshine.common.util.web;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +21,7 @@ public class HttpRequestUtil {
      */
     public static String getRequestBody(HttpServletRequest request) {
         try {
-            ServletRequest requestWrapper = new BodyReaderHttpServletRequestWrapper(
+            ServletRequest requestWrapper = new MutableHttpServletRequest (
                     request);
             StringBuffer jb = new StringBuffer();
             String line = null;

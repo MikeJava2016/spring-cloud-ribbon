@@ -5,7 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -45,7 +50,7 @@ public class HttpUtils {
         return conn;
     }
 
-    private static void setMethod(HttpURLConnection conn, String method) throws IOException{
+    private static void setMethod(HttpURLConnection conn, String method) throws IOException {
         Assert.isTrue(StringUtils.containsAny(method,METHODS),"只支持GET、POST、PUT、DELETE操作");
         conn.setRequestMethod(method);
     }

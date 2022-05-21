@@ -16,11 +16,16 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.io.IOException;
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -144,11 +149,7 @@ public class MonitorTaskService {
                     }
                     isTimeout = false;
                     log.debug("request：" + newUri + ", result: " + result);
-                }catch(SocketTimeoutException | ConnectException ste){
-                    msg = ste.getMessage();
-                }catch(IOException ioe){
-                    msg = ioe.getMessage();
-                }catch(Exception e){
+                } catch(Exception e){
                     log.error("执行监控任务服务异常，监控id :{}，监控名称 :{},请求地址：{},请求模式：{}, 错误消息：{}",
                             routeId, route.getName(), newUri, route.getMethod(), e.getMessage());
                     log.error("", e);
