@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gupaoedu.security.config.phoneNumber.SmsCodeAuthenticationSecurityConfig;
 import com.gupaoedu.security.config.phoneNumber.SmsCodeValidateFilter;
 import com.gupaoedu.security.web.filter.ReadRequestBodyFilter;
+import com.sunshine.common.util.web.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,12 @@ import java.io.PrintWriter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig1 extends WebSecurityConfigurerAdapter {
+
+    private static final  String BASE_EXCLUDE_PATH = "/js/**,/css/**,/images/**";
+
+    private static final  String SPRING_SECURITY_CUSTOMER_PROPERTIES = "spring-security.properties";
+
+    private static final String  CUSTOMER_EXCLUDE_PATH = "customer_exclude_path";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -60,7 +67,10 @@ public class SecurityConfig1 extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**","/phone.html","/smscode");
+        String customerExcludePath = PropertyUtils.getPropertiesValue(SPRING_SECURITY_CUSTOMER_PROPERTIES, CUSTOMER_EXCLUDE_PATH, "");
+        web.ignoring()
+                .antMatchers(BASE_EXCLUDE_PATH.split(","))
+                .antMatchers(customerExcludePath.split(","));
     }
 
     @Override
