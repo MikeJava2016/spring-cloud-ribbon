@@ -10,6 +10,8 @@ public class Result<T> implements Serializable {
 
     private T data;
 
+    private String token;
+
     public static <T> Result<T> success(T data,String message) {
         try {
             return new Result<T>().data(data).code(0).message(new String(message.getBytes(),"UTF-8"));
@@ -74,5 +76,14 @@ public class Result<T> implements Serializable {
 
     public boolean isSuccess(){
         return code==0;
+    }
+
+    public Result token(String token){
+        this.token = token;
+        return this;
+    }
+
+    public String getToken(){
+        return token;
     }
 }
