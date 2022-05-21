@@ -33,7 +33,7 @@ public class CommonSpringSecurity {
 
     private static final Logger logger = LoggerFactory.getLogger(CommonSpringSecurity.class);
 
-    private static  final String  token_invalidate= PropertyUtils.getPropertiesValue("spring-security.properties", "token_invalidate", "2");
+    private static final String token_invalidate = PropertyUtils.getPropertiesValue("spring-security.properties", "token_invalidate", "2");
     /**
      * 登录失
      */
@@ -56,10 +56,10 @@ public class CommonSpringSecurity {
             SmsCodeAuthenticationToken smsCodeAuthenticationToken = (SmsCodeAuthenticationToken) authentication;
             uid = smsCodeAuthenticationToken.getUid();
         }
-        String token = JwtUtils.createToken(uid,"security", null);
+        String token = JwtUtils.createToken(uid, "security", null);
         RedissonClient redissonClient = ApplicationContextUtils.getBean(RedissonClient.class);
         Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
-        redissonClient.getBucket(token).set(JsonMapper.toJsonString(authentication1),Integer.parseInt(token_invalidate), TimeUnit.MINUTES);
+        redissonClient.getBucket(token).set(JsonMapper.toJsonString(authentication1), Integer.parseInt(token_invalidate), TimeUnit.MINUTES);
         successResponse(resp, "登录成功", token, null);
     };
     /**
@@ -115,7 +115,7 @@ public class CommonSpringSecurity {
      * @throws IOException
      */
     public static void successResponse(HttpServletResponse resp, String mes, String token) throws IOException {
-        writeJson(0, resp, mes, token,null);
+        writeJson(0, resp, mes, token, null);
     }
 
     /**

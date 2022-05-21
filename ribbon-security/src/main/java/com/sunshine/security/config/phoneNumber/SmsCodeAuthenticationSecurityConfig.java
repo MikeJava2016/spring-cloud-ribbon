@@ -50,7 +50,6 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
                 .addFilterAfter(smsCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 
-
     }
 
     public static String getString(AuthenticationException e, String mes) {

@@ -1,6 +1,7 @@
 package com.sunshine.security.config.phoneNumber;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sunshine.common.util.web.PropertyUtils;
 import com.sunshine.security.entity.SmsCode;
 import com.sunshine.security.service.UserService;
 import com.sunshine.common.util.web.HttpRequestUtil;
@@ -37,8 +38,8 @@ public class SmsCodeValidateFilter extends OncePerRequestFilter {
     private final String pattern;
     private final String httpMethod;
 
-    public SmsCodeValidateFilter( ) {
-        this.pattern = "/sms/login";
+    public SmsCodeValidateFilter() {
+        this.pattern =   PropertyUtils.getPropertiesValue("spring-security.properties", "sms_login_path", "/sms/login");
         this.httpMethod = "POST";
     }
 
@@ -49,13 +50,13 @@ public class SmsCodeValidateFilter extends OncePerRequestFilter {
 
     private AuthenticationFailureHandler publicAuthenticationFailureHandler
             = (request, response, exception) -> {
-                String mes = exception.getMessage();
-                response.setContentType("application/json;charset=utf-8");
-                PrintWriter out = response.getWriter();
-                out.write(mes);
-                out.flush();
-                out.close();
-            };
+        String mes = exception.getMessage();
+        response.setContentType("application/json;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.write(mes);
+        out.flush();
+        out.close();
+    };
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -63,7 +64,7 @@ public class SmsCodeValidateFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws IOException, ServletException {
         if (StringUtils.equals(pattern, request.getRequestURI())
-                && StringUtils.equalsIgnoreCase(request.getMethod(),httpMethod)) {
+                && StringUtils.equalsIgnoreCase(request.getMethod(), httpMethod)) {
             logger.info("开始校验手机号。。。");
             try {
                 //验证谜底与用户输入是否匹配
@@ -87,7 +88,7 @@ public class SmsCodeValidateFilter extends OncePerRequestFilter {
         String mobileInRequest = jsonObject.getString("mobile");
         String codeInRequest = jsonObject.getString("smsCode");
 
-        codeInSession = new SmsCode(mobileInRequest,codeInRequest, LocalDateTime.now().plusYears(3));
+        codeInSession = new SmsCode(mobileInRequest, codeInRequest, LocalDateTime.now().plusYears(3));
 
         logger.info("SmsCodeValidateFilter--->" + codeInSession.toString() + mobileInRequest + codeInRequest);
 

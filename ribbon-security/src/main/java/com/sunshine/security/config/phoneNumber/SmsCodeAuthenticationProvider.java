@@ -37,11 +37,11 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
         String mobile = (String) authenticationToken.getPrincipal();
         String smsKey = "smscode:" + authenticationToken.getMobile();
         Object redisValue = redissonClient.getBucket(smsKey).get();
-        if (Objects.isNull(redisValue)){
+        if (Objects.isNull(redisValue)) {
             logger.error("验证码已失效：", mobile);
             throw new InternalAuthenticationServiceException("验证码已失效");
         }
-        if (!authenticationToken.getSmsCode().equals(redisValue)){
+        if (!authenticationToken.getSmsCode().equals(redisValue)) {
             logger.error("验证码不正确：", mobile);
             throw new InternalAuthenticationServiceException("验证码不正确");
         }

@@ -24,17 +24,18 @@ import java.util.Collection;
  * @Date 2022/5/20 21:32
  **/
 @Service("smsCodeUserDetailsService")
-public class SmsCodeUserDetailsService  implements UserDetailsService {
+public class SmsCodeUserDetailsService implements UserDetailsService {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private UserService userService;
-  /*  @Autowired
-    private RoleService roleService;
-    @Autowired
-    private UserRoleService userRoleService;
-*/
+
+    /*  @Autowired
+      private RoleService roleService;
+      @Autowired
+      private UserRoleService userRoleService;
+  */
     @Override
     public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
         Collection<GrantedAuthority> authorities = new ArrayList<>();

@@ -8,7 +8,7 @@ import java.util.Collection;
 
 /**
  * @version v1
- * @Description TODO
+ * @Description 短信验证吗
  * @Author huzhanglin
  * @Date 2022/5/20 21:30
  **/
@@ -86,13 +86,24 @@ public class SmsCodeAuthenticationToken extends AuthenticationToken {
 
 
     public static class SmsCodeAuthenticationTokenBuilder {
-
+        /**
+         * 手机号
+         */
         private String mobile;
 
+        /**
+         * 验证码
+         */
         private String smsCode;
 
+        /**
+         * 用户名
+         */
         private String username;
 
+        /**
+         * 用户id
+         */
         private String uid;
 
         private Object principal;

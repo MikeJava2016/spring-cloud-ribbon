@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 
 /**
  * @version v1
- * @Description TODO
+ * @Description jwtToken校验过滤器
  * @Author huzhanglin
  * @Date 2022/5/18 8:42
  **/
@@ -63,9 +63,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-
         String requestURI = request.getRequestURI();
+        // 判断是否需要验证jwtToken
         if (isMatch(requestURI)) {
             //放行
             filterChain.doFilter(request, response);
@@ -75,16 +74,14 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String token = request.getHeader("token");
 
         if (!StringUtils.hasText(token)) {
-            logger.info("token没有");
-            //放行
-            // filterChain.doFilter(request,response);
+            logger.error("token没有");
             // 请求wutoken
             CommonSpringSecurity.failResponse(response, "参数no token", null, null);
             return;
         }
         String message = validateJwtToken(token);
         if (StringUtils.hasText(message)) {
-            logger.error("token失效 token = {}",token);
+            logger.error("token失效 token = {}", token);
             CommonSpringSecurity.failResponse(response, "token失效", null, null);
             return;
         }
@@ -94,7 +91,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         // 判断是否存在
         boolean exists = bucket.isExists();
         if (!exists) {
-            logger.error("redis token失效 token = {}",token);
+            logger.error("redis token失效 token = {}", token);
             CommonSpringSecurity.failResponse(response, "token失效", null, null);
             return;
         }
@@ -104,7 +101,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         //存入SecurityContex上下文
         SecurityContextHolder.getContext().setAuthentication(this.prase(json));
-
         //放行
         filterChain.doFilter(request, response);
     }
@@ -112,10 +108,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     /**
      * 请求的url满足
+     *
      * @param requestURI
      * @return
      */
-    private  static boolean isMatch(String requestURI) {
+    private static boolean isMatch(String requestURI) {
         final AntPathMatcher pathMatcher = new AntPathMatcher();
         List<String> urls = getUrls();
         for (String url : urls) {

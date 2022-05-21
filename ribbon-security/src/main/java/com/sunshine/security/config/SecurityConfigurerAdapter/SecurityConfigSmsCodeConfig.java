@@ -21,15 +21,13 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 /**
  * @version v1
- * @Description TODO
+ * @Description 短信验证登录配置类
  * @Author huzhanglin
  * @Date 2022/5/20 12:34
- * 如果登录地址是 /foo/login，那么通过 sang 和 javaboy 两个用户可以登录成功。
- * 如果登录地址是 /bar/login，那么通过 sang 和 江南一点雨 两个用户可以登录成功。
  **/
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig1 extends WebSecurityConfigurerAdapter {
+public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 不需要权限
@@ -45,7 +43,7 @@ public class SecurityConfig1 extends WebSecurityConfigurerAdapter {
      */
     private static final String CUSTOMER_EXCLUDE_PATH = "customer_exclude_path";
 
-    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig1.class);
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfigSmsCodeConfig.class);
 
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
