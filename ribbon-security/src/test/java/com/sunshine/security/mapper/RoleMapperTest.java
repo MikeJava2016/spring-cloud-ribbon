@@ -1,6 +1,7 @@
 package com.sunshine.security.mapper;
 
 import com.sunshine.security.GpVipSecurity1011Application;
+import com.sunshine.security.entity.RoleModel;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +17,8 @@ class RoleMapperTest {
     @Test
     public  void testMasterSlave(){
 
-        roleMapper.selectById(1);
+        RoleModel roleModel = roleMapper.selectById(1);
+        System.out.println(roleModel.getName());
     }
 
     @Test
