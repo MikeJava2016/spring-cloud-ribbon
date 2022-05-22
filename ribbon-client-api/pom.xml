@@ -18,8 +18,7 @@
         <guava.version>22.0</guava.version>
         <kaptcha.version>0.0.9</kaptcha.version>
         <thumbnailator.version>0.4.8</thumbnailator.version>
-        <commons-lang.version>3.3.2</commons-lang.version>
-        <mybatis-plus.version>2.0.8</mybatis-plus.version>
+         <mybatis-plus.version>2.0.8</mybatis-plus.version>
         <mybatisplus-spring-boot-starter.version>1.0.2</mybatisplus-spring-boot-starter.version>
         <mybatis-spring-boot-starter.version>2.2.0</mybatis-spring-boot-starter.version>
         <commons-fileupload.version>1.4</commons-fileupload.version>

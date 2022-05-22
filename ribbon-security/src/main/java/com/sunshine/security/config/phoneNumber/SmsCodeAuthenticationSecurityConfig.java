@@ -5,8 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
@@ -33,20 +35,24 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
     @Qualifier("smsCodeUserDetailsService")
     private SmsCodeUserDetailsService smsCodeUserDetailsService;
 
+    @Value("sms_login_path")
+    private String smsLoginPath = "/sms/login";
+
+    private String method = "POST";
 
     @Override
     public void configure(HttpSecurity http) {
         // 短信登录的请求 post 方式的 /sms/login
-        SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter("/sms/login", "POST");
+        SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter(smsLoginPath, method);
+
         smsCodeAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
         // 处理成功
         smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(CommonSpringSecurity.AUTHENTICATION_SUCCESS_HANDLER);
         //登录失败响应
         smsCodeAuthenticationFilter.setAuthenticationFailureHandler(CommonSpringSecurity.AUTHENTICATION_FAILURE_HANDLER);
 
-        SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new SmsCodeAuthenticationProvider();
-        smsCodeAuthenticationProvider.setUserDetailService(smsCodeUserDetailsService);
-        http.authenticationProvider(smsCodeAuthenticationProvider)
+        AuthenticationProvider authenticationProvider = new SmsCodeAuthenticationProvider(smsCodeUserDetailsService);
+        http.authenticationProvider(authenticationProvider)
                 .addFilterAfter(smsCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 

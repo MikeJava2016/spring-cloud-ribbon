@@ -11,6 +11,15 @@
     <packaging>jar</packaging>
     <artifactId>dynamic-gateway</artifactId>
 
+    <properties>
+
+        <formwork.version>0.0.1-SNAPSHOT</formwork.version>
+        <com.lmax-disruptor.version>3.3.7</com.lmax-disruptor.version>
+
+        <ribbon-client-api.version>0.0.1-SNAPSHOT</ribbon-client-api.version>
+        <ribbon-service-api.version>0.0.1-SNAPSHOT</ribbon-service-api.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -37,14 +46,14 @@
         <dependency>
             <groupId>com.sunshine</groupId>
             <artifactId>formwork</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${formwork.version}</version>
         </dependency>
 
         <!-- 高性能Disruptor并发架构（log4j2异步日志使用） -->
         <dependency>
             <groupId>com.lmax</groupId>
             <artifactId>disruptor</artifactId>
-            <version>3.3.7</version>
+            <version>${com.lmax-disruptor.version}</version>
         </dependency>
 
         <!-- alibaba-nacos -->
@@ -83,13 +92,13 @@
         <dependency>
             <groupId>com.sunshine</groupId>
             <artifactId>ribbon-client-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${ribbon-client-api.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.sunshine</groupId>
             <artifactId>ribbon-service-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${ribbon-service-api.version}</version>
         </dependency>
     </dependencies>
 

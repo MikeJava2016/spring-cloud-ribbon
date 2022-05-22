@@ -24,11 +24,15 @@ import java.util.Objects;
  **/
 public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
 
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final RedissonClient redissonClient = ApplicationContextUtils.getBean(RedissonClient.class);
+
+    public SmsCodeAuthenticationProvider(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -55,6 +59,7 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
         LoginUser loginUser = (LoginUser) userDetails;
         // 此时鉴权成功后，应当重新 new 一个拥有鉴权的 authenticationResult 返回
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+
         SmsCodeAuthenticationToken authenticationResult = new SmsCodeAuthenticationToken.SmsCodeAuthenticationTokenBuilder()
                 .username(loginUser.getUsername())
                 .uid(loginUser.getSysUser().getId())
@@ -68,13 +73,5 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
     public boolean supports(Class<?> authentication) {
         // 判断 authentication 是不是 SmsCodeAuthenticationToken 的子类或子接口
         return SmsCodeAuthenticationToken.class.isAssignableFrom(authentication);
-    }
-
-    public UserDetailsService getUserDetailService() {
-        return userDetailsService;
-    }
-
-    public void setUserDetailService(UserDetailsService userDetailService) {
-        this.userDetailsService = userDetailService;
     }
 }

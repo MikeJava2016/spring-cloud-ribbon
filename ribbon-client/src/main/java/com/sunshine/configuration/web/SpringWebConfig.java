@@ -3,7 +3,6 @@ package com.sunshine.configuration.web;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.sunshine.common.exception.BizException;
 import com.sunshine.common.util.ManagerTokenUtil;
 import com.sunshine.common.util.Result;
 import org.slf4j.Logger;
@@ -11,13 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
@@ -112,7 +109,7 @@ public class SpringWebConfig extends WebMvcConfigurationSupport implements Initi
     private void decorateReturnValueHandler(List<HandlerMethodReturnValueHandler> handlers) {
         for (HandlerMethodReturnValueHandler handler : handlers) {
             if (handler instanceof RequestResponseBodyMethodProcessor) {
-                ResultWarpReturnValueHandler decorator = new ResultWarpReturnValueHandler(handler);
+                HandlerMethodReturnValueHandler decorator = new ResultWarpReturnValueHandler(handler);
                 int index = handlers.indexOf(handler);
                 handlers.set(index, decorator);
                 break;

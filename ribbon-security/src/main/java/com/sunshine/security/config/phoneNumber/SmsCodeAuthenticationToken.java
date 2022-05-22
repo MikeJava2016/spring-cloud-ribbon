@@ -2,8 +2,10 @@ package com.sunshine.security.config.phoneNumber;
 
 import com.sunshine.security.config.AuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -39,6 +41,7 @@ public class SmsCodeAuthenticationToken extends AuthenticationToken {
      */
     private SmsCodeAuthenticationToken(Object principal, final String username, final String uid) {
         super(username, uid, principal, null);
+        // must use super, as we override
         setAuthenticated(false);
     }
 
@@ -110,7 +113,6 @@ public class SmsCodeAuthenticationToken extends AuthenticationToken {
 
         private UserDetails userDetails;
 
-        private Collection<? extends GrantedAuthority> authorities;
 
         public SmsCodeAuthenticationTokenBuilder() {
         }
@@ -171,6 +173,24 @@ public class SmsCodeAuthenticationToken extends AuthenticationToken {
         /**
          * 构建一个有鉴权的
          *
+         * @param authorities
+         * @return
+         */
+        public SmsCodeAuthenticationToken authenticatedbuilder2(Collection<String> authorities) {
+            Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+            authorities.forEach(one -> {
+                grantedAuthorities.add(new SimpleGrantedAuthority(one));
+            });
+            SmsCodeAuthenticationToken smsCodeAuthenticationToken = new SmsCodeAuthenticationToken(grantedAuthorities, principal, username, uid);
+            smsCodeAuthenticationToken.setMobile(mobile);
+            smsCodeAuthenticationToken.setSmsCode(smsCode);
+            smsCodeAuthenticationToken.setDetails(userDetails);
+            return smsCodeAuthenticationToken;
+        }
+
+        /**
+         * 构建一个有鉴权的
+         *
          * @param
          * @return
          */
@@ -184,7 +204,6 @@ public class SmsCodeAuthenticationToken extends AuthenticationToken {
 
         public SmsCodeAuthenticationTokenBuilder userDetails(UserDetails userDetails) {
             this.userDetails = userDetails;
-
             return this;
         }
     }

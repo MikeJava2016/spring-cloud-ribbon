@@ -11,6 +11,12 @@
     <packaging>jar</packaging>
     <artifactId>admin-server</artifactId>
 
+    <properties>
+        <spring-boot-admin-starter-server.version>2.3.1</spring-boot-admin-starter-server.version>
+        <ribbon-client-api.version>0.0.1-SNAPSHOT</ribbon-client-api.version>
+        <ribbon-service-api.version>0.0.1-SNAPSHOT</ribbon-service-api.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -23,7 +29,7 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId>
-            <version>2.3.1</version>
+            <version>${spring-boot-admin-starter-server.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -44,13 +50,13 @@
         <dependency>
             <groupId>com.sunshine</groupId>
             <artifactId>ribbon-client-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${ribbon-client-api.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.sunshine</groupId>
             <artifactId>ribbon-service-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${ribbon-service-api.version}</version>
         </dependency>
     </dependencies>
 

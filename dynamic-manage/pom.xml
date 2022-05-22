@@ -11,6 +11,12 @@
     <packaging>jar</packaging>
     <artifactId>dynamic-manage</artifactId>
 
+    <properties>
+        <formwork.version>0.0.1-SNAPSHOT</formwork.version>
+        <com.lmax-disruptor.version>3.3.7</com.lmax-disruptor.version>
+        <ribbon-client-api.version>0.0.1-SNAPSHOT</ribbon-client-api.version>
+        <ribbon-service-api.version>0.0.1-SNAPSHOT</ribbon-service-api.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -26,7 +32,7 @@
         <dependency>
             <groupId>com.sunshine</groupId>
             <artifactId>formwork</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${formwork.version}</version>
         </dependency>
 
         <!--<dependency>-->
@@ -55,13 +61,13 @@
         <dependency>
             <groupId>com.sunshine</groupId>
             <artifactId>ribbon-client-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${ribbon-client-api.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.sunshine</groupId>
             <artifactId>ribbon-service-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${ribbon-service-api.version}</version>
         </dependency>
 
 

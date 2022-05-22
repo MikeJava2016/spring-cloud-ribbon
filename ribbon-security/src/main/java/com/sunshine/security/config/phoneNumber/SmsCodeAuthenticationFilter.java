@@ -33,8 +33,11 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
     private boolean postOnly = true;
 
     public SmsCodeAuthenticationFilter(String pattern, String httpMethod) {
+
         super(new AntPathRequestMatcher(pattern, httpMethod));
+
         logger.debug("短信验证吗的请求方式必须是{}", httpMethod);
+
     }
 
     @Override
@@ -45,41 +48,41 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
         }
         // 获取请求体中的数据
         String requestBodyJson = HttpRequestUtil.getRequestBody(request);
+
         JSONObject jsonObject = JSONObject.parseObject(requestBodyJson);
-        String mobile = jsonObject.getString(mobileParameter);
-        if (mobile == null) {
-            mobile = "";
-        }
-        mobile = mobile.trim();
-        String smsCode = jsonObject.getString(smsCodeParameter);
-        if (smsCode == null) {
-            smsCode = "";
-        }
-        smsCode = smsCode.trim();
-        SmsCodeAuthenticationToken authRequest = new SmsCodeAuthenticationToken.SmsCodeAuthenticationTokenBuilder().mobile(mobile).smsCode(smsCode).noAuthenticatedbuilder();
+
+        String mobile = getMobile(jsonObject, mobileParameter);
+
+        String smsCode = getSmsCode(jsonObject, smsCodeParameter);
+
+        SmsCodeAuthenticationToken authRequest = new SmsCodeAuthenticationToken.SmsCodeAuthenticationTokenBuilder()
+                .mobile(mobile)
+                .smsCode(smsCode)
+                .noAuthenticatedbuilder();
+
         setDetails(request, authRequest);
+
         return this.getAuthenticationManager().authenticate(authRequest);
     }
 
-    protected String obtainMobile(HttpServletRequest request) {
-        return request.getParameter(mobileParameter);
+    private String getMobile(JSONObject jsonObject, String mobileParameter) {
+        String mobile = jsonObject.getString(mobileParameter);
+
+        Assert.hasText(mobileParameter, " mobile parameter must not be empty or null");
+
+        return mobile;
+    }
+
+    private String getSmsCode(JSONObject jsonObject, String smsCodeParameter) {
+        String mobile = jsonObject.getString(smsCodeParameter);
+
+        Assert.hasText(smsCodeParameter, "smsCode parameter must not be empty or null");
+
+        return mobile;
     }
 
     protected void setDetails(HttpServletRequest request, SmsCodeAuthenticationToken authRequest) {
         authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
-    }
-
-    public String getMobileParameter() {
-        return mobileParameter;
-    }
-
-    public void setMobileParameter(String mobileParameter) {
-        Assert.hasText(mobileParameter, "Mobile parameter must not be empty or null");
-        this.mobileParameter = mobileParameter;
-    }
-
-    public void setPostOnly(boolean postOnly) {
-        this.postOnly = postOnly;
     }
 
 }
