@@ -1,5 +1,6 @@
 package com.sunshine.security.config.SecurityConfigurerAdapter;
 
+import com.sunshine.security.config.common.CommonSpringSecurity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,9 +8,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 //@Configuration
 //@EnableWebSecurity
@@ -51,7 +49,7 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable();
 */
         http
-                .cors().configurationSource(corsConfigurationSource());
+                .cors().configurationSource(CommonSpringSecurity.corsConfigurationSource("/**"));
         //关闭csrf
         http.csrf().disable()
                 //不通过session获取SecurityContext
@@ -65,20 +63,7 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 //                .addFilterAt(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
-    /**
-     * 带token的跨域访问完美解决
-     *
-     * @return
-     */
-    private CorsConfigurationSource corsConfigurationSource() {
-        CorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*");    //同源配置，*表示任何请求都视为同源，若需指定ip和端口可以改为如“localhost：8080”，多个以“，”分隔；
-        corsConfiguration.addAllowedHeader("*");//header，允许哪些header，本案中使用的是token，此处可将*替换为token；
-        corsConfiguration.addAllowedMethod("*");    //允许的请求方法，PSOT、GET等
-        ((UrlBasedCorsConfigurationSource) source).registerCorsConfiguration("/**", corsConfiguration); //配置允许跨域访问的url
-        return source;
-    }
+
 
 
 }

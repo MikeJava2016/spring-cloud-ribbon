@@ -1,5 +1,6 @@
 package com.sunshine.security.controller;
 
+import com.sunshine.security.config.annotation.IgnoreAuth;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,16 @@ public class HelloController {
     @GetMapping("/hello")
     public String hello() {
         return "hello";
+    }
+
+    /**
+     *  http://localhost:8081/saygoogbug
+     * @return
+     */
+    @GetMapping("/saygoogbug")
+    @IgnoreAuth
+    public String saygoogbug() {
+        return "saygoogbug";
     }
 
 }

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,12 +22,13 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 /**
  * @version v1
- * @Description 短信验证登录配置类
+ * @Description 短信验证登录配置类   业务比较复杂，我们也可以配置多个 HttpSecurity，实现对 WebSecurityConfigurerAdapter 的多次扩展
  * @Author huzhanglin
  * @Date 2022/5/20 12:34
  **/
 @Configuration
 @EnableWebSecurity
+@Order(100)
 public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
 
     /**
@@ -82,6 +84,9 @@ public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // 带token的跨域访问完美解决
+        http
+                .cors().configurationSource(CommonSpringSecurity.corsConfigurationSource("/**"));
         http.addFilterBefore(new ReadRequestBodyFilter(), WebAsyncManagerIntegrationFilter.class);
         // 添加拦截器
         http.addFilterBefore(smsCodeValidateFilter, UsernamePasswordAuthenticationFilter.class);
@@ -90,8 +95,11 @@ public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests() // 设置哪些页面可以直接访问，哪些需要验证
                 .antMatchers(customerExcludePath.split(",")).permitAll()  // 放过
-
                 .and()
+
+//                .antMatcher("/captchImage").anonymous() // 允许访问
+//                .and()
+
                 .authorizeRequests()
                 .anyRequest().authenticated()
 
