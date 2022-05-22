@@ -65,7 +65,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-             <exclusions>
+            <exclusions>
                 <exclusion>
                     <artifactId>joda-time</artifactId>
                     <groupId>joda-time</groupId>
@@ -106,13 +106,13 @@
         <dependency>
             <groupId>com.ctrip.framework.apollo</groupId>
             <artifactId>apollo-client</artifactId>
-<!--            <version>${apollo-client.version}</version>-->
+            <!--            <version>${apollo-client.version}</version>-->
         </dependency>
 
         <dependency>
             <groupId>com.ctrip.framework.apollo</groupId>
             <artifactId>apollo-core</artifactId>
-<!--            <version>${apollo-client.version}</version>-->
+            <!--            <version>${apollo-client.version}</version>-->
         </dependency>
 
         <dependency>
@@ -124,7 +124,7 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-<!--            <version>${spring-cloud-starter-alibaba-sentinel.version}</version>-->
+            <!--            <version>${spring-cloud-starter-alibaba-sentinel.version}</version>-->
             <exclusions>
                 <exclusion>
                     <artifactId>woodstox-core</artifactId>
@@ -161,23 +161,9 @@
 
         <dependencies>
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${spring-cloud-alibaba.version}</version>
+                <groupId>com.sunshine</groupId>
+                <artifactId>manager-web-dependencies</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -189,11 +175,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-              <!--  <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>-->
+                <configuration>
+                      <source>1.8</source>
+                      <target>1.8</target>
+                      <encoding>UTF-8</encoding>
+                  </configuration>
             </plugin>
 
             <plugin>
@@ -202,14 +188,14 @@
                 <configuration>
                     <mainClass>com.sunshine.RibbonServiceApplication</mainClass>
                 </configuration>
-               <!-- <executions>
-                    <execution>
-                        <id>repackage</id>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>-->
+                <!-- <executions>
+                     <execution>
+                         <id>repackage</id>
+                         <goals>
+                             <goal>repackage</goal>
+                         </goals>
+                     </execution>
+                 </executions>-->
             </plugin>
 
             <plugin>
