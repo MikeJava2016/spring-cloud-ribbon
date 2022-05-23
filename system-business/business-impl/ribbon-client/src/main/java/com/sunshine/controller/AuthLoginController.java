@@ -3,7 +3,6 @@ package com.sunshine.controller;
 import com.sunshine.annotation.SunShine;
 import com.sunshine.api.feign.service.AuthLoginClientAPI;
 import com.sunshine.api.feign.service.IUserAuthFeignService;
-import com.sunshine.common.annontation.Validate;
 import com.sunshine.common.ao.LoginUserDto;
 import com.sunshine.common.exception.BizException;
 import com.sunshine.common.util.Result;

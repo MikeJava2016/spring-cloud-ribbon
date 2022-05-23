@@ -7,7 +7,6 @@ import okhttp3.Request;
 import org.apache.http.conn.ssl.SSLContexts;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.cloud.commons.httpclient.DefaultOkHttpClientConnectionPoolFactory;
 import org.springframework.cloud.commons.httpclient.DefaultOkHttpClientFactory;

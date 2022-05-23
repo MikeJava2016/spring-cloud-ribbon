@@ -4,7 +4,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
-import org.springframework.stereotype.Component;
 
 /**
  * @description: 这个接口在读取项目中的beanDefinition之后执行，提供一个补充的扩展点

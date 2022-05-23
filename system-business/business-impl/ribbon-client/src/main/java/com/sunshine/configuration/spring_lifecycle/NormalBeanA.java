@@ -1,7 +1,5 @@
 package com.sunshine.configuration.spring_lifecycle;
 
-import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 
 /**

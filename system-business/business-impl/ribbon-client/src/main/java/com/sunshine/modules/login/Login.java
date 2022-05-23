@@ -1,8 +1,8 @@
 package com.sunshine.modules.login;
 
+import com.sunshine.common.ao.LoginUserDto;
 import com.sunshine.common.exception.BizException;
 import com.sunshine.common.util.Result;
-import com.sunshine.common.ao.LoginUserDto;
 
 /**
  * @version v1

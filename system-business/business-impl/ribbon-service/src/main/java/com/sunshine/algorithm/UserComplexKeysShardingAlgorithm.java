@@ -4,7 +4,6 @@ import org.apache.shardingsphere.api.sharding.complex.ComplexKeysShardingAlgorit
 import org.apache.shardingsphere.api.sharding.complex.ComplexKeysShardingValue;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
 
 public class UserComplexKeysShardingAlgorithm implements ComplexKeysShardingAlgorithm {
 

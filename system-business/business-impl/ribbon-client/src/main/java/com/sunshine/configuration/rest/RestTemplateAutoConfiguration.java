@@ -4,7 +4,6 @@ import com.netflix.loadbalancer.IPing;
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.ResponseTimeWeightedRule;
 import com.netflix.loadbalancer.Server;
-import com.sunshine.util.RestTemplateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;

@@ -1,6 +1,7 @@
 package com.sunshine.configuration.web;
 
 import annotation.JsonEncrypt;
+import com.sunshine.common.util.EncryptViewUtils;
 import com.sunshine.common.util.ManagerTokenUtil;
 import com.sunshine.common.util.Result;
 import org.apache.commons.lang.ArrayUtils;
@@ -8,7 +9,6 @@ import org.springframework.core.MethodParameter;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import com.sunshine.common.util.EncryptViewUtils;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;

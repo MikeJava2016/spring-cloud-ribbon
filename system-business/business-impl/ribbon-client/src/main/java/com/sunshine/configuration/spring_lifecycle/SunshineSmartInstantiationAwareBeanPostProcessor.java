@@ -2,7 +2,6 @@ package com.sunshine.configuration.spring_lifecycle;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.SmartInstantiationAwareBeanPostProcessor;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Constructor;
 
