@@ -1,6 +1,7 @@
 package com.sunshine.gateway.handle;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sunshine.utils.ApiResult;
 import com.sunshine.utils.Constants;
 import com.sunshine.utils.web.HttpResponseUtils;
 import lombok.extern.slf4j.Slf4j;
