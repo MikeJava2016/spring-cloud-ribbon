@@ -6,7 +6,11 @@
     <groupId>com.sunshine</groupId>
     <artifactId>ribbon-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
+    <parent>
+        <artifactId>sunshine-component</artifactId>
+        <groupId>com.sunshine</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
     <properties>
 
         <spring-boot.version>2.3.9.RELEASE</spring-boot.version>

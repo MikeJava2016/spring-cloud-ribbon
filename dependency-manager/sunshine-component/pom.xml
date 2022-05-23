@@ -17,7 +17,10 @@
         <module>mybatis-plus</module>
         <module>ribbon-common</module>
         <module>sunshine-redission</module>
+        <module>ribbon-gateway</module>
+        <module>ribbon-gateway2</module>
         <module>sunshine-spring-boot-starter</module>
+        <module>ribbon-starter</module>
     </modules>
 
     <dependencyManagement>
