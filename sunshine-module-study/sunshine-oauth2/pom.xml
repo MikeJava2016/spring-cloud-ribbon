@@ -3,20 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>spring-cloud-ribbon</artifactId>
         <groupId>com.sunshine</groupId>
         <version>0.0.1-SNAPSHOT</version>
+        <artifactId>sunshine-module-study</artifactId>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>system-business</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-
+    <artifactId>sunshine-oauth2</artifactId>
     <modules>
-        <module>business-api/ribbon-client-api</module>
-        <module>business-api/ribbon-service-api</module>
-        <module>system-common</module>
+        <module>oauth-authorization-server</module>
+        <module>oauth-resources-server</module>
     </modules>
-
 
 </project>

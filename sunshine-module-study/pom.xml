@@ -7,16 +7,16 @@
         <groupId>com.sunshine</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <artifactId>sunshine-module-study</artifactId>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>system-business</artifactId>
-    <packaging>pom</packaging>
 
     <modules>
-        <module>business-api/ribbon-client-api</module>
-        <module>business-api/ribbon-service-api</module>
-        <module>system-common</module>
+        <module>sunshine-oauth2</module>
+        <module>sunshine-security</module>
     </modules>
-
 
 </project>

@@ -9,21 +9,10 @@
     <description>Demo project for Spring Boot</description>
     <packaging>pom</packaging>
     <modules>
-        <module>ribbon-entity</module>
-        <module>ribbon-client</module>
-        <module>eureka-server</module>
-        <module>ribbon-client-api</module>
-        <module>ribbon-service-api</module>
-        <module>ribbon-service</module>
         <module>ribbon-gateway</module>
         <module>ribbon-starter</module>
-        <module>dynamic-gateway</module>
-        <module>formwork</module>
-        <module>dynamic-manage</module>
-        <module>admin-server</module>
-        <module>sunshine-oauth2</module>
         <module>system-business</module>
-        <module>business-impl</module>
+        <module>sunshine-module-study</module>
     </modules>
 
     <properties>
@@ -31,7 +20,8 @@
         <spring-boot.version>2.3.9.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
-        <spring-cloud-starter-alibaba-nacos-config.version>0.2.2.RELEASE</spring-cloud-starter-alibaba-nacos-config.version>
+        <spring-cloud-starter-alibaba-nacos-config.version>0.2.2.RELEASE
+        </spring-cloud-starter-alibaba-nacos-config.version>
         <eureka-client.version>1.10.17</eureka-client.version>
         <redisson-spring-boot-starter.version>3.12.5</redisson-spring-boot-starter.version>
 
@@ -93,9 +83,9 @@
 
         <dependencies>
             <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-parent</artifactId>
-                    <version>${spring-boot.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -208,17 +198,17 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${com.baomidou-mybatis-plus-boot-starter.version}</version>
             </dependency>
-          <!--  <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.3.2</version>
-            </dependency>-->
+            <!--  <dependency>
+                  <groupId>com.baomidou</groupId>
+                  <artifactId>mybatis-plus-generator</artifactId>
+                  <version>3.3.2</version>
+              </dependency>-->
 
-           <!-- <dependency>
-                <groupId>commons-lang</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${commons-lang3.version}</version>
-            </dependency>-->
+            <!-- <dependency>
+                 <groupId>commons-lang</groupId>
+                 <artifactId>commons-lang3</artifactId>
+                 <version>${commons-lang3.version}</version>
+             </dependency>-->
 
 
             <!--<dependency>
