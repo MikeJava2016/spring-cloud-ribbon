@@ -161,7 +161,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private String validateJwtToken(String token) {
         //解析token
-        Map<String, Object> map = JwtUtils.parseToken(token, "security");
+//        JwtUtils.parseToken(token, "security");
+        io.jsonwebtoken.Claims security = JwtUtils.parseToken(token, "security");
+        Map<String, Object> map = (Map<String, Object>) security;
         if (CollectionUtils.isEmpty(map) || map.get("uid") == null || "".equals(map.get("uid"))) {
             logger.info(" token  无效，token = {}", token);
             return "token 无效";

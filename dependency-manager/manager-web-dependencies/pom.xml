@@ -11,7 +11,7 @@
     <artifactId>manager-web-dependencies</artifactId>
     <parent>
         <groupId>com.sunshine</groupId>
-        <artifactId>depency-manager</artifactId>
+        <artifactId>dependency-manager</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <description>web项目依赖管理</description>
@@ -126,6 +126,18 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-all.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
             </dependency>
 
             <dependency>
