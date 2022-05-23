@@ -1,4 +1,4 @@
-package com.sunshine.utils;
+package com.sunshine.utils.pwd;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;

@@ -8,7 +8,7 @@ import com.sunshine.formwork.entity.RegServer;
 import com.sunshine.formwork.service.CustomConfigService;
 import com.sunshine.formwork.service.RegServerService;
 import com.sunshine.utils.Constants;
-import com.sunshine.utils.JwtTokenUtils;
+import com.sunshine.utils.pwd.JwtTokenUtils;
 import com.sunshine.utils.ApiResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;

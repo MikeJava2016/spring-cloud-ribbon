@@ -3,7 +3,7 @@ package com.sunshine.gateway.filter.factory;
 import com.alibaba.fastjson.JSONObject;
 import com.sunshine.utils.ApiResult;
 import com.sunshine.utils.Constants;
-import com.sunshine.utils.HttpResponseUtils;
+import com.sunshine.utils.web.HttpResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.gateway.filter.GatewayFilter;

@@ -1,5 +1,6 @@
 package com.sunshine.manage.exception;
 
+import com.sunshine.utils.ApiResult;
 import com.sunshine.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;

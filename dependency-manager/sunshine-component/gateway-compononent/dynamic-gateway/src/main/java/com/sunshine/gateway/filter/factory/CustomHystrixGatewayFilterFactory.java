@@ -1,7 +1,7 @@
 package com.sunshine.gateway.filter.factory;
 
-import com.sunshine.utils.HttpResponseUtils;
-import com.sunshine.utils.NetworkIpUtils;
+import com.sunshine.utils.web.HttpResponseUtils;
+import com.sunshine.utils.web.NetworkIpUtils;
 import com.sunshine.utils.RouteConstants;
 import com.sunshine.gateway.cache.RouteCache;
 import com.netflix.hystrix.HystrixCommandGroupKey;

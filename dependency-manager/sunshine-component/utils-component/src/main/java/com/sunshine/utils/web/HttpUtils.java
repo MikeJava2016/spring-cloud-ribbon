@@ -1,4 +1,4 @@
-package com.sunshine.utils;
+package com.sunshine.utils.web;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

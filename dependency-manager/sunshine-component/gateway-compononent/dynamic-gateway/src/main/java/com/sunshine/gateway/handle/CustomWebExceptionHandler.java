@@ -2,7 +2,7 @@ package com.sunshine.gateway.handle;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sunshine.utils.Constants;
-import com.sunshine.utils.HttpResponseUtils;
+import com.sunshine.utils.web.HttpResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.core.annotation.Order;

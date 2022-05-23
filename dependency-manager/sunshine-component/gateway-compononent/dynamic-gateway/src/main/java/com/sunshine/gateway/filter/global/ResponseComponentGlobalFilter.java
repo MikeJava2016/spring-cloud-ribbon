@@ -2,7 +2,7 @@ package com.sunshine.gateway.filter.global;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sunshine.utils.Constants;
-import com.sunshine.utils.NetworkIpUtils;
+import com.sunshine.utils.web.NetworkIpUtils;
 import com.sunshine.gateway.cache.RotueGroovyCache;
 import com.sunshine.gateway.service.DynamicGroovyService;
 import com.sunshine.gateway.vo.GroovyHandleData;

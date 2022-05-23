@@ -1,6 +1,6 @@
 package com.sunshine.gateway.filter.global;
 
-import com.sunshine.utils.NetworkIpUtils;
+import com.sunshine.utils.web.NetworkIpUtils;
 import com.sunshine.gateway.cache.CountCache;
 import com.sunshine.gateway.cache.RouteReqCache;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.sunshine.utils;
+package com.sunshine.utils.web;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
