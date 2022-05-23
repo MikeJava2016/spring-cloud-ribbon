@@ -1,3 +1,4 @@
+-- https://cloud.tencent.com/developer/article/1554411
 CREATE SCHEMA IF NOT EXISTS `oauth2` DEFAULT CHARACTER SET utf8 ;
 USE `oauth2` ;
 

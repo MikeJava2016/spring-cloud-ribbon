@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -21,14 +19,10 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.token.AuthenticationKeyGenerator;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
-
-import javax.sql.DataSource;
-import java.util.Collection;
 
 /**
  * @version v1
@@ -88,8 +82,6 @@ public class OauthAuthorizationServerConfig extends AuthorizationServerConfigure
         ;
     }
 
-
-
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         logger.info("configure(AuthorizationServerEndpointsConfigurer endpoints)...");
@@ -130,7 +122,7 @@ public class OauthAuthorizationServerConfig extends AuthorizationServerConfigure
         return new InMemoryAuthorizationCodeServices(){
             @Override
             protected void store(String code, OAuth2Authentication authentication) {
-                logger.debug("");
+                logger.debug("AuthorizationCodeServices store");
                 super.store(code, authentication);
             }
 

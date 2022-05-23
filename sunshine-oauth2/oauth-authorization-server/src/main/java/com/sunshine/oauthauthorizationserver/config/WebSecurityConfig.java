@@ -61,8 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         logger.info("configure(AuthenticationManagerBuilder auth)...");
         auth.inMemoryAuthentication()
-                .withUser("zhang")
-                .password(new BCryptPasswordEncoder().encode("123"))
+                .withUser("root")
+                .password(new BCryptPasswordEncoder().encode("123456"))
                 .authorities("ROOT")
         ;
     }
