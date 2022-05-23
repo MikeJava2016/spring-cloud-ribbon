@@ -4,7 +4,12 @@ import org.apache.shardingsphere.api.sharding.complex.ComplexKeysShardingAlgorit
 import org.apache.shardingsphere.api.sharding.complex.ComplexKeysShardingValue;
 
 import java.text.SimpleDateFormat;
-
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 public class UserComplexKeysShardingAlgorithm2 implements ComplexKeysShardingAlgorithm {
 
     SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
