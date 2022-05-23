@@ -2,8 +2,8 @@ package com.sunshine.manage.timer;
 
 import com.sunshine.formwork.entity.Monitor;
 import com.sunshine.formwork.service.MonitorService;
-import com.sunshine.formwork.util.Constants;
-import com.sunshine.formwork.util.RouteConstants;
+import com.sunshine.utils.Constants;
+import com.sunshine.utils.RouteConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;

@@ -1,8 +1,8 @@
 package com.sunshine.manage.filter;
 
-import com.sunshine.formwork.util.Constants;
-import com.sunshine.formwork.util.HttpResponseUtils;
-import com.sunshine.formwork.util.NetworkIpUtils;
+import com.sunshine.utils.Constants;
+import com.sunshine.utils.HttpResponseUtils;
+import com.sunshine.utils.NetworkIpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,7 +1,6 @@
 package com.sunshine.manage.exception;
 
-import com.sunshine.formwork.util.ApiResult;
-import com.sunshine.formwork.util.Constants;
+import com.sunshine.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;

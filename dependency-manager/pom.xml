@@ -20,6 +20,7 @@
         <module>manager-no-web-dependencies</module>
         <module>manager-web-dependencies</module>
         <module>sunshine-component</module>
+        <module>manager-utils-dependencies</module>
     </modules>
 
     <properties>
@@ -74,6 +75,7 @@
         <ribbon-entity.version>0.0.1-SNAPSHOT</ribbon-entity.version>
         <ribbon-api.version>0.0.1-SNAPSHOT</ribbon-api.version>
         <ribbon-common.version>0.0.1-SNAPSHOT</ribbon-common.version>
+        <sunshine-utils-component.version>0.0.1-SNAPSHOT</sunshine-utils-component.version>
     </properties>
 
 

@@ -1,4 +1,4 @@
-package com.sunshine.formwork.util;
+package com.sunshine.utils;
 
 import groovy.lang.GroovyClassLoader;
 import org.codehaus.groovy.control.CompilationFailedException;

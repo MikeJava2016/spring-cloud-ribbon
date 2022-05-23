@@ -1,9 +1,9 @@
 package com.sunshine.gateway.filter.factory;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sunshine.formwork.util.ApiResult;
-import com.sunshine.formwork.util.Constants;
-import com.sunshine.formwork.util.HttpResponseUtils;
+import com.sunshine.utils.ApiResult;
+import com.sunshine.utils.Constants;
+import com.sunshine.utils.HttpResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.gateway.filter.GatewayFilter;

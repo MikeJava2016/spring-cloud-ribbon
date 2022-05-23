@@ -3,7 +3,7 @@ package com.sunshine.formwork.service;
 import com.sunshine.formwork.base.BaseService;
 import com.sunshine.formwork.dao.GroovyScriptDao;
 import com.sunshine.formwork.entity.GroovyScript;
-import com.sunshine.formwork.util.GroovyScriptUtils;
+import com.sunshine.utils.GroovyScriptUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.springframework.stereotype.Service;

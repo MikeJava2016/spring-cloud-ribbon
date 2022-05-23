@@ -1,7 +1,7 @@
 package com.sunshine.gateway.filter.global;
 
-import com.sunshine.formwork.util.HttpResponseUtils;
-import com.sunshine.formwork.util.NetworkIpUtils;
+import com.sunshine.utils.HttpResponseUtils;
+import com.sunshine.utils.NetworkIpUtils;
 import com.sunshine.gateway.cache.RotueGroovyCache;
 import com.sunshine.gateway.service.DynamicGroovyService;
 import com.sunshine.gateway.vo.GroovyHandleData;

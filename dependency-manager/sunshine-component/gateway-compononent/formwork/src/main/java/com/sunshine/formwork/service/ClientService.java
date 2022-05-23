@@ -4,7 +4,7 @@ import com.sunshine.formwork.base.BaseService;
 import com.sunshine.formwork.dao.ClientDao;
 import com.sunshine.formwork.entity.Client;
 import com.sunshine.formwork.entity.RegServer;
-import com.sunshine.formwork.util.PageResult;
+import com.sunshine.utils.PageResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;

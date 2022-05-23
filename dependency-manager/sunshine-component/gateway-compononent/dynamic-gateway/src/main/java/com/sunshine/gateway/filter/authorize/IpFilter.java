@@ -1,6 +1,6 @@
 package com.sunshine.gateway.filter.authorize;
 
-import com.sunshine.formwork.util.NetworkIpUtils;
+import com.sunshine.utils.NetworkIpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 

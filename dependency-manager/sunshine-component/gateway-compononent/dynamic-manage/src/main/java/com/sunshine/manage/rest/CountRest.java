@@ -4,7 +4,7 @@ import com.sunshine.formwork.base.BaseRest;
 import com.sunshine.formwork.bean.CountReq;
 import com.sunshine.formwork.entity.Route;
 import com.sunshine.formwork.service.CountService;
-import com.sunshine.formwork.util.ApiResult;
+import com.sunshine.utils.ApiResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestBody;

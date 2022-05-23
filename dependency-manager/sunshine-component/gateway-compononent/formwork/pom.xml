@@ -110,6 +110,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.sunshine</groupId>
+            <artifactId>utils-component</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -117,6 +122,14 @@
             <dependency>
                 <groupId>com.sunshine</groupId>
                 <artifactId>manager-web-dependencies</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.sunshine</groupId>
+                <artifactId>manager-no-web-dependencies</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>

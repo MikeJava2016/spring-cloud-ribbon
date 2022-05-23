@@ -1,6 +1,6 @@
 package com.sunshine.formwork.config;
 
-import com.sunshine.formwork.util.Constants;
+import com.sunshine.utils.Constants;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.Formatter;
 import org.springframework.format.FormatterRegistry;

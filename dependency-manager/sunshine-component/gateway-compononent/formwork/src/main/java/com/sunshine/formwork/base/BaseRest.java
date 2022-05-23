@@ -1,6 +1,6 @@
 package com.sunshine.formwork.base;
 
-import com.sunshine.formwork.util.Constants;
+import com.sunshine.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintViolation;

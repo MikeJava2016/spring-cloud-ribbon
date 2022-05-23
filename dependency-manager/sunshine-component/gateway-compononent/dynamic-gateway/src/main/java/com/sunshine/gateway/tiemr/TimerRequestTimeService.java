@@ -1,7 +1,7 @@
 package com.sunshine.gateway.tiemr;
 
-import com.sunshine.formwork.util.RouteConstants;
 import com.sunshine.gateway.cache.RouteReqCache;
+import com.sunshine.utils.RouteConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;

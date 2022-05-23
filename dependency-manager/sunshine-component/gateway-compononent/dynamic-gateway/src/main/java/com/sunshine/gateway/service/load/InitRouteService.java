@@ -6,7 +6,7 @@ import com.sunshine.formwork.entity.LoadServer;
 import com.sunshine.formwork.entity.Route;
 import com.sunshine.formwork.service.BalancedService;
 import com.sunshine.formwork.service.LoadServerService;
-import com.sunshine.formwork.util.Constants;
+import com.sunshine.utils.Constants;
 import com.sunshine.gateway.cache.RouteCache;
 import com.sunshine.gateway.service.DynamicRouteService;
 import com.sunshine.gateway.service.LoadRouteService;

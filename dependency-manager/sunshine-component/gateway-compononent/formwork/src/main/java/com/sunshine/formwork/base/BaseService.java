@@ -1,6 +1,6 @@
 package com.sunshine.formwork.base;
 
-import com.sunshine.formwork.util.PageResult;
+import com.sunshine.utils.PageResult;
 import org.hibernate.query.internal.NativeQueryImpl;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;

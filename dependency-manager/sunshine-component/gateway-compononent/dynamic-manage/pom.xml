@@ -70,8 +70,22 @@
             <version>${ribbon-service-api.version}</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.sunshine</groupId>
+            <artifactId>utils-component</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.sunshine</groupId>
+                <artifactId>manager-no-web-dependencies</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>

@@ -2,7 +2,7 @@ package com.sunshine.gateway.service.load;
 
 import com.sunshine.formwork.entity.SecureIp;
 import com.sunshine.formwork.service.SecureIpService;
-import com.sunshine.formwork.util.Constants;
+import com.sunshine.utils.Constants;
 import com.sunshine.gateway.cache.IpListCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

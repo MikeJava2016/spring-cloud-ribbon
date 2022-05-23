@@ -2,7 +2,7 @@ package com.sunshine.gateway.cache.component.groovy;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sunshine.formwork.base.BaseGroovyService;
-import com.sunshine.formwork.util.Md5Utils;
+import com.sunshine.utils.Md5Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

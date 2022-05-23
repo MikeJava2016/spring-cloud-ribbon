@@ -3,26 +3,55 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
+        <artifactId>spring-cloud-ribbon</artifactId>
         <groupId>com.sunshine</groupId>
-        <artifactId>dependency-manager</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>utils-component</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
 
-    <artifactId>sunshine-component</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>eureka-server</module>
-        <module>gateway-compononent</module>
-        <module>mybatis-plus</module>
-        <module>ribbon-common</module>
-        <module>sunshine-redission</module>
-        <module>ribbon-gateway</module>
-        <module>ribbon-gateway2</module>
-        <module>sunshine-spring-boot-starter</module>
-        <module>ribbon-starter</module>
-        <module>utils-component</module>
-    </modules>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>

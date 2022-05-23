@@ -5,7 +5,7 @@ package com.sunshine.gateway.config;
 import com.sunshine.formwork.config.ApplicationContextProvider;
 import com.sunshine.formwork.dao.RouteDao;
 import com.sunshine.formwork.entity.Route;
-import com.sunshine.formwork.util.Constants;
+import com.sunshine.utils.Constants;
 import com.sunshine.gateway.cache.RouteCache;
 import com.sunshine.gateway.filter.ClientIdGatewayFilter;
 import com.sunshine.gateway.filter.IpGatewayFilter;

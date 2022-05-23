@@ -1,4 +1,4 @@
-package com.sunshine.formwork.util;
+package com.sunshine.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;

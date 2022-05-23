@@ -1,4 +1,4 @@
-package com.sunshine.formwork.util;
+package com.sunshine.utils;
 
 /**
  * @Description 常量类

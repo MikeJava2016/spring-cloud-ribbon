@@ -1,8 +1,8 @@
 package com.sunshine.gateway.filter;
 
-import com.sunshine.formwork.util.HttpResponseUtils;
-import com.sunshine.formwork.util.NetworkIpUtils;
-import com.sunshine.formwork.util.RouteConstants;
+import com.sunshine.utils.HttpResponseUtils;
+import com.sunshine.utils.NetworkIpUtils;
+import com.sunshine.utils.RouteConstants;
 import com.sunshine.gateway.cache.RegServerCache;
 import com.sunshine.gateway.vo.GatewayRegServer;
 import lombok.extern.slf4j.Slf4j;

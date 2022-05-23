@@ -3,7 +3,7 @@ package com.sunshine.formwork.service;
 import com.sunshine.formwork.base.BaseService;
 import com.sunshine.formwork.dao.SecureIpDao;
 import com.sunshine.formwork.entity.SecureIp;
-import com.sunshine.formwork.util.PageResult;
+import com.sunshine.utils.PageResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,10 @@
 package com.sunshine.gateway.service;
 
+import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.HystrixCommandKey;
+import com.netflix.hystrix.HystrixCommandProperties;
+import com.netflix.hystrix.HystrixObservableCommand;
 import com.sunshine.formwork.entity.Route;
-import com.sunshine.formwork.util.Constants;
-import com.sunshine.formwork.util.RouteConstants;
 import com.sunshine.gateway.filter.ClientIdGatewayFilter;
 import com.sunshine.gateway.filter.IpGatewayFilter;
 import com.sunshine.gateway.filter.TokenGatewayFilter;
@@ -10,10 +12,8 @@ import com.sunshine.gateway.vo.GatewayFilterDefinition;
 import com.sunshine.gateway.vo.GatewayPredicateDefinition;
 import com.sunshine.gateway.vo.GatewayRouteConfig;
 import com.sunshine.gateway.vo.GatewayRouteDefinition;
-import com.netflix.hystrix.HystrixCommandGroupKey;
-import com.netflix.hystrix.HystrixCommandKey;
-import com.netflix.hystrix.HystrixCommandProperties;
-import com.netflix.hystrix.HystrixObservableCommand;
+import com.sunshine.utils.Constants;
+import com.sunshine.utils.RouteConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,7 +27,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.Resource;
 import java.net.URI;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Description 将数据转换为Gateway网关需要数据格式，并返回服务路由对象

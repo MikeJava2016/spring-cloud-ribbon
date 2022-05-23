@@ -40,6 +40,12 @@
                     <version>${mybatis-spring-boot-starter.version}</version>
                 </dependency>
 
+                <dependency>
+                    <groupId>com.sunshine</groupId>
+                    <artifactId>utils-component</artifactId>
+                    <version>${sunshine-utils-component.version}</version>
+                </dependency>
+
             </dependencies>
         </dependencyManagement>
 

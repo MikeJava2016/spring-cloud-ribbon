@@ -5,7 +5,7 @@ import com.sunshine.formwork.entity.ApiDoc;
 import com.sunshine.formwork.entity.Route;
 import com.sunshine.formwork.service.ApiDocService;
 import com.sunshine.formwork.service.RouteService;
-import com.sunshine.formwork.util.ApiResult;
+import com.sunshine.utils.ApiResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestBody;
