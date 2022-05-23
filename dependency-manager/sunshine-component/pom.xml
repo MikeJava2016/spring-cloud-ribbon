@@ -16,7 +16,6 @@
         <module>gateway-compononent</module>
         <module>mybatis-plus</module>
         <module>ribbon-common</module>
-        <module>sunshine-sharding-jdbc</module>
         <module>sunshine-redission</module>
         <module>sunshine-spring-boot-starter</module>
     </modules>

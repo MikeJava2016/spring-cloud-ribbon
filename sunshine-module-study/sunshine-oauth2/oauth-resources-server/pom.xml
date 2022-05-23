@@ -6,6 +6,7 @@
     <artifactId>oauth-resources-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>oauth-resources-server</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
     <parent>
         <artifactId>sunshine-oauth2</artifactId>

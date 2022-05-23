@@ -10,12 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>system-business</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>business-api/ribbon-client-api</module>
-        <module>business-api/ribbon-service-api</module>
         <module>system-common</module>
+        <module>business-api</module>
+        <module>business-impl</module>
     </modules>
 
 
