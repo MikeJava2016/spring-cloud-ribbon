@@ -14,25 +14,25 @@ import java.io.Serializable;
 /**
  * @Author: huzhanglin
  * @Date: 2022-05-22
- * @Description: 
+ * @Description:
  */
 @Data
 @TableName("user_role")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Accessors(chain = true)
-@ApiModel(value="UserRoleModel对象", description="")
+@ApiModel(value = "UserRoleModel对象", description = "")
 public class UserRoleModel implements Serializable {
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-                @TableId(value = "id", type = IdType.AUTO)
-                private Integer id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     @TableField("uid")
-        private Integer uid;
+    private Integer uid;
 
     @TableField("rid")
-        private Integer rid;
+    private Integer rid;
 
 
-        }
+}

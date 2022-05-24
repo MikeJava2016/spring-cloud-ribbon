@@ -2,13 +2,15 @@ package com.sunshine.security.config.phoneNumber;
 
 import com.sunshine.security.entity.LoginUser;
 import com.sunshine.security.entity.SysUser;
-import com.sunshine.security.service.UserService;
+import com.sunshine.security.entity.UserModel;
+import com.sunshine.security.service.RoleService;
+import com.sunshine.security.service.UserModelService;
+import com.sunshine.security.service.UserRoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @version v1
@@ -29,36 +32,28 @@ public class SmsCodeUserDetailsService implements UserDetailsService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private UserService userService;
+    private UserModelService userModelService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private UserRoleService userRoleService;
 
-    /*  @Autowired
-      private RoleService roleService;
-      @Autowired
-      private UserRoleService userRoleService;
-  */
     @Override
     public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("admin"));
-        // 从数据库中取出用户信息
-        User user = userService.queryByPhoneNumber(phone);
-        // 判断用户是否存在
-        if (user == null) {
-            throw new UsernameNotFoundException("用户名不存在");
+        UserModel userModel = userModelService.getByPhone(phone);
+        if (userModel == null) {
+            logger.error(" 手机号不存在 phone = {}", phone);
+            throw new UsernameNotFoundException("手机号不存在");
         }
-
-        // 添加权限
-      /* List<UserRole> userRoles = userRoleService.listByUserId(user.getId());
-        for (UserRole userRole : userRoles) {
-            Role role = roleService.selectById(userRole.getRoleId());
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        }*/
-        // 返回UserDetails实现类
+        List<String> roles = userModelService.getRoleNames(userModel.getId());
+        final Collection<GrantedAuthority> authorities = new ArrayList<>();
+        if (roles.size() > 0) {
+            roles.stream().forEach(oname -> authorities.add(new SimpleGrantedAuthority(oname)));
+        }
         SysUser sysUser = new SysUser();
-        sysUser.setUsername("huzhanglin");
-        sysUser.setId("23");
-        sysUser.setUsername(user.getUsername());
-        sysUser.setPassword(user.getPassword());
+        sysUser.setUsername(userModel.getUsername());
+        sysUser.setId(userModel.getId().toString());
+        sysUser.setUsername(userModel.getUsername());
         return new LoginUser(sysUser, authorities);
     }
 }

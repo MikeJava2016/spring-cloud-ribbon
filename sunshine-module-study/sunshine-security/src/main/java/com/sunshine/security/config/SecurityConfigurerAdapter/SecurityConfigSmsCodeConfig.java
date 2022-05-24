@@ -1,10 +1,10 @@
 package com.sunshine.security.config.SecurityConfigurerAdapter;
 
+import com.sunshine.common.util.web.PropertyUtils;
 import com.sunshine.security.config.common.CommonSpringSecurity;
 import com.sunshine.security.config.phoneNumber.SmsCodeAuthenticationSecurityConfig;
 import com.sunshine.security.config.phoneNumber.SmsCodeValidateFilter;
 import com.sunshine.security.web.filter.ReadRequestBodyFilter;
-import com.sunshine.common.util.web.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +96,8 @@ public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests() // 设置哪些页面可以直接访问，哪些需要验证
                 .antMatchers(customerExcludePath.split(",")).permitAll()  // 放过
                 .and()
+
+
 
 //                .antMatcher("/captchImage").anonymous() // 允许访问
 //                .and()
