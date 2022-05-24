@@ -1,4 +1,4 @@
-package com.sunshine.security.config;
+package com.sunshine.security.config.common;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,11 +1,10 @@
-package com.sunshine.security.config;
+package com.sunshine.security.config.common;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sunshine.common.util.web.ApplicationContextUtils;
 import com.sunshine.common.util.web.PropertyUtils;
-import com.sunshine.security.config.common.CommonSpringSecurity;
-import com.sunshine.security.config.phoneNumber.PhoneNumerAuthenticationToken;
+import com.sunshine.security.config.phoneNumber.PhoneNumberAuthenticationToken;
 import com.sunshine.utils.pwd.JwtTokenUtils;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
@@ -154,7 +153,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 authorityList.add(new SimpleGrantedAuthority(authority));
             }
         }
-        PhoneNumerAuthenticationToken.SmsCodeAuthenticationTokenBuilder builder = new PhoneNumerAuthenticationToken.SmsCodeAuthenticationTokenBuilder();
+        PhoneNumberAuthenticationToken.SmsCodeAuthenticationTokenBuilder builder = new PhoneNumberAuthenticationToken.SmsCodeAuthenticationTokenBuilder();
         AuthenticationToken authenticationToken = builder.username(username)
                 .mobile(mobile)
                 .uid(uid)
@@ -171,8 +170,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             return "token 无效";
         }
         logger.info(" uid = {}", value);
-        //根据userId在redis中获取用户信息
-        // LoginUser loginUser = redisCache.getCacheObject("login:" + userId);
         return null;
     }
 }

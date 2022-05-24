@@ -1,6 +1,6 @@
 package com.sunshine.security.config.phoneNumber;
 
-import com.sunshine.security.config.AuthenticationToken;
+import com.sunshine.security.config.common.AuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +14,7 @@ import java.util.Collection;
  * @Author huzhanglin
  * @Date 2022/5/20 21:30
  **/
-public class PhoneNumerAuthenticationToken extends AuthenticationToken {
+public class PhoneNumberAuthenticationToken extends AuthenticationToken {
 
     private String mobile;
 
@@ -30,7 +30,7 @@ public class PhoneNumerAuthenticationToken extends AuthenticationToken {
     /**
      * 构建一个没有鉴权的 SmsCodeAuthenticationToken
      */
-    private PhoneNumerAuthenticationToken(Object principal, final String username, final String uid) {
+    private PhoneNumberAuthenticationToken(Object principal, final String username, final String uid) {
         super(username, uid, principal, null);
         // must use super, as we override
         setAuthenticated(false);
@@ -39,7 +39,7 @@ public class PhoneNumerAuthenticationToken extends AuthenticationToken {
     /**
      * 构建拥有鉴权的 SmsCodeAuthenticationToken
      */
-    private PhoneNumerAuthenticationToken(Collection<? extends GrantedAuthority> authorities, final Object principal, final String username, final String uid) {
+    private PhoneNumberAuthenticationToken(Collection<? extends GrantedAuthority> authorities, final Object principal, final String username, final String uid) {
         super(username, uid, principal, authorities);
         // must use super, as we override
         super.setAuthenticated(true);
@@ -129,11 +129,11 @@ public class PhoneNumerAuthenticationToken extends AuthenticationToken {
          *
          * @return
          */
-        public PhoneNumerAuthenticationToken noAuthenticatedbuilder() {
-            PhoneNumerAuthenticationToken phoneNumerAuthenticationToken = new PhoneNumerAuthenticationToken(principal, username, uid);
-            phoneNumerAuthenticationToken.setMobile(mobile);
-            phoneNumerAuthenticationToken.setDetails(userDetails);
-            return phoneNumerAuthenticationToken;
+        public PhoneNumberAuthenticationToken noAuthenticatedbuilder() {
+            PhoneNumberAuthenticationToken phoneNumberAuthenticationToken = new PhoneNumberAuthenticationToken(principal, username, uid);
+            phoneNumberAuthenticationToken.setMobile(mobile);
+            phoneNumberAuthenticationToken.setDetails(userDetails);
+            return phoneNumberAuthenticationToken;
         }
 
         /**
@@ -142,11 +142,11 @@ public class PhoneNumerAuthenticationToken extends AuthenticationToken {
          * @param authorities
          * @return
          */
-        public PhoneNumerAuthenticationToken authenticatedbuilder(Collection<? extends GrantedAuthority> authorities) {
-            PhoneNumerAuthenticationToken phoneNumerAuthenticationToken = new PhoneNumerAuthenticationToken(authorities, principal, username, uid);
-            phoneNumerAuthenticationToken.setMobile(mobile);
-            phoneNumerAuthenticationToken.setDetails(userDetails);
-            return phoneNumerAuthenticationToken;
+        public PhoneNumberAuthenticationToken authenticatedbuilder(Collection<? extends GrantedAuthority> authorities) {
+            PhoneNumberAuthenticationToken phoneNumberAuthenticationToken = new PhoneNumberAuthenticationToken(authorities, principal, username, uid);
+            phoneNumberAuthenticationToken.setMobile(mobile);
+            phoneNumberAuthenticationToken.setDetails(userDetails);
+            return phoneNumberAuthenticationToken;
         }
 
         /**
@@ -155,15 +155,15 @@ public class PhoneNumerAuthenticationToken extends AuthenticationToken {
          * @param authorities
          * @return
          */
-        public PhoneNumerAuthenticationToken authenticatedbuilder2(Collection<String> authorities) {
+        public PhoneNumberAuthenticationToken authenticatedbuilder2(Collection<String> authorities) {
             Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
             authorities.forEach(one -> {
                 grantedAuthorities.add(new SimpleGrantedAuthority(one));
             });
-            PhoneNumerAuthenticationToken phoneNumerAuthenticationToken = new PhoneNumerAuthenticationToken(grantedAuthorities, principal, username, uid);
-            phoneNumerAuthenticationToken.setMobile(mobile);
-            phoneNumerAuthenticationToken.setDetails(userDetails);
-            return phoneNumerAuthenticationToken;
+            PhoneNumberAuthenticationToken phoneNumberAuthenticationToken = new PhoneNumberAuthenticationToken(grantedAuthorities, principal, username, uid);
+            phoneNumberAuthenticationToken.setMobile(mobile);
+            phoneNumberAuthenticationToken.setDetails(userDetails);
+            return phoneNumberAuthenticationToken;
         }
 
         /**
@@ -172,11 +172,11 @@ public class PhoneNumerAuthenticationToken extends AuthenticationToken {
          * @param
          * @return
          */
-        public PhoneNumerAuthenticationToken authenticatedbuilder() {
-            PhoneNumerAuthenticationToken phoneNumerAuthenticationToken = new PhoneNumerAuthenticationToken(null, principal, username, uid);
-            phoneNumerAuthenticationToken.setMobile(mobile);
-            phoneNumerAuthenticationToken.setDetails(userDetails);
-            return phoneNumerAuthenticationToken;
+        public PhoneNumberAuthenticationToken authenticatedbuilder() {
+            PhoneNumberAuthenticationToken phoneNumberAuthenticationToken = new PhoneNumberAuthenticationToken(null, principal, username, uid);
+            phoneNumberAuthenticationToken.setMobile(mobile);
+            phoneNumberAuthenticationToken.setDetails(userDetails);
+            return phoneNumberAuthenticationToken;
         }
 
         public SmsCodeAuthenticationTokenBuilder userDetails(UserDetails userDetails) {

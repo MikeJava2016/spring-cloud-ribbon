@@ -54,7 +54,7 @@ public class PhoneNumberAuthenticationFilter extends AbstractAuthenticationProce
         String mobile = getMobile(jsonObject, mobileParameter);
 
 
-        PhoneNumerAuthenticationToken authRequest = new PhoneNumerAuthenticationToken.SmsCodeAuthenticationTokenBuilder()
+        PhoneNumberAuthenticationToken authRequest = new PhoneNumberAuthenticationToken.SmsCodeAuthenticationTokenBuilder()
                 .mobile(mobile)
                 .noAuthenticatedbuilder();
 
@@ -71,7 +71,7 @@ public class PhoneNumberAuthenticationFilter extends AbstractAuthenticationProce
         return mobile;
     }
 
-    protected void setDetails(HttpServletRequest request, PhoneNumerAuthenticationToken authRequest) {
+    protected void setDetails(HttpServletRequest request, PhoneNumberAuthenticationToken authRequest) {
         authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
     }
 

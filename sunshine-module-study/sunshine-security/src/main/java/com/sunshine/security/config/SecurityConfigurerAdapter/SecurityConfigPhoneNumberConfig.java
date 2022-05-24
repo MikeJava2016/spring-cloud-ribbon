@@ -31,14 +31,15 @@ import java.util.List;
 
 /**
  * @version v1
- * @Description 短信验证登录配置类   业务比较复杂，我们也可以配置多个 HttpSecurity，实现对 WebSecurityConfigurerAdapter 的多次扩展
+ * @Description 短信验证登录配置类   业务比较复杂，我们也可以配置多个 HttpSecurity，
+ * 实现对 WebSecurityConfigurerAdapter 的多次扩展
  * @Author huzhanglin
  * @Date 2022/5/20 12:34
  **/
 @Configuration
 @EnableWebSecurity
 @Order(100)
-public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfigPhoneNumberConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ObjectPostProcessor postProcessor;
@@ -61,7 +62,7 @@ public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
      */
     private static final String CUSTOMER_EXCLUDE_PATH = "customer_exclude_path";
 
-    private static final Logger logger = LoggerFactory.getLogger(SecurityConfigSmsCodeConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfigPhoneNumberConfig.class);
 
     @Autowired
     private SmsCodeValidateFilter smsCodeValidateFilter;
@@ -69,8 +70,7 @@ public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PhoneNumnerUserDetailsService phoneNumnerUserDetailsService;
 
-    String customerExcludePath = PropertyUtils.getPropertiesValue(SPRING_SECURITY_CUSTOMER_PROPERTIES, CUSTOMER_EXCLUDE_PATH, "");
-
+    private String customerExcludePath = PropertyUtils.getPropertiesValue(SPRING_SECURITY_CUSTOMER_PROPERTIES, CUSTOMER_EXCLUDE_PATH, "");
 
     @Autowired
     private List<AuthenticationProvider> authenticationProviders;
@@ -78,7 +78,6 @@ public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         AuthenticationManagerBuilder builder = new AuthenticationManagerBuilder(postProcessor);
-
         super.configure(auth);
     }
 
@@ -90,7 +89,6 @@ public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
-
         web.ignoring()
                 .antMatchers(BASE_EXCLUDE_PATH.split(","))
                 .antMatchers(customerExcludePath.split(","));
@@ -158,15 +156,14 @@ public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
     @Bean
     HttpFirewall httpFirewall() {
         StrictHttpFirewall firewall = new StrictHttpFirewall();
-//        你希望请求地址中可以出现 //
+        //你希望请求地址中可以出现 //
         firewall.setAllowUrlEncodedDoubleSlash(false);
-//        如果请求地址中出现 %，这个请求也将被拒绝。URL 编码后的 % 是 %25，所以 %25 也不能出现在 URL 地址中。
+        //如果请求地址中出现 %，这个请求也将被拒绝。URL 编码后的 % 是 %25，所以 %25 也不能出现在 URL 地址中。
         firewall.setAllowUrlEncodedPercent(true);
-
         firewall.setAllowBackSlash(true);
         firewall.setAllowUrlEncodedSlash(true);
-//        请求地址中存在 . 编码之后的字符 %2e、%2E,则请求将被拒绝。
-//        firewall.setAllowUrlEncodedPeriod(true);
+        //请求地址中存在 . 编码之后的字符 %2e、%2E,则请求将被拒绝。
+        //firewall.setAllowUrlEncodedPeriod(true);
         return firewall;
     }
 

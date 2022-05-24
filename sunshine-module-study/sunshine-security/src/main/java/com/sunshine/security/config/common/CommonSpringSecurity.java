@@ -5,7 +5,7 @@ import com.sunshine.common.util.JsonMapper;
 import com.sunshine.common.util.Result;
 import com.sunshine.common.util.web.ApplicationContextUtils;
 import com.sunshine.common.util.web.PropertyUtils;
-import com.sunshine.security.config.phoneNumber.PhoneNumerAuthenticationToken;
+import com.sunshine.security.config.phoneNumber.PhoneNumberAuthenticationToken;
 import com.sunshine.utils.pwd.JwtTokenUtils;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
@@ -94,9 +94,9 @@ public class CommonSpringSecurity {
         logger.info("登录成功");
         Object principal = authentication.getPrincipal();
         String uid = "0";
-        if (authentication instanceof PhoneNumerAuthenticationToken) {
-            PhoneNumerAuthenticationToken phoneNumerAuthenticationToken = (PhoneNumerAuthenticationToken) authentication;
-            uid = phoneNumerAuthenticationToken.getUid();
+        if (authentication instanceof PhoneNumberAuthenticationToken) {
+            PhoneNumberAuthenticationToken phoneNumberAuthenticationToken = (PhoneNumberAuthenticationToken) authentication;
+            uid = phoneNumberAuthenticationToken.getUid();
         }
         String jwtToken = JwtTokenUtils.createToken(uid, 60*60*24, "123456");
         logger.info(" jjwt 加密 token = {}",jwtToken);

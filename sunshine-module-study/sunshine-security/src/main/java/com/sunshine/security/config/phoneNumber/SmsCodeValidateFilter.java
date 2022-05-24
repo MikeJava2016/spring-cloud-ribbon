@@ -89,12 +89,6 @@ public class SmsCodeValidateFilter extends OncePerRequestFilter {
             throw new UsernameNotFoundException("短信验证码不能为空");
         }
 
-         /*
-
-        if (!codeInSession.getPhoneNumber().equals(mobileInRequest)) {
-            logger.error("SmsCodeValidateFilter--->" + "短信发送目标与您输入的手机号不一致");
-            throw new SessionAuthenticationException("短信发送目标与您输入的手机号不一致");
-        }*/
         RBucket<String> bucket = redissonClient.getBucket("smscode" + ":" + mobileInRequest);
         String cacheSmsCode = bucket.get();
         if (cacheSmsCode ==null){

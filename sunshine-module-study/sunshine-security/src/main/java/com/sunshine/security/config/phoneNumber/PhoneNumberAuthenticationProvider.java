@@ -34,7 +34,7 @@ public class PhoneNumberAuthenticationProvider implements AuthenticationProvider
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        PhoneNumerAuthenticationToken authenticationToken = (PhoneNumerAuthenticationToken) authentication;
+        PhoneNumberAuthenticationToken authenticationToken = (PhoneNumberAuthenticationToken) authentication;
 
         String mobile =  authenticationToken.getMobile();
         UserDetails userDetails = userDetailsService.loadUserByUsername(mobile);
@@ -47,7 +47,7 @@ public class PhoneNumberAuthenticationProvider implements AuthenticationProvider
         // 此时鉴权成功后，应当重新 new 一个拥有鉴权的 authenticationResult 返回
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
 
-        PhoneNumerAuthenticationToken authenticationResult = new PhoneNumerAuthenticationToken.SmsCodeAuthenticationTokenBuilder()
+        PhoneNumberAuthenticationToken authenticationResult = new PhoneNumberAuthenticationToken.SmsCodeAuthenticationTokenBuilder()
                 .username(loginUser.getUsername())
                 .uid(loginUser.getSysUser().getId())
                 .userDetails(userDetails)
@@ -59,6 +59,6 @@ public class PhoneNumberAuthenticationProvider implements AuthenticationProvider
     @Override
     public boolean supports(Class<?> authentication) {
         // 判断 authentication 是不是 SmsCodeAuthenticationToken 的子类或子接口
-        return PhoneNumerAuthenticationToken.class.isAssignableFrom(authentication);
+        return PhoneNumberAuthenticationToken.class.isAssignableFrom(authentication);
     }
 }

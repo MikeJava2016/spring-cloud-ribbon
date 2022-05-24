@@ -1,4 +1,4 @@
-package com.sunshine.security.config;
+package com.sunshine.security.config.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
