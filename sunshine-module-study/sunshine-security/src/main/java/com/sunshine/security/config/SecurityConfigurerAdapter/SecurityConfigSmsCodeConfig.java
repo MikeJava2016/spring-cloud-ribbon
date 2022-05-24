@@ -2,8 +2,9 @@ package com.sunshine.security.config.SecurityConfigurerAdapter;
 
 import com.sunshine.common.util.web.PropertyUtils;
 import com.sunshine.security.config.common.CommonSpringSecurity;
-import com.sunshine.security.config.phoneNumber.SmsCodeAuthenticationSecurityConfig;
+import com.sunshine.security.config.phoneNumber.PhoneNumberAuthenticationFilter;
 import com.sunshine.security.config.phoneNumber.SmsCodeValidateFilter;
+import com.sunshine.security.service.impl.PhoneNumnerUserDetailsService;
 import com.sunshine.security.web.filter.ReadRequestBodyFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,14 +12,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
+
+import java.util.List;
 
 /**
  * @version v1
@@ -30,6 +39,13 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 @EnableWebSecurity
 @Order(100)
 public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private ObjectPostProcessor postProcessor;
+
+    private String smsLoginPath = "/sms/login";
+
+    private String method = "POST";
 
     /**
      * 不需要权限
@@ -48,25 +64,23 @@ public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfigSmsCodeConfig.class);
 
     @Autowired
-    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+    private SmsCodeValidateFilter smsCodeValidateFilter;
 
     @Autowired
-    private SmsCodeValidateFilter smsCodeValidateFilter;
+    private PhoneNumnerUserDetailsService phoneNumnerUserDetailsService;
 
     String customerExcludePath = PropertyUtils.getPropertiesValue(SPRING_SECURITY_CUSTOMER_PROPERTIES, CUSTOMER_EXCLUDE_PATH, "");
 
 
-    /*@Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    private List<AuthenticationProvider> authenticationProviders;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("123").roles("admin");
-    }*/
+        AuthenticationManagerBuilder builder = new AuthenticationManagerBuilder(postProcessor);
+
+        super.configure(auth);
+    }
 
     /**
      * 用来配置忽略掉的 URL 地址，一般对于静态文件，我们可以采用此操作。
@@ -84,19 +98,17 @@ public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         // 带token的跨域访问完美解决
-        http
-                .cors().configurationSource(CommonSpringSecurity.corsConfigurationSource("/**"));
-        http.addFilterBefore(new ReadRequestBodyFilter(), WebAsyncManagerIntegrationFilter.class);
-        // 添加拦截器
-        http.addFilterBefore(smsCodeValidateFilter, UsernamePasswordAuthenticationFilter.class);
+        http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.cors().configurationSource(CommonSpringSecurity.corsConfigurationSource("/**"));
+
         http.authorizeRequests() // 设置哪些页面可以直接访问，哪些需要验证
                 .antMatchers(BASE_EXCLUDE_PATH.split(",")).permitAll()  // 放过
                 .and()
                 .authorizeRequests() // 设置哪些页面可以直接访问，哪些需要验证
                 .antMatchers(customerExcludePath.split(",")).permitAll()  // 放过
                 .and()
-
 
 
 //                .antMatcher("/captchImage").anonymous() // 允许访问
@@ -113,6 +125,7 @@ public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(CommonSpringSecurity.AUTHENTICATION_SUCCESS_HANDLER)
                 //  登录失败
                 .failureHandler(CommonSpringSecurity.AUTHENTICATION_FAILURE_HANDLER)
+                .defaultSuccessUrl("/1", false)
 //        注销登录
                 .and()
                 .logout()
@@ -125,7 +138,21 @@ public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(CommonSpringSecurity.AUTHENTICATION_ENTRY_POINT);
-        http.apply(smsCodeAuthenticationSecurityConfig);
+//        http.apply(smsCodeAuthenticationSecurityConfig);
+
+        // 短信登录的请求 post 方式的 /sms/login
+        AuthenticationManager authenticationManager = new ProviderManager(authenticationProviders);
+        PhoneNumberAuthenticationFilter phoneNumberAuthenticationFilter = new PhoneNumberAuthenticationFilter(smsLoginPath, method, authenticationManager);
+
+        // 处理成功
+        phoneNumberAuthenticationFilter.setAuthenticationSuccessHandler(CommonSpringSecurity.AUTHENTICATION_SUCCESS_HANDLER);
+        //登录失败响应
+        phoneNumberAuthenticationFilter.setAuthenticationFailureHandler(CommonSpringSecurity.AUTHENTICATION_FAILURE_HANDLER);
+
+        // 注意过滤器的顺序
+        http.addFilterBefore(new ReadRequestBodyFilter(), WebAsyncManagerIntegrationFilter.class);
+        http.addFilterBefore(smsCodeValidateFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(phoneNumberAuthenticationFilter, SmsCodeValidateFilter.class);
     }
 
     @Bean
@@ -142,5 +169,6 @@ public class SecurityConfigSmsCodeConfig extends WebSecurityConfigurerAdapter {
 //        firewall.setAllowUrlEncodedPeriod(true);
         return firewall;
     }
+
 
 }

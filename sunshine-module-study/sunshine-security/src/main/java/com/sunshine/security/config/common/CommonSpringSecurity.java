@@ -2,16 +2,21 @@ package com.sunshine.security.config.common;
 
 import cn.hutool.json.JSONUtil;
 import com.sunshine.common.util.JsonMapper;
-import com.sunshine.common.util.web.PropertyUtils;
-import com.sunshine.security.config.phoneNumber.SmsCodeAuthenticationSecurityConfig;
-import com.sunshine.security.config.phoneNumber.SmsCodeAuthenticationToken;
-import com.sunshine.common.util.JwtUtils;
 import com.sunshine.common.util.Result;
 import com.sunshine.common.util.web.ApplicationContextUtils;
+import com.sunshine.common.util.web.PropertyUtils;
+import com.sunshine.security.config.phoneNumber.PhoneNumerAuthenticationToken;
+import com.sunshine.utils.pwd.JwtTokenUtils;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AccountExpiredException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -53,13 +58,30 @@ public class CommonSpringSecurity {
         return source;
     }
 
+    public static String getString(AuthenticationException e, String mes) {
+        if (e instanceof LockedException) {
+            mes = "账户被锁定，请联系管理员!";
+        } else if (e instanceof CredentialsExpiredException) {
+            mes = "密码过期，请联系管理员!";
+        } else if (e instanceof AccountExpiredException) {
+            mes = "账户过期，请联系管理员!";
+        } else if (e instanceof DisabledException) {
+            mes = "账户被禁用，请联系管理员!";
+        } else if (e instanceof BadCredentialsException) {
+            mes = "用户名或者密码输入错误，请重新输入!";
+        }else {
+            mes = e.getMessage();
+        }
+        return mes;
+    }
+
     /**
      * 登录失
      */
     public static final AuthenticationFailureHandler AUTHENTICATION_FAILURE_HANDLER = (req, resp, e) -> {
         String mes = "";
         logger.error("登录失败", e);
-        mes = SmsCodeAuthenticationSecurityConfig.getString(e, mes);
+        mes = getString(e, mes);
         logger.error("error:", e);
         failResponse(resp, mes, null, null);
     };
@@ -69,17 +91,19 @@ public class CommonSpringSecurity {
      * 登录成功
      */
     public static final AuthenticationSuccessHandler AUTHENTICATION_SUCCESS_HANDLER = (req, resp, authentication) -> {
+        logger.info("登录成功");
         Object principal = authentication.getPrincipal();
         String uid = "0";
-        if (authentication instanceof SmsCodeAuthenticationToken) {
-            SmsCodeAuthenticationToken smsCodeAuthenticationToken = (SmsCodeAuthenticationToken) authentication;
-            uid = smsCodeAuthenticationToken.getUid();
+        if (authentication instanceof PhoneNumerAuthenticationToken) {
+            PhoneNumerAuthenticationToken phoneNumerAuthenticationToken = (PhoneNumerAuthenticationToken) authentication;
+            uid = phoneNumerAuthenticationToken.getUid();
         }
-        String token = JwtUtils.createToken(uid, "security", null);
+        String jwtToken = JwtTokenUtils.createToken(uid, 60*60*24, "123456");
+        logger.info(" jjwt 加密 token = {}",jwtToken);
         RedissonClient redissonClient = ApplicationContextUtils.getBean(RedissonClient.class);
         Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
-        redissonClient.getBucket(token).set(JsonMapper.toJsonString(authentication1), Integer.parseInt(token_invalidate), TimeUnit.MINUTES);
-        successResponse(resp, "登录成功", token, null);
+        redissonClient.getBucket(jwtToken).set(JsonMapper.toJsonString(authentication1), Integer.parseInt(token_invalidate), TimeUnit.MINUTES);
+        successResponse(resp, "登录成功", jwtToken, null);
     };
     /**
      * 注销成功

@@ -1,3 +1,4 @@
+/*
 package com.sunshine.security.config.SecurityConfigurerAdapter;
 
 import com.sunshine.security.config.annotation.IgnoreAuth;
@@ -6,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.method.HandlerMethod;
@@ -15,30 +15,33 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import java.util.Map;
 
-/**
+*
  * @version v1
  * @Description 注解相关  功能没有实现
  * @Author huzhanglin
  * @Date 2022/5/22 10:08
- **/
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+ *
+
+//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @Order(0)
 public class AnnotationWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    /**
+*
      * 在这里使用Spring为我们提供的RequestMappingHandlerMapping类，
      * 我们可以通过requestMappingHandlerMapping.getHandlerMethods();获取到所有的RequestMappingInfo信息。
-     */
+
+
     @Autowired
     private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
-    /**
+*
      * @ description: 使用这种方式放行的接口，不走 Spring Security 过滤器链，
      * 无法通过 SecurityContextHolder 获取到登录用户信息的，
      * 因为它一开始没经过 SecurityContextPersistenceFilter 过滤器链。
-     */
+
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         WebSecurity and = web.ignoring().and();
@@ -80,3 +83,4 @@ public class AnnotationWebSecurityConfigurerAdapter extends WebSecurityConfigure
         });
     }
 }
+*/

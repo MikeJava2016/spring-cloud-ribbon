@@ -10,15 +10,14 @@ import java.util.Collection;
 
 /**
  * @version v1
- * @Description 短信验证吗
+ * @Description 手机号校验
  * @Author huzhanglin
  * @Date 2022/5/20 21:30
  **/
-public class SmsCodeAuthenticationToken extends AuthenticationToken {
+public class PhoneNumerAuthenticationToken extends AuthenticationToken {
 
     private String mobile;
 
-    private String smsCode;
 
     public String getMobile() {
         return mobile;
@@ -28,18 +27,10 @@ public class SmsCodeAuthenticationToken extends AuthenticationToken {
         this.mobile = mobile;
     }
 
-    public String getSmsCode() {
-        return smsCode;
-    }
-
-    public void setSmsCode(String smsCode) {
-        this.smsCode = smsCode;
-    }
-
     /**
      * 构建一个没有鉴权的 SmsCodeAuthenticationToken
      */
-    private SmsCodeAuthenticationToken(Object principal, final String username, final String uid) {
+    private PhoneNumerAuthenticationToken(Object principal, final String username, final String uid) {
         super(username, uid, principal, null);
         // must use super, as we override
         setAuthenticated(false);
@@ -48,7 +39,7 @@ public class SmsCodeAuthenticationToken extends AuthenticationToken {
     /**
      * 构建拥有鉴权的 SmsCodeAuthenticationToken
      */
-    private SmsCodeAuthenticationToken(Collection<? extends GrantedAuthority> authorities, final Object principal, final String username, final String uid) {
+    private PhoneNumerAuthenticationToken(Collection<? extends GrantedAuthority> authorities, final Object principal, final String username, final String uid) {
         super(username, uid, principal, authorities);
         // must use super, as we override
         super.setAuthenticated(true);
@@ -95,11 +86,6 @@ public class SmsCodeAuthenticationToken extends AuthenticationToken {
         private String mobile;
 
         /**
-         * 验证码
-         */
-        private String smsCode;
-
-        /**
          * 用户名
          */
         private String username;
@@ -123,11 +109,6 @@ public class SmsCodeAuthenticationToken extends AuthenticationToken {
             return this;
         }
 
-        public SmsCodeAuthenticationTokenBuilder smsCode(String smsCode) {
-            this.smsCode = smsCode;
-            return this;
-        }
-
         public SmsCodeAuthenticationTokenBuilder username(String username) {
             this.username = username;
             return this;
@@ -148,12 +129,11 @@ public class SmsCodeAuthenticationToken extends AuthenticationToken {
          *
          * @return
          */
-        public SmsCodeAuthenticationToken noAuthenticatedbuilder() {
-            SmsCodeAuthenticationToken smsCodeAuthenticationToken = new SmsCodeAuthenticationToken(principal, username, uid);
-            smsCodeAuthenticationToken.setMobile(mobile);
-            smsCodeAuthenticationToken.setSmsCode(smsCode);
-            smsCodeAuthenticationToken.setDetails(userDetails);
-            return smsCodeAuthenticationToken;
+        public PhoneNumerAuthenticationToken noAuthenticatedbuilder() {
+            PhoneNumerAuthenticationToken phoneNumerAuthenticationToken = new PhoneNumerAuthenticationToken(principal, username, uid);
+            phoneNumerAuthenticationToken.setMobile(mobile);
+            phoneNumerAuthenticationToken.setDetails(userDetails);
+            return phoneNumerAuthenticationToken;
         }
 
         /**
@@ -162,12 +142,11 @@ public class SmsCodeAuthenticationToken extends AuthenticationToken {
          * @param authorities
          * @return
          */
-        public SmsCodeAuthenticationToken authenticatedbuilder(Collection<? extends GrantedAuthority> authorities) {
-            SmsCodeAuthenticationToken smsCodeAuthenticationToken = new SmsCodeAuthenticationToken(authorities, principal, username, uid);
-            smsCodeAuthenticationToken.setMobile(mobile);
-            smsCodeAuthenticationToken.setSmsCode(smsCode);
-            smsCodeAuthenticationToken.setDetails(userDetails);
-            return smsCodeAuthenticationToken;
+        public PhoneNumerAuthenticationToken authenticatedbuilder(Collection<? extends GrantedAuthority> authorities) {
+            PhoneNumerAuthenticationToken phoneNumerAuthenticationToken = new PhoneNumerAuthenticationToken(authorities, principal, username, uid);
+            phoneNumerAuthenticationToken.setMobile(mobile);
+            phoneNumerAuthenticationToken.setDetails(userDetails);
+            return phoneNumerAuthenticationToken;
         }
 
         /**
@@ -176,16 +155,15 @@ public class SmsCodeAuthenticationToken extends AuthenticationToken {
          * @param authorities
          * @return
          */
-        public SmsCodeAuthenticationToken authenticatedbuilder2(Collection<String> authorities) {
+        public PhoneNumerAuthenticationToken authenticatedbuilder2(Collection<String> authorities) {
             Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
             authorities.forEach(one -> {
                 grantedAuthorities.add(new SimpleGrantedAuthority(one));
             });
-            SmsCodeAuthenticationToken smsCodeAuthenticationToken = new SmsCodeAuthenticationToken(grantedAuthorities, principal, username, uid);
-            smsCodeAuthenticationToken.setMobile(mobile);
-            smsCodeAuthenticationToken.setSmsCode(smsCode);
-            smsCodeAuthenticationToken.setDetails(userDetails);
-            return smsCodeAuthenticationToken;
+            PhoneNumerAuthenticationToken phoneNumerAuthenticationToken = new PhoneNumerAuthenticationToken(grantedAuthorities, principal, username, uid);
+            phoneNumerAuthenticationToken.setMobile(mobile);
+            phoneNumerAuthenticationToken.setDetails(userDetails);
+            return phoneNumerAuthenticationToken;
         }
 
         /**
@@ -194,12 +172,11 @@ public class SmsCodeAuthenticationToken extends AuthenticationToken {
          * @param
          * @return
          */
-        public SmsCodeAuthenticationToken authenticatedbuilder() {
-            SmsCodeAuthenticationToken smsCodeAuthenticationToken = new SmsCodeAuthenticationToken(null, principal, username, uid);
-            smsCodeAuthenticationToken.setMobile(mobile);
-            smsCodeAuthenticationToken.setSmsCode(smsCode);
-            smsCodeAuthenticationToken.setDetails(userDetails);
-            return smsCodeAuthenticationToken;
+        public PhoneNumerAuthenticationToken authenticatedbuilder() {
+            PhoneNumerAuthenticationToken phoneNumerAuthenticationToken = new PhoneNumerAuthenticationToken(null, principal, username, uid);
+            phoneNumerAuthenticationToken.setMobile(mobile);
+            phoneNumerAuthenticationToken.setDetails(userDetails);
+            return phoneNumerAuthenticationToken;
         }
 
         public SmsCodeAuthenticationTokenBuilder userDetails(UserDetails userDetails) {

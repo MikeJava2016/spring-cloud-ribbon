@@ -6,10 +6,12 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -160,7 +162,7 @@ public class JwtTokenUtils {
 
     //测试方法
     public static void main(String[] args) {
-        /*
+
         //创建token和解析token
         String subject = "userid_001";
         System.out.println("新建subject = " + subject);
@@ -180,10 +182,10 @@ public class JwtTokenUtils {
             //验证签名不通过（数据被篡改过）
             throw sve;
         }
-        */
+
         //过期测试
-        String jwtToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyaWRfMDAxIiwiaXNzIjoicHJvLXNlcnZlciIsImV4cCI6MTYzMjc0NDk2NX0.AKkM3TtxY75zUkCdOcaB4wlEPITnNKXTkF-8sqLgXAc";
-        String subject = JwtTokenUtils.parseToken(jwtToken, "123456");
+        //String jwtToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyaWRfMDAxIiwiaXNzIjoicHJvLXNlcnZlciIsImV4cCI6MTYzMjc0NDk2NX0.AKkM3TtxY75zUkCdOcaB4wlEPITnNKXTkF-8sqLgXAc";
+       // String subject = JwtTokenUtils.parseToken(jwtToken, "123456");
 
         //无效验鉴（将最后一位更改为z）
 //        String jwtToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyaWRfMDAxIiwiaXNzIjoicHJvLXNlcnZlciIsImV4cCI6MTYzMjc0NDk2NX0.AKkM3TtxY75zUkCdOcaB4wlEPITnNKXTkF-8sqLgXAz";

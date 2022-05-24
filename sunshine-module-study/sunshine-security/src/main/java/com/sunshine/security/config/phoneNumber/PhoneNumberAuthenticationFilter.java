@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sunshine.common.util.web.HttpRequestUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -16,26 +17,25 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @version v1
- * @Description TODO
+ * @Description 手机号的校验
  * @Author huzhanglin
  * @Date 2022/5/20 21:28
  **/
-public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+public class PhoneNumberAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private String mobileParameter = "mobile";
 
-    private String smsCodeParameter = "smsCode";
     /**
      * 是否仅 POST 方式
      */
     private boolean postOnly = true;
 
-    public SmsCodeAuthenticationFilter(String pattern, String httpMethod) {
+    public PhoneNumberAuthenticationFilter(String pattern, String httpMethod, AuthenticationManager authenticationManager) {
 
         super(new AntPathRequestMatcher(pattern, httpMethod));
-
+        this.setAuthenticationManager(authenticationManager);
         logger.debug("短信验证吗的请求方式必须是{}", httpMethod);
 
     }
@@ -53,11 +53,9 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
 
         String mobile = getMobile(jsonObject, mobileParameter);
 
-        String smsCode = getSmsCode(jsonObject, smsCodeParameter);
 
-        SmsCodeAuthenticationToken authRequest = new SmsCodeAuthenticationToken.SmsCodeAuthenticationTokenBuilder()
+        PhoneNumerAuthenticationToken authRequest = new PhoneNumerAuthenticationToken.SmsCodeAuthenticationTokenBuilder()
                 .mobile(mobile)
-                .smsCode(smsCode)
                 .noAuthenticatedbuilder();
 
         setDetails(request, authRequest);
@@ -73,15 +71,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
         return mobile;
     }
 
-    private String getSmsCode(JSONObject jsonObject, String smsCodeParameter) {
-        String mobile = jsonObject.getString(smsCodeParameter);
-
-        Assert.hasText(smsCodeParameter, "smsCode parameter must not be empty or null");
-
-        return mobile;
-    }
-
-    protected void setDetails(HttpServletRequest request, SmsCodeAuthenticationToken authRequest) {
+    protected void setDetails(HttpServletRequest request, PhoneNumerAuthenticationToken authRequest) {
         authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
     }
 

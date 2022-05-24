@@ -2,7 +2,6 @@ package com.sunshine.security.controller;
 
 import com.sunshine.common.util.Result;
 import com.sunshine.security.entity.SmsCode;
-import com.sunshine.security.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.RandomStringUtils;
 import org.joda.time.LocalDateTime;
@@ -27,23 +26,17 @@ import java.util.concurrent.TimeUnit;
 public class SmsController {
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private RedissonClient redissonClient;
 
     @GetMapping("/smscode")
     @ResponseBody
     public Result<String> sms(@RequestParam(required = true) String mobile, HttpSession session) {
-        if (null == userService.queryByPhoneNumber(mobile)) {
-            return Result.fail("手机号未注册");
-        } else {
-            //这里我偷懒了，具体实现可以调用短信验证提供商的api
-            SmsCode smsCode = new SmsCode(mobile, RandomStringUtils.randomNumeric(6), LocalDateTime.now().plusSeconds(60));
-            String smsKey = "smscode:" + mobile;
-            redissonClient.getBucket(smsKey).set(smsCode.getCode(), 2, TimeUnit.MINUTES);
-            log.debug(smsKey + "的验证码是：" + smsCode.getCode());
-            return Result.success("发送验证码成功");
-        }
+        //这里我偷懒了，具体实现可以调用短信验证提供商的api
+        SmsCode smsCode = new SmsCode(mobile, RandomStringUtils.randomNumeric(6), LocalDateTime.now().plusSeconds(60));
+        String smsKey = "smscode:" + mobile;
+        redissonClient.getBucket(smsKey).set(smsCode.getCode(), 2000, TimeUnit.MINUTES);
+        log.info(smsKey + "的验证码是：" + smsCode.getCode());
+        return Result.success("发送验证码成功");
+
     }
 }

@@ -2,11 +2,11 @@ package com.sunshine.security.config;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sunshine.common.util.JwtUtils;
 import com.sunshine.common.util.web.ApplicationContextUtils;
 import com.sunshine.common.util.web.PropertyUtils;
 import com.sunshine.security.config.common.CommonSpringSecurity;
-import com.sunshine.security.config.phoneNumber.SmsCodeAuthenticationToken;
+import com.sunshine.security.config.phoneNumber.PhoneNumerAuthenticationToken;
+import com.sunshine.utils.pwd.JwtTokenUtils;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
@@ -17,7 +17,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -29,7 +28,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -41,8 +39,7 @@ import java.util.stream.Collectors;
  **/
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-  /*  @Autowired
-    private RedisCache redisCache;*/
+
     /**
      * 不需要权限
      */
@@ -56,6 +53,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
      * 自定义不需要权限既可以访问
      */
     private static final String CUSTOMER_EXCLUDE_PATH = "customer_exclude_path";
+
+    private static final String CUSTOMER_EXCLUDE_LOGIN_PATH = "sms_login_path";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -131,8 +130,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private static List<String> getUrls() {
 
         String customerExcludePath = PropertyUtils.getPropertiesValue(SPRING_SECURITY_CUSTOMER_PROPERTIES, CUSTOMER_EXCLUDE_PATH, "");
+        String customerExcludeLoginPath = PropertyUtils.getPropertiesValue(SPRING_SECURITY_CUSTOMER_PROPERTIES, CUSTOMER_EXCLUDE_LOGIN_PATH, "/login");
+
         List<String> allList = Arrays.stream(BASE_EXCLUDE_PATH.split(",")).collect(Collectors.toList());
+
         allList.addAll(Arrays.stream(customerExcludePath.split(",")).collect(Collectors.toList()));
+        allList.addAll(Arrays.stream(customerExcludeLoginPath.split(",")).collect(Collectors.toList()));
         return allList;
     }
 
@@ -151,7 +154,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 authorityList.add(new SimpleGrantedAuthority(authority));
             }
         }
-        SmsCodeAuthenticationToken.SmsCodeAuthenticationTokenBuilder builder = new SmsCodeAuthenticationToken.SmsCodeAuthenticationTokenBuilder();
+        PhoneNumerAuthenticationToken.SmsCodeAuthenticationTokenBuilder builder = new PhoneNumerAuthenticationToken.SmsCodeAuthenticationTokenBuilder();
         AuthenticationToken authenticationToken = builder.username(username)
                 .mobile(mobile)
                 .uid(uid)
@@ -160,17 +163,14 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     }
 
     private String validateJwtToken(String token) {
-        //解析token
-//        JwtUtils.parseToken(token, "security");
-        io.jsonwebtoken.Claims security = JwtUtils.parseToken(token, "security");
-        Map<String, Object> map = (Map<String, Object>) security;
-        if (CollectionUtils.isEmpty(map) || map.get("uid") == null || "".equals(map.get("uid"))) {
+        //创建token和解析token
+        String value = JwtTokenUtils.parseToken(token, "123456");
+        logger.info(" jjwt value = {}",value);
+        if (StringUtils.isEmpty(value)) {
             logger.info(" token  无效，token = {}", token);
             return "token 无效";
         }
-
-        String uid = map.get("uid").toString();
-        logger.info(" uid = {}", uid);
+        logger.info(" uid = {}", value);
         //根据userId在redis中获取用户信息
         // LoginUser loginUser = redisCache.getCacheObject("login:" + userId);
         return null;
