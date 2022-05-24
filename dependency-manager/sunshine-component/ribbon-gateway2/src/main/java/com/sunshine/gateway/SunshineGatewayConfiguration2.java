@@ -43,9 +43,9 @@ import java.util.List;
         GatewayClassPathWarningAutoConfiguration.class})
 @ConditionalOnClass(DispatcherHandler.class)
 @PropertySource(value = "classpath:loginfilter.properties")
-public class SunshineGatewayConfiguration {
+public class SunshineGatewayConfiguration2 {
 
-    private final static Logger logger = LoggerFactory.getLogger(SunshineGatewayConfiguration.class);
+    private final static Logger logger = LoggerFactory.getLogger(SunshineGatewayConfiguration2.class);
 
 
 //    @Bean

@@ -27,7 +27,6 @@ import org.springframework.cloud.gateway.config.GatewayLoadBalancerClientAutoCon
 import org.springframework.cloud.gateway.config.GatewayProperties;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
