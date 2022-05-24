@@ -6,7 +6,7 @@
     <artifactId>sunshine-security</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>sunshine-security</name>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <description>Demo project for Spring Boot</description>
    <parent>
@@ -89,7 +89,10 @@
         </dependency>
 
 
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
         <!-- swagger2 -->
         <dependency>
             <groupId>io.springfox</groupId>
