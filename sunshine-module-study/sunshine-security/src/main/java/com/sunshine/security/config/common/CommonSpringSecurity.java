@@ -81,6 +81,7 @@ public class CommonSpringSecurity {
     public static final AuthenticationFailureHandler AUTHENTICATION_FAILURE_HANDLER = (req, resp, e) -> {
         String mes = "";
         logger.error("登录失败", e);
+        e.printStackTrace();
         mes = getString(e, mes);
         logger.error("error:", e);
         failResponse(resp, mes, null, null);
@@ -116,6 +117,8 @@ public class CommonSpringSecurity {
      *
      */
     public static final AuthenticationEntryPoint AUTHENTICATION_ENTRY_POINT = (req, resp, authException) -> {
+        logger.error(authException.getMessage());
+        authException.printStackTrace();
         failResponse(resp, "尚未登录，请先登录", null, null);
     };
 
