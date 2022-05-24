@@ -1,4 +1,4 @@
-package com.sunshine.algorithm;/*
+package com.sunshine.sharding.algorithm;/*
 package com.gupaoedu.algorithm;
 
 import org.apache.shardingsphere.api.sharding.ShardingValue;

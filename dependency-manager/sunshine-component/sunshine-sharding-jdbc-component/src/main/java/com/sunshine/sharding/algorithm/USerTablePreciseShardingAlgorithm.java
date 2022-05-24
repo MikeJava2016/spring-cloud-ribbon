@@ -1,6 +1,5 @@
-package com.sunshine.algorithm;
+package com.sunshine.sharding.algorithm;
 
-import com.sunshine.controller.UserController;
 import org.apache.shardingsphere.api.sharding.standard.PreciseShardingAlgorithm;
 import org.apache.shardingsphere.api.sharding.standard.PreciseShardingValue;
 import org.slf4j.Logger;
@@ -13,7 +12,7 @@ import java.util.Date;
 
 public class USerTablePreciseShardingAlgorithm implements PreciseShardingAlgorithm<Date> {
 
-    private final static Logger logger = LoggerFactory.getLogger(UserController.class);
+    private final static Logger logger = LoggerFactory.getLogger(USerTablePreciseShardingAlgorithm.class);
 
     public USerTablePreciseShardingAlgorithm(){
         System.out.println("USerTablePreciseShardingAlgorithm1223");
@@ -31,7 +30,5 @@ public class USerTablePreciseShardingAlgorithm implements PreciseShardingAlgorit
         }catch (Exception e){
             throw new IllegalArgumentException("没有匹配到库:" + preciseShardingValue.getValue());
         }
-
-
     }
 }

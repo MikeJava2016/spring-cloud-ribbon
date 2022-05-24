@@ -1,4 +1,4 @@
-package com.sunshine.algorithm;
+package com.sunshine.sharding.algorithm;
 
 import org.apache.shardingsphere.api.sharding.complex.ComplexKeysShardingAlgorithm;
 import org.apache.shardingsphere.api.sharding.complex.ComplexKeysShardingValue;
