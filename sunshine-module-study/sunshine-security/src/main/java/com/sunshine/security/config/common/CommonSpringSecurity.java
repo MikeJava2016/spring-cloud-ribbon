@@ -105,7 +105,7 @@ public class CommonSpringSecurity {
      */
     public static void writeJson(int code, HttpServletResponse resp, String mes, String token, Object data) throws IOException {
         Result<Object> result = new Result<>();
-        result.code(0).message(mes).token(token).data(data);
+        result.code(code).message(mes).token(token).data(data);
         resp.setContentType("application/json;charset=utf-8");
         PrintWriter out = resp.getWriter();
         String repsonse = JSONUtil.toJsonStr(result);
