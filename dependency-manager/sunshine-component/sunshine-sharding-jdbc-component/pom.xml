@@ -3,28 +3,35 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
+        <artifactId>sunshine-component</artifactId>
         <groupId>com.sunshine</groupId>
-        <artifactId>dependency-manager</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sunshine-component</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>eureka-server</module>
-        <module>gateway-compononent</module>
-        <module>mybatis-plus</module>
-        <module>ribbon-common</module>
-        <module>sunshine-redission</module>
-        <module>ribbon-gateway</module>
-        <module>ribbon-gateway2</module>
-        <module>sunshine-spring-boot-starter</module>
-        <module>ribbon-starter</module>
-        <module>utils-component</module>
-        <module>sunshine-sharding-jdbc-component</module>
-    </modules>
+    <artifactId>sunshine-sharding-jdbc-component</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+            <version>${sharding-jdbc-spring-boot-starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-namespace</artifactId>
+            <version>${sharding-jdbc-spring-boot-starter.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sunshine</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>${com.sunshine.mybatis-plus.version}</version>
+        </dependency>
+
+    </dependencies>
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -36,6 +43,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
@@ -53,6 +61,20 @@
                         <target>1.8</target>
                         <encoding>UTF-8</encoding>
                     </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <executions>
+                        <execution>
+                            <id>repackage</id>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

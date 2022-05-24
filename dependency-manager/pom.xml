@@ -76,6 +76,7 @@
         <ribbon-api.version>0.0.1-SNAPSHOT</ribbon-api.version>
         <ribbon-common.version>0.0.1-SNAPSHOT</ribbon-common.version>
         <sunshine-utils-component.version>0.0.1-SNAPSHOT</sunshine-utils-component.version>
+        <com.sunshine.mybatis-plus.version>0.0.1-SNAPSHOT</com.sunshine.mybatis-plus.version>
     </properties>
 
 
