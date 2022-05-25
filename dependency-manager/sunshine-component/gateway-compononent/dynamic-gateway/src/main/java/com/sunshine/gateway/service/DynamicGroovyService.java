@@ -9,7 +9,7 @@ import com.sunshine.gateway.cache.component.GroovyCache;
 import com.sunshine.gateway.vo.GroovyHandleData;
 import com.sunshine.utils.Constants;
 import com.sunshine.utils.HttpEnum;
-import com.sunshine.utils.Md5Utils;
+import com.sunshine.utils.pwd.Md5Utils;
 import com.sunshine.utils.web.NetworkIpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;

@@ -1,4 +1,4 @@
-package com.sunshine.common.util;
+package com.sunshine.utils.pwd;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;

@@ -3,7 +3,7 @@ package com.sunshine.gateway.service.load;
 import com.sunshine.formwork.entity.GroovyScript;
 import com.sunshine.formwork.service.GroovyScriptService;
 import com.sunshine.utils.Constants;
-import com.sunshine.utils.Md5Utils;
+import com.sunshine.utils.pwd.Md5Utils;
 import com.sunshine.gateway.service.DynamicGroovyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

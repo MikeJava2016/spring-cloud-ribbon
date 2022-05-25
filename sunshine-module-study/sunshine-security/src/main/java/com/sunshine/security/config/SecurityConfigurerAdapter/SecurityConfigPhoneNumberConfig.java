@@ -2,6 +2,7 @@ package com.sunshine.security.config.SecurityConfigurerAdapter;
 
 import com.sunshine.common.util.web.PropertyUtils;
 import com.sunshine.security.config.common.CommonSpringSecurity;
+import com.sunshine.security.config.common.JwtAuthenticationTokenFilter;
 import com.sunshine.security.config.phoneNumber.PhoneNumberAuthenticationFilter;
 import com.sunshine.security.config.phoneNumber.SmsCodeValidateFilter;
 import com.sunshine.security.service.impl.PhoneNumnerUserDetailsService;
@@ -74,6 +75,9 @@ public class SecurityConfigPhoneNumberConfig extends WebSecurityConfigurerAdapte
 
     @Autowired
     private List<AuthenticationProvider> authenticationProviders;
+
+    @Autowired
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -151,6 +155,7 @@ public class SecurityConfigPhoneNumberConfig extends WebSecurityConfigurerAdapte
         http.addFilterBefore(new ReadRequestBodyFilter(), WebAsyncManagerIntegrationFilter.class);
         http.addFilterBefore(smsCodeValidateFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterAfter(phoneNumberAuthenticationFilter, SmsCodeValidateFilter.class);
+        http.addFilterAfter(jwtAuthenticationTokenFilter,SmsCodeValidateFilter.class);
     }
 
     @Bean

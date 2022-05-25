@@ -6,7 +6,8 @@ import com.sunshine.common.util.Result;
 import com.sunshine.common.util.web.ApplicationContextUtils;
 import com.sunshine.common.util.web.PropertyUtils;
 import com.sunshine.security.config.phoneNumber.PhoneNumberAuthenticationToken;
-import com.sunshine.utils.pwd.JwtTokenUtils;
+import com.sunshine.utils.pwd.JwtUtils;
+import org.joda.time.Duration;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,7 +100,8 @@ public class CommonSpringSecurity {
             PhoneNumberAuthenticationToken phoneNumberAuthenticationToken = (PhoneNumberAuthenticationToken) authentication;
             uid = phoneNumberAuthenticationToken.getUid();
         }
-        String jwtToken = JwtTokenUtils.createToken(uid, 60*60*24, "123456");
+
+        String jwtToken = JwtUtils.createToken(uid, "admin", Duration.standardHours(2));
         logger.info(" jjwt 加密 token = {}",jwtToken);
         RedissonClient redissonClient = ApplicationContextUtils.getBean(RedissonClient.class);
         Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();

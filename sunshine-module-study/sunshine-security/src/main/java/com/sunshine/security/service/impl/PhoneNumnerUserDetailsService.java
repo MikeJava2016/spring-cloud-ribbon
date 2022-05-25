@@ -34,6 +34,7 @@ public class PhoneNumnerUserDetailsService implements UserDetailsService {
         }
         List<String> roleNames = userModelService.getRoleNames(userModel.getId());
         SysUser sysUser = new SysUser();
+        sysUser.setId(userModel.getId().toString());
         sysUser.setUsername(userModel.getUsername());
         sysUser.setPassword(userModel.getPassword());
         sysUser.setPhone(phone);

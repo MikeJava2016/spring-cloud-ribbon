@@ -1,4 +1,4 @@
-package com.sunshine.utils;
+package com.sunshine.utils.pwd;
 
 import java.security.MessageDigest;
 

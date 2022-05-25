@@ -1,15 +1,15 @@
 package com.sunshine.manage.rest;
 
 import com.sunshine.common.enums.StatusUpdateEnum;
+import com.sunshine.formwork.JwtTokenUtils;
 import com.sunshine.formwork.base.BaseRest;
 import com.sunshine.formwork.bean.RegServerReq;
 import com.sunshine.formwork.bean.TokenReq;
 import com.sunshine.formwork.entity.RegServer;
 import com.sunshine.formwork.service.CustomConfigService;
 import com.sunshine.formwork.service.RegServerService;
-import com.sunshine.utils.Constants;
-import com.sunshine.utils.pwd.JwtTokenUtils;
 import com.sunshine.utils.ApiResult;
+import com.sunshine.utils.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.Assert;

@@ -2,10 +2,10 @@ package com.sunshine.controller;
 
 import com.sunshine.api.feign.service.IUserAuthFeignService;
 import com.sunshine.common.ao.LoginUserDto;
-import com.sunshine.common.util.JwtUtils;
 import com.sunshine.common.util.Result;
 import com.sunshine.entity.User;
 import com.sunshine.mapper.UserMapper;
+import com.sunshine.utils.pwd.JwtUtils;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 import org.apache.commons.lang3.StringUtils;

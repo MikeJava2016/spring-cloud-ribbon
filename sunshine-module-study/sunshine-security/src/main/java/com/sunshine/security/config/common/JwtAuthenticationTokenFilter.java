@@ -5,7 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.sunshine.common.util.web.ApplicationContextUtils;
 import com.sunshine.common.util.web.PropertyUtils;
 import com.sunshine.security.config.phoneNumber.PhoneNumberAuthenticationToken;
-import com.sunshine.utils.pwd.JwtTokenUtils;
+import com.sunshine.utils.pwd.JwtUtils;
+import io.jsonwebtoken.Claims;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
@@ -38,6 +39,8 @@ import java.util.stream.Collectors;
  **/
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+
+
 
     /**
      * 不需要权限
@@ -162,14 +165,15 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     }
 
     private String validateJwtToken(String token) {
-        //创建token和解析token
-        String value = JwtTokenUtils.parseToken(token, "123456");
-        logger.info(" jjwt value = {}",value);
-        if (StringUtils.isEmpty(value)) {
+        Claims claims = JwtUtils.parseToken(token, "admin");
+         logger.info(" jjwt value = {}",claims.get(""));
+        Object uid = claims.get("uid");
+        if (StringUtils.isEmpty(uid)) {
             logger.info(" token  无效，token = {}", token);
             return "token 无效";
         }
-        logger.info(" uid = {}", value);
+        logger.info(" uid = {}", uid);
         return null;
     }
+
 }
