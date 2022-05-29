@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.security.mapper.DeptMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sunshine.security.entity.DeptModel">
+        <id column="id" property="id"/>
+        <result column="dept_name1" property="deptName1"/>
+        <result column="status1" property="status1"/>
+        <result column="sort1" property="sort1"/>
+        <result column="describe1" property="describe1"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="level" property="level"/>
+        <result column="responsible_person" property="responsiblePerson"/>
+        <result column="mobile" property="mobile"/>
+        <result column="email" property="email"/>
+        <result column="create_id" property="createId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_id" property="updateId"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+       id,dept_name1,status1,sort1,describe1,parent_id,level,create_id,create_time,update_id,update_time
+    </sql>
+
+</mapper>

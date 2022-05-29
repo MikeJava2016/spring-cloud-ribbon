@@ -46,3 +46,20 @@ DROP TABLE IF EXISTS `role`;
 	INSERT INTO `user_role` VALUES ('2', '1', '2');
 	INSERT INTO `user_role` VALUES ('3', '2', '2');
 	INSERT INTO `user_role` VALUES ('4', '3', '3');
+
+
+
+	CREATE TABLE `dept` (
+      `id` bigint(20) NOT NULL,
+      `dept_name` varchar(100) NOT NULL,
+      `status` smallint(6) NOT NULL,
+      `sort` int(11) NOT NULL,
+      `describe` varchar(100) DEFAULT NULL,
+      `parent_id` varchar(100) DEFAULT NULL,
+      `level` int(11) NOT NULL,
+      `create_id` bigint(20) NOT NULL,
+      `create_time` timestamp NOT NULL,
+      `update_id` bigint(20) NOT NULL,
+      `update_time` timestamp NOT NULL,
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
