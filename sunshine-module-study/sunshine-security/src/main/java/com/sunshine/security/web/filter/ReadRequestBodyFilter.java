@@ -1,5 +1,6 @@
 package com.sunshine.security.web.filter;
 
+import com.sunshine.common.util.web.HttpRequestUtil;
 import com.sunshine.common.util.web.MutableHttpServletRequest;
 import com.sunshine.utils.common.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -54,13 +54,11 @@ public class ReadRequestBodyFilter  implements Filter, Ordered {
 
     private void doDebug(MutableHttpServletRequest request) {
         String method = request.getMethod();
-        switch (method){
-            case "GET" : doGetDebug(request);
-                break;
-            case "POST": doPostDebug(request);
-             break;
-            default: ;
-        }
+         if ("GET".equals(method)){
+             doGetDebug(request);
+         }else {
+             doPostDebug(request);
+         }
     }
 
     private void doGetDebug(MutableHttpServletRequest request) {
@@ -69,20 +67,8 @@ public class ReadRequestBodyFilter  implements Filter, Ordered {
     }
 
     private void doPostDebug(MutableHttpServletRequest request){
-
-            Map<String, String[]> map = request.getParameterMap();
-            Map<String, Object> params = new HashMap<String, Object>();
-            int length;
-            //将Map<String, String[]>转为普通map
-            for (Map.Entry<String, String[]> entry : map.entrySet()) {
-                length = entry.getValue().length;
-                if (length == 1) {
-                    params.put(entry.getKey(), entry.getValue()[0]);
-                } else if (length > 1) {
-                    params.put(entry.getKey(), entry.getValue());
-                }
-            }
-        log.info(" uri = {},method = {}, param = {}",request.getRequestURI(),request.getMethod(), JsonUtil.toJson(params));
+        String requestBody = HttpRequestUtil.getRequestBody(request);
+        log.info(" uri = {},method = {}, param = {}",request.getRequestURI(),request.getMethod(),requestBody);
     }
 
     @Override
