@@ -9,7 +9,7 @@
         <result column="status1" property="status1"/>
         <result column="sort1" property="sort1"/>
         <result column="describe1" property="describe1"/>
-        <result column="parent_id" property="parentId"/>
+        <result column="p_id" property="pId"/>
         <result column="level" property="level"/>
         <result column="responsible_person" property="responsiblePerson"/>
         <result column="mobile" property="mobile"/>
@@ -22,7 +22,15 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-       id,dept_name1,status1,sort1,describe1,parent_id,level,create_id,create_time,update_id,update_time
+       id,dept_name1 as deptName1,status1,sort1,describe1,p_id as pId,responsible_person as responsiblePerson,level,mobile,email,
+        create_id as createId,create_time as createTime,update_id as updateId,update_time as updateTime
     </sql>
 
+    <select id="selectByCondition" resultType="com.sunshine.security.entity.DeptModel">
+        select <include refid="Base_Column_List"/> from dept
+        <where>
+            and status1 = #{deptModel.status1}
+            and level = #{deptModel.level}
+        </where>
+    </select>
 </mapper>

@@ -3,6 +3,8 @@ package com.sunshine.security.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sunshine.security.entity.DeptModel;
 
+import java.util.List;
+
 /**
  * @Author: huzhanglin
  * @Date: 2022-05-22
@@ -10,5 +12,5 @@ import com.sunshine.security.entity.DeptModel;
  */
 
 public interface DeptService extends IService<DeptModel> {
-
+   List<DeptModel> selectByCondition(DeptModel status);
 }

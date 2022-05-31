@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 /**
  * @Author: huzhanglin
  * @Date: 2022-05-22
@@ -37,8 +39,8 @@ public class DeptModel extends BaseData {
     @TableField("describe1")
     private String describe1;
 
-    @TableField("parent_id")
-    private Integer parentId;
+    @TableField("p_id")
+    private Integer pId;
     /**
      * 部门等级 1 2 3 4
      */
@@ -53,5 +55,8 @@ public class DeptModel extends BaseData {
 
     @TableField("email")
     private String email;
+
+    @TableField(exist = false)
+    private List<DeptModel> children;
 
 }
