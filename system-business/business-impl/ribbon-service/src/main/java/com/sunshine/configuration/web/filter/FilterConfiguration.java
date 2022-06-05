@@ -70,6 +70,7 @@ public class FilterConfiguration {
             if (uid != null) {
                 logger.info(" token = {}", uid);
             }
+            // 从请求头中获取数据  放入当前线程中
             logger.info("filter");
             String requestURI = request.getRequestURI();
             logger.info("requestURI = {}", requestURI);

@@ -59,7 +59,9 @@ public class FeignConfiguration {
         builder.addInterceptor(chain -> {
             // 设置header
             Request originRequest = chain.request();
-            Request newRequest = originRequest.newBuilder().addHeader("ribbon-client-token", "huzhanglin").build();
+            Request newRequest = originRequest.newBuilder().addHeader("ribbon-client-token", "huzhanglin")
+                    .build();
+            // 从当前线程中获取数据  放入请求头中
             logger.info("uri = {}",originRequest.url().toString());
             return chain.proceed(newRequest);
         });

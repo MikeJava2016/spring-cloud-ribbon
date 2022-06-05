@@ -10,7 +10,6 @@ import java.util.List;
  * @Date: 2022-05-22
  * @Description: 服务类
  */
-
 public interface DeptService extends IService<DeptModel> {
    List<DeptModel> selectByCondition(DeptModel status);
 }

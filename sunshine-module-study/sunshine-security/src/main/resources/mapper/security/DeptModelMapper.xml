@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sunshine.security.mapper.DeptMapper">
+<mapper namespace="com.sunshine.security.mapper.DeptMapper" >
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.sunshine.security.entity.DeptModel">
@@ -11,7 +11,7 @@
         <result column="describe1" property="describe1"/>
         <result column="p_id" property="pId"/>
         <result column="level" property="level"/>
-        <result column="responsible_person" property="responsiblePerson"/>
+        <result column="responsible_person" property="responsiblePerson" />
         <result column="mobile" property="mobile"/>
         <result column="email" property="email"/>
         <result column="create_id" property="createId"/>
@@ -26,7 +26,7 @@
         create_id as createId,create_time as createTime,update_id as updateId,update_time as updateTime
     </sql>
 
-    <select id="selectByCondition" resultType="com.sunshine.security.entity.DeptModel">
+    <select id="selectByCondition" resultType="com.sunshine.security.entity.DeptModel" >
         select <include refid="Base_Column_List"/> from dept
         <where>
             and status1 = #{deptModel.status1}

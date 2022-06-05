@@ -11,7 +11,6 @@ import com.sunshine.security.mapper.UserRoleMapper;
 import com.sunshine.security.service.UserModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,6 @@ import java.util.stream.Collectors;
  * @Description: 服务实现类
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class UserModelServiceImpl extends ServiceImpl<UserMapper, UserModel> implements UserModelService {
 
     @Autowired
