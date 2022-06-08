@@ -34,7 +34,7 @@ public class DeptController {
         long createId = Long.parseLong(uid);
         deptModel.setCreateId(createId);
         deptModel.setUpdateId(createId);
-        boolean save = deptService.save(deptModel);
+        boolean save = deptService.onSave(deptModel);
         if (save) {
             return Result.success(deptModel);
         }

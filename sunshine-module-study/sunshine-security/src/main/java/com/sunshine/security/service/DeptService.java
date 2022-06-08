@@ -12,4 +12,7 @@ import java.util.List;
  */
 public interface DeptService extends IService<DeptModel> {
    List<DeptModel> selectByCondition(DeptModel status);
+
+
+   boolean onSave(DeptModel deptModel);
 }

@@ -12,10 +12,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @Configuration
-@EnableAspectJAutoProxy
 @MapperScan(basePackages = "com.sunshine.security.mapper")
 @SpringBootApplication(scanBasePackages = "com.sunshine")
-//@EnableAspectJAutoProxy(exposeProxy = true,proxyTargetClass =true)
+@EnableAspectJAutoProxy(exposeProxy = true,proxyTargetClass =true)
 public class AopTest {
     @Bean
     public CustomerServiceInterceptor customerServiceInterceptor () {

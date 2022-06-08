@@ -1,5 +1,6 @@
 package com.sunshine.security.config;
 
+import com.sunshine.utils.common.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.aop.Advisor;
@@ -10,15 +11,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionManager;
+import org.springframework.transaction.annotation.AnnotationTransactionAttributeSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.interceptor.CompositeTransactionAttributeSource;
 import org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource;
 import org.springframework.transaction.interceptor.RollbackRuleAttribute;
 import org.springframework.transaction.interceptor.RuleBasedTransactionAttribute;
 import org.springframework.transaction.interceptor.TransactionAttribute;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @EnableTransactionManagement
@@ -50,11 +54,14 @@ public class GlobalTransactionConfig {
          * 当前存在事务就使用当前事务，当前不存在事务,就开启一个新的事务
          */
         RuleBasedTransactionAttribute requiredTx = new RuleBasedTransactionAttribute();
+        List<RollbackRuleAttribute> rollbackRules = new ArrayList<>();
+        rollbackRules.add( new RollbackRuleAttribute(BaseException.class));
+        rollbackRules.add( new RollbackRuleAttribute(Exception.class));
         //检查型异常也回滚
-        requiredTx.setRollbackRules(
-                Collections.singletonList(new RollbackRuleAttribute(Exception.class)));
+        requiredTx.setRollbackRules(rollbackRules);
         requiredTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         requiredTx.setTimeout(TX_METHOD_TIMEOUT);
+//        requiredTx.setIsolationLevel();
         requiredTx.setDescriptor("【sunshine 事务 写】");
         /***
          * 无事务地执行，挂起任何存在的事务
@@ -95,8 +102,14 @@ public class GlobalTransactionConfig {
         txMap.put("start*", requiredTx);
         txMap.put("*WithSqlTrans", requiredTx);
         txMap.put("*WithNewSqlTrans", requiredTx);
-        NameMatchTransactionAttributeSource source = new NameMatchTransactionAttributeSource();
-        source.setNameMap(txMap);
+
+        NameMatchTransactionAttributeSource nameMatchTransactionAttributeSource = new NameMatchTransactionAttributeSource();
+        nameMatchTransactionAttributeSource.setNameMap(txMap);
+        //支持transactional注解
+        AnnotationTransactionAttributeSource annotationTransactionAttributeSource = new AnnotationTransactionAttributeSource();
+        // 成员变量中有一个数组 实现的是自己
+        CompositeTransactionAttributeSource source = new CompositeTransactionAttributeSource(nameMatchTransactionAttributeSource,annotationTransactionAttributeSource);
+
         TransactionInterceptor transactionInterceptor = new TransactionInterceptor(transactionManager, source);
         log.info("开启事务拦截。。。编程式事务");
         return transactionInterceptor;
