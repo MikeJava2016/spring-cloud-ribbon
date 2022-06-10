@@ -5,12 +5,18 @@ import com.sunshine.security.entity.DeptModel;
 import com.sunshine.security.mapper.DeptMapper;
 import com.sunshine.security.service.DeptService;
 import com.sunshine.utils.common.exception.BaseException;
+//import io.seata.core.context.RootContext;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
+import org.apache.shardingsphere.transaction.core.TransactionType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Slf4j
+@ShardingTransactionType(TransactionType.BASE)
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, DeptModel> implements DeptService {
     @Override
     public List<DeptModel> selectByCondition(DeptModel deptModel) {
@@ -20,6 +26,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, DeptModel> implemen
     @Override
     @Transactional(rollbackFor ={ BaseException.class,RuntimeException.class})
     public boolean onSave(DeptModel deptModel) {
+//        log.info("全局事务id ：" + RootContext.getXID());
         int insert = getBaseMapper().insert(deptModel);
         return true;
     }

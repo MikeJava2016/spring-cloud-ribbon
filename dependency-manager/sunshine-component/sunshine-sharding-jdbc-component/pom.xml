@@ -17,18 +17,131 @@
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-            <version>${sharding-jdbc-spring-boot-starter.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-namespace</artifactId>
-            <version>${sharding-jdbc-spring-boot-starter.version}</version>
+            <version>4.1.1</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>shardingsphere-common</artifactId>
+                    <groupId>org.apache.shardingsphere</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>shardingsphere-merge</artifactId>
+                    <groupId>org.apache.shardingsphere</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shardingsphere</groupId>-->
+<!--            <artifactId>sharding-transaction-spring</artifactId>-->
+<!--        </dependency>-->
+
+        <!--分布式事务 begin -->
+
+        <!--sharding-jdbc 分库分表数据源 使用分布式事务 begin -->
+
+        <!-- 使用XA事务时，需要引入此模块 -->
+      <!--  <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-transaction-xa-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>shardingsphere-spi</artifactId>
+                    <groupId>org.apache.shardingsphere</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>shardingsphere-sql-parser-engine</artifactId>
+                    <groupId>org.apache.shardingsphere</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-spring-boot-starter</artifactId>-->
+<!--            <version>1.4.1</version>-->
+<!--        </dependency>-->
+
+        <!--<dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-core</artifactId>
+        </dependency>-->
+
+        <!-- 使用seata，需要引入此模块 -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shardingsphere</groupId>-->
+<!--            <artifactId>sharding-transaction-base-seata-at</artifactId>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+
+        <!--sharding-jdbc 分库分表数据源 使用分布式事务 end -->
+
+        <!-- 包含非分库分表数据源时,需要seata-datasource-proxy，seata需要引入此模块 -->
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-all</artifactId>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>checker-qual</artifactId>-->
+<!--                    <groupId>org.checkerframework</groupId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>error_prone_annotations</artifactId>-->
+<!--                    <groupId>com.google.errorprone</groupId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>com.google.protobuf</groupId>-->
+<!--                    <artifactId>protobuf-java</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework</groupId>-->
+<!--                    <artifactId>spring-webmvc</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework</groupId>-->
+<!--                    <artifactId>spring-context</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework</groupId>-->
+<!--                    <artifactId>spring-core</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework</groupId>-->
+<!--                    <artifactId>spring-beans</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework</groupId>-->
+<!--                    <artifactId>spring-aop</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.slf4j</groupId>-->
+<!--                    <artifactId>slf4j-api</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>com.google.guava</groupId>-->
+<!--                    <artifactId>guava</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+
+        <!--分布式事务 end -->
 
         <dependency>
             <groupId>com.sunshine</groupId>
             <artifactId>mybatis-plus</artifactId>
-            <version>${com.sunshine.mybatis-plus.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
     </dependencies>

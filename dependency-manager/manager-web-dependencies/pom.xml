@@ -54,8 +54,9 @@
             <dependency>
                 <groupId>org.apache.shardingsphere</groupId>
                 <artifactId>sharding-jdbc-spring-namespace</artifactId>
-                <version>${sharding-jdbc-spring-boot-starter.version}</version>
+                <version>4.1.1</version>
             </dependency>
+
 
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
@@ -79,6 +80,7 @@
                 <artifactId>spring-boot-starter-parent</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
