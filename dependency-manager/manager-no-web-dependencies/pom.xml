@@ -52,46 +52,18 @@
                     <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
                     <version>${sharding-jdbc-spring-boot-starter.version}</version>
                 </dependency>
-                <dependency>
-                    <groupId>org.apache.shardingsphere</groupId>
-                    <artifactId>sharding-jdbc-spring-namespace</artifactId>
-                    <version>4.1.1</version>
-                </dependency>
 
-                <dependency>
-                    <groupId>org.apache.shardingsphere</groupId>
-                    <artifactId>sharding-transaction-spring</artifactId>
-                    <version>${sharding-jdbc-spring-boot-starter.version}</version>
-                </dependency>
-
-                <!--分布式事务 begin -->
-
-                <!--sharding-jdbc 分库分表数据源 使用分布式事务 begin -->
-
-                <!-- 使用XA事务时，需要引入此模块 -->
-                <dependency>
-                    <groupId>org.apache.shardingsphere</groupId>
-                    <artifactId>sharding-transaction-xa-core</artifactId>
-                    <version>${sharding-jdbc-spring-boot-starter.version}</version>
-                </dependency>
-
-                <!-- 使用seata，需要引入此模块 -->
-                <dependency>
+              <!--  <dependency>
                     <groupId>org.apache.shardingsphere</groupId>
                     <artifactId>sharding-transaction-base-seata-at</artifactId>
                     <version>${sharding-jdbc-spring-boot-starter.version}</version>
-                </dependency>
-                <!--sharding-jdbc 分库分表数据源 使用分布式事务 end -->
+                </dependency>-->
 
-                <!-- 包含非分库分表数据源时,需要seata-datasource-proxy，seata需要引入此模块 -->
                 <dependency>
-                    <groupId>io.seata</groupId>
-                    <artifactId>seata-all</artifactId>
-                    <version>1.4.1</version>
+                    <groupId>org.apache.shardingsphere</groupId>
+                    <artifactId>sharding-transaction-xa-core</artifactId>
+                    <version>4.1.1</version>
                 </dependency>
-
-                <!--分布式事务 end -->
-
 
 
                 <dependency>

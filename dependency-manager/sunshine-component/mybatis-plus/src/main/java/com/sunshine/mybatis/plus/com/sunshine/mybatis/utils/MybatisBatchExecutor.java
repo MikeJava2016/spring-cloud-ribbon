@@ -4,7 +4,6 @@ import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.function.BiConsumer;
 
 import static org.mybatis.spring.SqlSessionUtils.closeSqlSession;
 
-@Component
 public class MybatisBatchExecutor {
 
     /**

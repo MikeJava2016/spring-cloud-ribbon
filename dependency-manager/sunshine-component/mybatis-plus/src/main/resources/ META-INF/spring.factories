@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.sunshine.mybatis.plus.com.sunshine.mybatis.utils.MybatisConfiguration,\
+  com.sunshine.mybatis.plus.com.sunshine.mybatis.utils.GlobalTransactionConfig

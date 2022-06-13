@@ -10,9 +10,7 @@ import com.sunshine.security.mapper.UserMapper;
 import com.sunshine.security.mapper.UserRoleMapper;
 import com.sunshine.security.service.UserModelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +30,12 @@ public class UserModelServiceImpl extends ServiceImpl<UserMapper, UserModel> imp
     @Autowired
     private RoleMapper roleMapper;
 
-    @Autowired
+   /* @Autowired
     private DataSourceTransactionManager transactionManager;
 
     @Autowired
     private TransactionDefinition transactionDefinition;
-
+*/
     @Override
     public UserModel getByPhone(String phone) {
         QueryWrapper<UserModel> queryWrapper = new QueryWrapper<>();

@@ -1,4 +1,4 @@
-package com.sunshine.security.config;
+package com.sunshine.mybatis.plus.com.sunshine.mybatis.utils;
 
 import com.sunshine.utils.common.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
