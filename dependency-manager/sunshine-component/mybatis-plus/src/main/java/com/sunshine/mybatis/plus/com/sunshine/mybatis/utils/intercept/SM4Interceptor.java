@@ -37,15 +37,20 @@ public class SM4Interceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
+
         MappedStatement statement = (MappedStatement) invocation.getArgs()[0];
+
         // 获取该sql语句的类型，例如update，insert
         String methodName = invocation.getMethod().getName();
+
         // 获取该sql语句放入的参数
         Object parameter = invocation.getArgs()[1];
+
         // 如果是查询操作，并且返回值不是敏感实体类对象，并且传入参数不为空，就直接调用执行方法，返回这个方法的返回值
         // 方法中可以判断这个返回值是否是多条数据，如果有数据，就代表着是select 操作，没有就代表是update insert delete，
         // 因为mybatis的dao层不能为非select操作设置返回值
         if (statement.getResultMaps().size() > 0) {
+
             // 获取到这个返回值的类属性
             Class<?> type = statement.getResultMaps().get(0).getType();
             // 返回值没有带敏感实体类对象注解
@@ -58,6 +63,7 @@ public class SM4Interceptor implements Interceptor {
         // 并且
         // 如果判断该参数带有敏感实体类的注解，才对这个实体类进行扫描查看是否有加密解密的注解
         if (parameter != null && sensitiveBean(parameter)) {
+
             // 如果有就扫描是否是更新操作和是否有加密注解
             // 如果是更新或者插入时，就对数据进行加密后保存在数据库
             if (StringUtils.equalsIgnoreCase("update", methodName) ||
