@@ -7,6 +7,8 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.joda.time.LocalDateTime;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,13 +32,25 @@ public class SmsController {
 
     @GetMapping("/smscode")
     @ResponseBody
-    public Result<String> sms(@RequestParam(required = true) String mobile, HttpSession session) {
+    public Result sms(@RequestParam(required = true) String mobile, HttpSession session) {
         //这里我偷懒了，具体实现可以调用短信验证提供商的api
         SmsCode smsCode = new SmsCode(mobile, RandomStringUtils.randomNumeric(6), LocalDateTime.now().plusSeconds(60));
         String smsKey = "smscode:" + mobile;
         redissonClient.getBucket(smsKey).set(smsCode.getCode(), 2000, TimeUnit.MINUTES);
         log.info(smsKey + "的验证码是：" + smsCode.getCode());
         return Result.success("发送验证码成功");
+    }
 
+    @GetMapping("/smscode2")
+//    @ResponseBody
+    public ResponseEntity sms2(@RequestParam(required = true) String mobile, HttpSession session) {
+        //这里我偷懒了，具体实现可以调用短信验证提供商的api
+        SmsCode smsCode = new SmsCode(mobile, RandomStringUtils.randomNumeric(6), LocalDateTime.now().plusSeconds(60));
+        String smsKey = "smscode:" + mobile;
+        redissonClient.getBucket(smsKey).set(smsCode.getCode(), 2000, TimeUnit.MINUTES);
+        log.info(smsKey + "的验证码是：" + smsCode.getCode());
+//        return Result.success("发送验证码成功");
+        ResponseEntity<Result> resultResponseEntity = new ResponseEntity<>(Result.success("发送验证码成功"),HttpStatus.OK);
+        return resultResponseEntity;
     }
 }

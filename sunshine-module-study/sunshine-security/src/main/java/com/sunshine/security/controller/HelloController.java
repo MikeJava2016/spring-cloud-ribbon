@@ -16,7 +16,7 @@ public class HelloController {
      *  http://localhost:8081/hello
      * @return
      */
-    @GetMapping("/hello")
+    @GetMapping(path = "/hello",headers = "header1=a")
     public String hello() {
         return "hello";
     }

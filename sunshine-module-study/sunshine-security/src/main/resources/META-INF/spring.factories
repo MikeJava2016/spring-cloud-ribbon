@@ -3,3 +3,8 @@ org.springframework.boot.cloud.CloudFoundryVcapEnvironmentPostProcessor,\
 org.springframework.boot.env.SpringApplicationJsonEnvironmentPostProcessor,\
 org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor,\
 org.springframework.boot.reactor.DebugAgentEnvironmentPostProcessor
+
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.sunshine.utils.web.configuration.SpringWebConfig,\
+    com.sunshine.utils.web.configuration.SunShineWebMvcConfigurer

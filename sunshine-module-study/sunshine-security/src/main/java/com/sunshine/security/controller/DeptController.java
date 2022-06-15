@@ -27,6 +27,7 @@ public class DeptController {
 
     @PostMapping
     public Result<DeptModel> save(@RequestBody DeptModel deptModel) {
+
         deptModel.setCreateTime(new Date());
         deptModel.setUpdateTime(new Date());
         AuthenticationToken authentication = (AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();

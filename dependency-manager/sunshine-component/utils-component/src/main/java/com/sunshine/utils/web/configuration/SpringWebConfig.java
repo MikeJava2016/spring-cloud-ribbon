@@ -1,15 +1,16 @@
-package com.sunshine.configuration.web;
+package com.sunshine.utils.web.configuration;
+
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.sunshine.common.util.ManagerTokenUtil;
 import com.sunshine.common.util.Result;
+import com.sunshine.utils.web.ResultWarpReturnValueHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.validation.BindException;
@@ -31,7 +32,6 @@ import java.util.List;
 /**
  * 先走filter -> Interceptor
  */
-@Configuration
 public class SpringWebConfig extends WebMvcConfigurationSupport implements InitializingBean {
 
     @Autowired
@@ -44,8 +44,7 @@ public class SpringWebConfig extends WebMvcConfigurationSupport implements Initi
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-
-        registry.addMapping("/cors/**")
+        registry.addMapping("/**")
                 .allowedHeaders("*")
                 .allowedMethods("POST", "GET", "PUT", "DELETE")
                 .allowedOrigins("*");
@@ -85,7 +84,7 @@ public class SpringWebConfig extends WebMvcConfigurationSupport implements Initi
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 //        registry.addInterceptor(new SunShineHandlerInterceptor()).addPathPatterns("/**").excludePathPatterns("/hello");
-        registry.addInterceptor(new SunShineHandlerInterceptor()).addPathPatterns("/**");
+//        registry.addInterceptor(new SunShineHandlerInterceptor()).addPathPatterns("/**");
     }
 
 
@@ -96,7 +95,7 @@ public class SpringWebConfig extends WebMvcConfigurationSupport implements Initi
     public void afterPropertiesSet() {
         // 处理HandlerMethodReturnValueHandler
         decorateReturnValueHandler();
-     }
+    }
 
     private void decorateReturnValueHandler() {
         List<HandlerMethodReturnValueHandler> returnValueHandlers = adapter.getReturnValueHandlers();
