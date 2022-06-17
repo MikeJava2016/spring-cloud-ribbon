@@ -6,6 +6,7 @@ import com.sunshine.redission.utils.RedisDelayQueueUtil;
 import com.sunshine.redission.utils.RedissonDistributedLocker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,7 @@ public class RedisDelayQueueRunner implements CommandLineRunner {
     private RedisDelayQueueUtil redisDelayQueueUtil;
 
     @Autowired
+    @Qualifier("taskExecutor")
     private ThreadPoolTaskExecutor executor;
 
     @Autowired

@@ -1,18 +1,20 @@
 package com.sunshine.utils.web;
 
-import com.sunshine.utils.pwd.EncryptViewUtils;
 import com.sunshine.utils.common.Result;
+import com.sunshine.utils.pwd.EncryptViewUtils;
 import com.sunshine.utils.pwd.JsonEncrypt;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.async.WebAsyncTask;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import java.lang.reflect.Field;
 import java.util.List;
-
+@Slf4j
 public class ResultWarpReturnValueHandler  implements HandlerMethodReturnValueHandler {
 
     private final HandlerMethodReturnValueHandler delegate;
@@ -28,10 +30,14 @@ public class ResultWarpReturnValueHandler  implements HandlerMethodReturnValueHa
 
     @Override
     public void handleReturnValue(@Nullable Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer, NativeWebRequest webRequest) throws Exception {
+       if (returnValue instanceof WebAsyncTask){
+           log.info("返回值类型是 WebAsyncTask ");
+           return;
+       }
         delegate.handleReturnValue(convertReturnValue(returnValue), returnType, mavContainer, webRequest);
     }
 
-    private Object convertReturnValue(Object source) {
+    public static final Object convertReturnValue(Object source) {
         if (null != source ){
             jsonEncrypt(source);
             if (!(source instanceof Result)){
@@ -41,7 +47,7 @@ public class ResultWarpReturnValueHandler  implements HandlerMethodReturnValueHa
         return source;
     }
 
-    private void jsonEncrypt(Object source) {
+    public static final void jsonEncrypt(Object source) {
         if(source instanceof List) {
             Iterable iterable = (Iterable) source;
             for (Object object : iterable) {
@@ -58,7 +64,7 @@ public class ResultWarpReturnValueHandler  implements HandlerMethodReturnValueHa
         }
     }
 
-    private void doJsonEncrypt(Object object) {
+    public static final void doJsonEncrypt(Object object) {
         Field[] fields = object.getClass().getDeclaredFields();
         if(ArrayUtils.isNotEmpty(fields)) {
             for (Field field : fields) {
@@ -72,7 +78,7 @@ public class ResultWarpReturnValueHandler  implements HandlerMethodReturnValueHa
         }
     }
 
-    private void doJsonEncrypt(Field field, JsonEncrypt jsonEncrypt, Object object) {
+    public static final void doJsonEncrypt(Field field, JsonEncrypt jsonEncrypt, Object object) {
         try {
             field.setAccessible(true);
             Object val = field.get(object);

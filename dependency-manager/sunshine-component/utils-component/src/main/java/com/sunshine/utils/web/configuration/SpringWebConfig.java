@@ -11,8 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
@@ -88,9 +90,6 @@ public class SpringWebConfig extends WebMvcConfigurationSupport implements Initi
     }
 
 
-
-
-
     @Override
     public void afterPropertiesSet() {
         // 处理HandlerMethodReturnValueHandler
@@ -119,7 +118,7 @@ public class SpringWebConfig extends WebMvcConfigurationSupport implements Initi
     public class GlobalExceptionHandler {
 
         @ExceptionHandler(Exception.class)
-        public Result handleException(BindException e, HttpServletRequest request){
+        public Result handleException(BindException e, HttpServletRequest request) {
             List<FieldError> fieldErrors = e.getFieldErrors();
             StringBuilder message = new StringBuilder();
             fieldErrors.forEach(
@@ -127,10 +126,21 @@ public class SpringWebConfig extends WebMvcConfigurationSupport implements Initi
                         message.append(fieldError.getField()).append(":").append(fieldError.getDefaultMessage()).append(",");
                     }
             );
-            logger.info("GlobalExceptionHandler.handleException:{},{}",request.getRequestURI(),message);
+            logger.info("GlobalExceptionHandler.handleException:{},{}", request.getRequestURI(), message);
             ManagerTokenUtil.removeUid();
-            return Result.fail(message.substring(0,message.length() - 1));
+            return Result.fail(message.substring(0, message.length() - 1));
         }
+    }
+
+
+    @Bean
+    public ThreadPoolTaskExecutor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(5);
+        executor.setMaxPoolSize(10);
+        executor.setQueueCapacity(100);
+        logger.info("初始化线程池 taskExecutor");
+        return executor;
     }
 
 }
