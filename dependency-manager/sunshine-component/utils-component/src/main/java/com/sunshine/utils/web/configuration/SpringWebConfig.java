@@ -14,13 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.async.CallableProcessingInterceptor;
+import org.springframework.web.context.request.async.DeferredResultProcessingInterceptor;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
+import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -122,9 +126,7 @@ public class SpringWebConfig extends WebMvcConfigurationSupport implements Initi
             List<FieldError> fieldErrors = e.getFieldErrors();
             StringBuilder message = new StringBuilder();
             fieldErrors.forEach(
-                    fieldError -> {
-                        message.append(fieldError.getField()).append(":").append(fieldError.getDefaultMessage()).append(",");
-                    }
+                    fieldError -> message.append(fieldError.getField()).append(":").append(fieldError.getDefaultMessage()).append(",")
             );
             logger.info("GlobalExceptionHandler.handleException:{},{}", request.getRequestURI(), message);
             ManagerTokenUtil.removeUid();
@@ -141,6 +143,13 @@ public class SpringWebConfig extends WebMvcConfigurationSupport implements Initi
         executor.setQueueCapacity(100);
         logger.info("初始化线程池 taskExecutor");
         return executor;
+    }
+
+    @Override
+    public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
+        configurer.setDefaultTimeout(2500).setTaskExecutor(new ConcurrentTaskExecutor())
+                .registerCallableInterceptors(new CallableProcessingInterceptor() { })
+                .registerDeferredResultInterceptors(new DeferredResultProcessingInterceptor() {});
     }
 
 }

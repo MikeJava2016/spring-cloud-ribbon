@@ -25,11 +25,14 @@ public class WebAsyncUtils {
      */
     public static final WebAsyncTask<Result> instance(Callable callable) {
         WebAsyncTask<Result> asyncTask = new WebAsyncTask(2000L, executor, callable);
+        defaultConfiguration(asyncTask);
+        return asyncTask;
+    }
+
+    private static void defaultConfiguration(WebAsyncTask asyncTask) {
         asyncTask.onCompletion(() -> log.info("任务执行完成"));
         asyncTask.onError(() -> Result.fail("任务超失败"));
         asyncTask.onTimeout(() -> Result.fail("任务超时"));
-
-        return asyncTask;
     }
 
     /**
@@ -40,7 +43,7 @@ public class WebAsyncUtils {
      */
     public static final WebAsyncTask<String> instanceString(Callable callable) {
         WebAsyncTask<String> asyncTask = new WebAsyncTask(2000L, executor, callable);
-        asyncTask.onCompletion(() -> log.info("任务执行完成"));
+        defaultConfiguration(asyncTask);
         return asyncTask;
     }
 

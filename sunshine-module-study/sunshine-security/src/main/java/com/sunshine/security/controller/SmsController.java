@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.async.WebAsyncTask;
 
 import javax.servlet.http.HttpSession;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -69,4 +71,20 @@ public class SmsController {
 //        return Result.success("发送验证码成功");
         return WebAsyncUtils.instanceString(() -> "1234");
     }
+
+
+
+    @GetMapping("/public/sm4")
+    @ResponseBody
+    public CompletionStage<String> sms4(@RequestParam(required = true) String mobile, HttpSession session) {
+        //这里我偷懒了，具体实现可以调用短信验证提供商的api
+        SmsCode smsCode = new SmsCode(mobile, RandomStringUtils.randomNumeric(6), LocalDateTime.now().plusSeconds(60));
+        String smsKey = "smscode:" + mobile;
+        redissonClient.getBucket(smsKey).set(smsCode.getCode(), 2000, TimeUnit.MINUTES);
+        log.info(smsKey + "的验证码是：" + smsCode.getCode());
+//        return Result.success("发送验证码成功");
+        return CompletableFuture.supplyAsync(() -> "Hello World");
+    }
+
+
 }
