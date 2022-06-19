@@ -1,7 +1,7 @@
 package com.sunshine.util;
 
 import com.netflix.loadbalancer.ILoadBalancer;
-import com.sunshine.configuration.ApplicationContextUtils;
+import com.sunshine.common.util.web.ApplicationContextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.ribbon.SpringClientFactory;
@@ -17,7 +17,7 @@ public class RestTemplateUtils  {
 
     private final static Logger logger = LoggerFactory.getLogger(RestTemplateUtils.class);
 
-    private static final RestTemplate restTemplate3 = (RestTemplate)ApplicationContextUtils.getBean("restTemplate3");
+    private static final RestTemplate restTemplate3 = (RestTemplate) ApplicationContextUtils.getBean("restTemplate3");
 
     private static final RestTemplate restTemplate  = (RestTemplate)ApplicationContextUtils.getBean("restTemplate");
 

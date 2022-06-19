@@ -3,7 +3,7 @@ package com.sunshine.modules.login;
 import com.sunshine.common.ao.LoginUserDto;
 import com.sunshine.common.exception.BizException;
 import com.sunshine.common.util.Result;
-import com.sunshine.configuration.ApplicationContextUtils;
+import com.sunshine.common.util.web.ApplicationContextUtils;
 import com.sunshine.utils.pwd.JwtUtils;
 import io.jsonwebtoken.SignatureException;
 import org.joda.time.Duration;
