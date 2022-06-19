@@ -18,6 +18,7 @@ public class RestTemplateAutoConfiguration {
     private final static Logger logger = LoggerFactory.getLogger(RestTemplateAutoConfiguration.class);
 
     @Bean
+    @LoadBalanced
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
 //        builder.additionalInterceptors()
 //        builder.additionalCustomizers()
