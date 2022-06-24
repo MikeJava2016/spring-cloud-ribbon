@@ -2,7 +2,7 @@ package com.sunshine.security.config.common;
 
 import cn.hutool.json.JSONUtil;
 import com.sunshine.common.util.JsonMapper;
-import com.sunshine.common.util.Result;
+import com.sunshine.common.base.Result;
 import com.sunshine.common.util.web.ApplicationContextUtils;
 import com.sunshine.common.util.web.PropertyUtils;
 import com.sunshine.security.config.phoneNumber.PhoneNumberAuthenticationToken;

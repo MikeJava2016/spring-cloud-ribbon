@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sunshine.annotation.SunShine;
 import com.sunshine.common.annontation.Validate;
-import com.sunshine.common.util.Result;
+import com.sunshine.common.base.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;

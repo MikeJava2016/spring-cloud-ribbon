@@ -1,6 +1,6 @@
 package com.sunshine.security.controller;
 
-import com.sunshine.common.util.Result;
+import com.sunshine.common.base.Result;
 import com.sunshine.security.entity.SmsCode;
 import com.sunshine.utils.web.WebAsyncUtils;
 import lombok.extern.slf4j.Slf4j;

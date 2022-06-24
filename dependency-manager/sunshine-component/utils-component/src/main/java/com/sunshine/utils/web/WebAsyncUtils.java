@@ -1,7 +1,7 @@
 package com.sunshine.utils.web;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.sunshine.utils.common.Result;
+import com.sunshine.common.base.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.context.request.async.WebAsyncTask;

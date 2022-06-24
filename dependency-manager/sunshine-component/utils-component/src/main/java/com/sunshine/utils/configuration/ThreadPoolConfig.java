@@ -18,6 +18,7 @@ public class ThreadPoolConfig {
         ExecutorService service = new ThreadPoolExecutor(2, 5,
                 60L, TimeUnit.SECONDS,
                 new ArrayBlockingQueue(5), factoryBuilder.build());
+
         return service;
     }
 }

@@ -5,6 +5,18 @@
     <groupId>com.sunshine</groupId>
     <artifactId>ribbon-service-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <name>ribbon-service-api</name>
     <description>Demo project for Spring Boot</description>
     <packaging>jar</packaging>
@@ -70,9 +82,14 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-core</artifactId>
+            <groupId>com.netflix.ribbon</groupId>
+            <artifactId>ribbon-loadbalancer</artifactId>
+            <optional>true</optional>
         </dependency>
+        <!-- <dependency>
+             <groupId>com.alibaba.csp</groupId>
+             <artifactId>sentinel-core</artifactId>
+         </dependency>-->
     </dependencies>
 
     <dependencyManagement>

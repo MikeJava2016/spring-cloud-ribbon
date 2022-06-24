@@ -1,6 +1,6 @@
 package com.sunshine.utils.web;
 
-import com.sunshine.utils.common.Result;
+import com.sunshine.common.base.Result;
 import com.sunshine.utils.pwd.EncryptViewUtils;
 import com.sunshine.utils.pwd.JsonEncrypt;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +53,7 @@ public class ResultWarpReturnValueHandler  implements HandlerMethodReturnValueHa
             for (Object object : iterable) {
                 jsonEncrypt(object);
             }
-        } else if(source instanceof Result) {
+        } else if(source instanceof Result ) {
             Result<?> result = (Result<?>) source;
             Object data = result.getData();
             if(null != data) {

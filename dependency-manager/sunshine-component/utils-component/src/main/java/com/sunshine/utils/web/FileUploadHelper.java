@@ -1,6 +1,6 @@
 package com.sunshine.utils.web;
 
-import com.sunshine.utils.common.Result;
+import com.sunshine.common.base.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;

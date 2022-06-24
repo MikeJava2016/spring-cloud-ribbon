@@ -1,10 +1,9 @@
 package com.sunshine.controller.feign;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.sunshine.api.feign.service.UserFeignSerivce;
 import com.sunshine.common.annontation.Login;
-import com.sunshine.common.util.Result;
+import com.sunshine.common.base.Result;
 import com.sunshine.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,12 +34,12 @@ public class UserFeignController {
     private UserFeignSerivce userFeignSerivce;
 
     /**
-     * url http://localhost:8080/userfeign/1
+     * url http://localhost:18080/userfeign/1
      * @param id
      * @return
      */
     @GetMapping("/{id}")
-    @SentinelResource(value = "userfeign", blockHandler = "blockHandler2", fallback = "fallbackHandle2")
+//    @SentinelResource(value = "userfeign", blockHandler = "blockHandler2", fallback = "fallbackHandle2")
     public Result getUserById(@PathVariable("id")Long id) {
         return userFeignSerivce.getOne(id);
     }

@@ -1,6 +1,6 @@
 package com.sunshine.utils.common.exception;
 
-import com.sunshine.utils.common.Result;
+import com.sunshine.common.base.Result;
 import com.sunshine.utils.common.ResultConstant;
 
 import java.text.ParseException;

@@ -1,4 +1,4 @@
-package com.sunshine.utils.common;
+package com.sunshine.common.base;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;

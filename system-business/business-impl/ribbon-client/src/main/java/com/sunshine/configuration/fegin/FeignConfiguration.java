@@ -1,5 +1,7 @@
 package com.sunshine.configuration.fegin;
 
+import com.netflix.loadbalancer.IRule;
+import com.netflix.loadbalancer.WeightedResponseTimeRule;
 import feign.Client;
 import feign.Logger;
 import okhttp3.OkHttpClient;
@@ -8,6 +10,7 @@ import org.apache.http.conn.ssl.SSLContexts;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerRequestTransformer;
 import org.springframework.cloud.commons.httpclient.DefaultOkHttpClientConnectionPoolFactory;
 import org.springframework.cloud.commons.httpclient.DefaultOkHttpClientFactory;
 import org.springframework.cloud.commons.httpclient.OkHttpClientConnectionPoolFactory;
@@ -18,7 +21,9 @@ import org.springframework.cloud.openfeign.ribbon.LoadBalancerFeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.client.support.HttpRequestWrapper;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -122,5 +127,24 @@ public class FeignConfiguration {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Bean
+    public IRule WeightedResponseTimeRule(){
+        WeightedResponseTimeRule weightedResponseTimeRule = new WeightedResponseTimeRule();
+        logger.info("RibbonConfiguration weightedResponseTimeRule ");
+        return weightedResponseTimeRule;
+    }
+
+    @Bean
+    public LoadBalancerRequestTransformer loadBalancerRequestTransformer(){
+        logger.info("RibbonConfiguration loadBalancerRequestTransformer ");
+        return (request, instance) -> {
+            logger.info("RibbonConfiguration LoadBalancerRequestTransformer = {} ",request.getURI());
+            HttpHeaders headers = request.getHeaders();
+            HttpRequestWrapper requestWrapper = new HttpRequestWrapper(request);
+            requestWrapper.getHeaders().add("localB","1324");
+            return requestWrapper;
+        };
     }
 }

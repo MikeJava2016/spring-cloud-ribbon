@@ -23,6 +23,7 @@
         <module>ribbon-starter</module>
         <module>utils-component</module>
         <module>sunshine-sharding-jdbc-component</module>
+        <module>common-utils</module>
     </modules>
 
     <dependencyManagement>

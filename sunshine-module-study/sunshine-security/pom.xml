@@ -54,11 +54,6 @@
             <artifactId>jjwt</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.sunshine</groupId>
-            <artifactId>ribbon-common</artifactId>
-        </dependency>
-
         <!-- swagger2 -->
         <dependency>
             <groupId>io.springfox</groupId>

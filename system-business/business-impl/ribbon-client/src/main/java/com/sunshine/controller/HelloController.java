@@ -1,7 +1,7 @@
 package com.sunshine.controller;
 
 import com.sunshine.annotation.SunShine;
-import com.sunshine.common.util.Result;
+import com.sunshine.common.base.Result;
 import com.sunshine.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

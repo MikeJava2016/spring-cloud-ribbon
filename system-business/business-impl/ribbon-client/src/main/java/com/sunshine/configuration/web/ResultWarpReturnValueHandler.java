@@ -1,9 +1,9 @@
 package com.sunshine.configuration.web;
 
 import annotation.JsonEncrypt;
+import com.sunshine.common.base.Result;
 import com.sunshine.common.util.EncryptViewUtils;
 import com.sunshine.common.util.ManagerTokenUtil;
-import com.sunshine.common.util.Result;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -35,7 +35,7 @@ public class ResultWarpReturnValueHandler  implements HandlerMethodReturnValueHa
     private Object convertReturnValue(Object source) {
         if (null != source ){
             jsonEncrypt(source);
-            if (!(source instanceof  Result)){
+            if (!(source instanceof Result)){
                 source = Result.success(source);
             }
         }

@@ -1,7 +1,7 @@
 package com.sunshine.api.feign.service;
 
 import com.sunshine.common.ao.LoginUserDto;
-import com.sunshine.common.util.Result;
+import com.sunshine.common.base.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

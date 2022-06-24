@@ -1,5 +1,6 @@
 package com.sunshine.utils.common;
 
+import com.sunshine.common.base.Result;
 import com.sunshine.utils.common.exception.BaseException;
 
 public class BusinessException extends BaseException {

@@ -2,7 +2,7 @@ package com.sunshine.security.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.sunshine.common.util.Result;
+import com.sunshine.common.base.Result;
 import com.sunshine.security.entity.UserModel;
 import com.sunshine.security.service.UserModelService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package com.sunshine.security.controller;
 import com.alibaba.fastjson.JSON;
 import com.sunshine.security.entity.SysUser;
 import com.sunshine.security.service.LoginService;
-import com.sunshine.common.util.Result;
+import com.sunshine.common.base.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

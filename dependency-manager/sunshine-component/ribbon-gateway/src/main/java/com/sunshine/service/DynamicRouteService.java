@@ -1,7 +1,7 @@
 package com.sunshine.service;
 
 import com.alibaba.fastjson.JSON;
-import com.sunshine.common.util.Result;
+import com.sunshine.common.base.Result;
 import com.sunshine.entity.RouteForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
@@ -12,7 +12,6 @@ import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

@@ -5,7 +5,7 @@ import com.sunshine.security.entity.LoginUser;
 import com.sunshine.security.entity.SysUser;
 import com.sunshine.security.service.LoginService;
 import com.sunshine.utils.pwd.JwtUtils;
-import com.sunshine.common.util.Result;
+import com.sunshine.common.base.Result;
 import org.joda.time.Duration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,7 +1,7 @@
 package com.sunshine.security.service;
 
 import com.sunshine.security.entity.SysUser;
-import com.sunshine.common.util.Result;
+import com.sunshine.common.base.Result;
 
 /**
  * @version v1

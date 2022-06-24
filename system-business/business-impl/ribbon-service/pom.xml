@@ -37,6 +37,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.2.0</version>
         </dependency>
 
         <dependency>
@@ -46,6 +47,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
 
 
@@ -105,13 +111,13 @@
         <dependency>
             <groupId>com.ctrip.framework.apollo</groupId>
             <artifactId>apollo-client</artifactId>
-            <!--            <version>${apollo-client.version}</version>-->
+            <version>${apollo-client.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.ctrip.framework.apollo</groupId>
             <artifactId>apollo-core</artifactId>
-            <!--            <version>${apollo-client.version}</version>-->
+            <version>${apollo-client.version}</version>
         </dependency>
 
         <dependency>
@@ -123,7 +129,7 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-            <!--            <version>${spring-cloud-starter-alibaba-sentinel.version}</version>-->
+            <version>${spring-cloud-starter-alibaba-sentinel.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>woodstox-core</artifactId>
@@ -165,6 +171,7 @@
             <artifactId>utils-component</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -186,10 +193,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                      <source>1.8</source>
-                      <target>1.8</target>
-                      <encoding>UTF-8</encoding>
-                  </configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
             </plugin>
 
             <plugin>

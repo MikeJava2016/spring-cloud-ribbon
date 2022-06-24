@@ -1,7 +1,7 @@
 package com.sunshine.security.controller;
 
 import com.sunshine.security.config.annotation.IgnoreAuth;
-import com.sunshine.utils.common.Result;
+import com.sunshine.common.base.Result;
 import com.sunshine.utils.web.WebAsyncUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

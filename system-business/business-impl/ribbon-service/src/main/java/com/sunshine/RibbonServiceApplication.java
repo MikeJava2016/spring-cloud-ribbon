@@ -1,11 +1,16 @@
 package com.sunshine;
 
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
+import com.sunshine.utils.web.configuration.SpringWebConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 @EnableApolloConfig
 @EnableFeignClients(basePackages = "com.sunshine")
@@ -19,4 +24,11 @@ public class RibbonServiceApplication {
         SpringApplication.run(RibbonServiceApplication.class, args);
     }
 
+
+    @Bean
+    @Order(200)
+    @ConditionalOnClass(value = {RequestMappingHandlerAdapter.class})
+    public SpringWebConfig springWebConfig(){
+        return new SpringWebConfig();
+    }
 }

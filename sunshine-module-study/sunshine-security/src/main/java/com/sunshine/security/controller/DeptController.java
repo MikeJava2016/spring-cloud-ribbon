@@ -2,7 +2,7 @@ package com.sunshine.security.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sunshine.common.util.Result;
+import com.sunshine.common.base.Result;
 import com.sunshine.security.config.common.AuthenticationToken;
 import com.sunshine.security.entity.DeptModel;
 import com.sunshine.security.service.DeptService;
