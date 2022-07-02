@@ -6,7 +6,7 @@ import com.sunshine.security.config.common.JwtAuthenticationTokenFilter;
 import com.sunshine.security.config.phoneNumber.PhoneNumberAuthenticationFilter;
 import com.sunshine.security.config.phoneNumber.SmsCodeValidateFilter;
 import com.sunshine.security.service.impl.PhoneNumnerUserDetailsService;
-import com.sunshine.utils.web.ReadRequestBodyFilter;
+import com.sunshine.security.web.ReadRequestBodyFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

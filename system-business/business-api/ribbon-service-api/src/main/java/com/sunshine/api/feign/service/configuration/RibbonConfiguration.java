@@ -1,6 +1,5 @@
 package com.sunshine.api.feign.service.configuration;
 
-import feign.Contract;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.slf4j.Logger;
@@ -18,11 +17,6 @@ import org.springframework.context.annotation.Configuration;
 public class RibbonConfiguration {
 
     private final static Logger logger = LoggerFactory.getLogger(RibbonConfiguration.class);
-
-    @Bean
-    public Contract feignContract() {
-        return new feign.Contract.Default();
-    }
 
     @Bean
     public RequestInterceptor sunshinRequestInterceptor() {

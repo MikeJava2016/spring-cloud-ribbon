@@ -97,7 +97,7 @@
 
         <dependency>
             <groupId>com.sunshine</groupId>
-            <artifactId>sunshine-redission</artifactId>
+            <artifactId>sunshine-redission-spring-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

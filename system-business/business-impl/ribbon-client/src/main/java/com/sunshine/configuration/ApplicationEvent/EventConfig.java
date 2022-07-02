@@ -59,8 +59,6 @@ public class EventConfig {
               consumer.accept(event.getMessage());
           }
 
-
-
         }
 
 

@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.sunshine.springvc.configuration.SunShineWebMvcConfigurer,\
+com.sunshine.springvc.configuration.SpringWebConfig,\
+com.sunshine.utils.configuration.ThreadPoolConfig,\
+cn.hutool.extra.spring.SpringUtil

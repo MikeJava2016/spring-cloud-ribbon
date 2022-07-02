@@ -8,6 +8,7 @@
     <name>spring-cloud-ribbon</name>
     <description>Demo project for Spring Boot</description>
     <packaging>pom</packaging>
+
     <modules>
         <module>system-business</module>
         <module>sunshine-module-study</module>
