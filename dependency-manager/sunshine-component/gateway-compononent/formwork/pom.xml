@@ -115,6 +115,11 @@
             <groupId>com.sunshine</groupId>
             <artifactId>utils-component</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
