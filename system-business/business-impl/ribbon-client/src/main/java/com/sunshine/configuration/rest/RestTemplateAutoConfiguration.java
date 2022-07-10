@@ -26,7 +26,7 @@ public class RestTemplateAutoConfiguration {
     }
 
     @Bean(value = "restTemplate3")
-    @LoadBalanced
+    @LoadBalanced // 负载均衡；
     public RestTemplate restTemplate3(RestTemplateBuilder builder) {
         return builder.build();
     }

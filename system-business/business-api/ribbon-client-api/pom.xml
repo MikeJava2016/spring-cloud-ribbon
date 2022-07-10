@@ -10,9 +10,9 @@
     <packaging>jar</packaging>
 
     <properties>
-        <spring-boot.version>2.3.9.RELEASE</spring-boot.version>
-        <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
-        <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
+        <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
+        <spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
         <hutool-all.version>5.4.5</hutool-all.version>
         <apollo-client.version>1.8.0</apollo-client.version>
         <guava.version>22.0</guava.version>
@@ -35,7 +35,7 @@
         <sentinel-datasource-apollo.version>1.5.2</sentinel-datasource-apollo.version>
         <tomcat-embed-core.version>9.0.58</tomcat-embed-core.version>
         <spring-cloud-starter-bootstrap.version>3.1.0</spring-cloud-starter-bootstrap.version>
-        <spring-cloud-starter-alibaba-sentinel.version>2.2.1.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
+        <spring-cloud-starter-alibaba-sentinel.version>2.2.2.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
         <sharding-jdbc-spring-boot-starter.version>4.1.1</sharding-jdbc-spring-boot-starter.version>
         <lombok.version>1.18.22</lombok.version>
     </properties>
@@ -57,13 +57,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <version>2.3.9.RELEASE</version>
+            <version>2.3.7.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.3.9.RELEASE</version>
+            <version>2.3.7.RELEASE</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>

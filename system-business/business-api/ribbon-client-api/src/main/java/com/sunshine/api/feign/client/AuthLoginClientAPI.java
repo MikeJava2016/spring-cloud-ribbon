@@ -1,4 +1,4 @@
-package com.sunshine.api.feign.service;
+package com.sunshine.api.feign.client;
 
 import com.sunshine.common.ao.LoginUserDto;
 import com.sunshine.common.base.Result;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@FeignClient(name = "ribbon-client",contextId = "user-auth")
+@FeignClient(name = "ribbon-client",contextId = "auth-login")
 public interface AuthLoginClientAPI {
 
     @GetMapping(value = "/token",consumes = MediaType.APPLICATION_JSON_VALUE)

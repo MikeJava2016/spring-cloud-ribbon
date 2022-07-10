@@ -1,5 +1,6 @@
 package com.sunshine.api.feign.service;
 
+import com.sunshine.api.feign.service.configuration.RibbonConfiguration;
 import com.sunshine.api.feign.service.sentinel.UserFeignSerivceFallBackFactory;
 import com.sunshine.common.base.Result;
 import com.sunshine.entity.User;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "ribbon-service", contextId = "user",path = "ribbon-service/api"/*,configuration = {RibbonConfiguration.class}*/, fallbackFactory = UserFeignSerivceFallBackFactory.class
+@FeignClient(name = "ribbon-service",contextId = "user",path = "ribbon-service/api" ,configuration = {RibbonConfiguration.class}, fallbackFactory = UserFeignSerivceFallBackFactory.class
 )
 public interface UserFeignSerivce {
 

@@ -3,7 +3,6 @@ package com.sunshine.gateway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
@@ -24,7 +23,7 @@ public class DynamicGatewayApplication {
      注意版本组合：
      Spring-Cloud               Spring-Boot
      =================          ==============
-     Hoxton.SR10                2.3.9.RELEASE
+     Hoxton.SR10                2.3.7.RELEASE
      Hoxton.SR4                 2.2.6.RELEASE
      Hoxton.SR1                 2.2.1.RELEASE
      Greenwich.SR3              2.1.1.RELEASE

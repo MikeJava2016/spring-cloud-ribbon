@@ -8,40 +8,21 @@ import com.sunshine.common.base.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
-import java.util.Iterator;
-import java.util.Set;
 
 public class SunShineHandlerInterceptor implements HandlerInterceptor {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-    public <T> String validate(T object) {
-        Set<ConstraintViolation<T>> violationSet = validator.validate(object);
-        if (violationSet != null && !CollectionUtils.isEmpty(violationSet)) {
-            Iterator<ConstraintViolation<T>> iterator = violationSet.iterator();
-            StringBuffer sb = new StringBuffer(64);
-            while (iterator.hasNext()) {
-                sb.append(iterator.next().getMessage()).append(";");
-            }
-            return sb.toString();
-        }
-        return null;
-    }
 
 
     @Override
@@ -113,8 +94,9 @@ public class SunShineHandlerInterceptor implements HandlerInterceptor {
 
     private String handleAnnotationValidate(Validate declaredAnnotation, MethodParameter[] methodParameters) {
         MethodParameter methodParameter = methodParameters[0];
-        String message = validate(methodParameter);
-        return message;
+//        String message = validate(methodParameter);
+//        return message;
+        return null;
     }
 
     private void handleAnnotationSunShine(SunShine sunShine) {

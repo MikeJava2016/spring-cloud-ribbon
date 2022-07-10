@@ -2,7 +2,7 @@ package com.sunshine.gateway.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sunshine.api.feign.service.AuthLoginClientAPI;
+import com.sunshine.api.feign.client.AuthLoginClientAPI;
 import com.sunshine.common.base.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

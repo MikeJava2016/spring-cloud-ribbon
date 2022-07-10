@@ -62,6 +62,7 @@ public class FeignConfiguration {
         logger.info("FeignConfiguration OkHttpClient.Builder...huzhanglinFeignConfiguration ");
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addInterceptor(chain -> {
+             // 打印请求超时时长大于某个时间的请求
             // 设置header
             Request originRequest = chain.request();
             Request newRequest = originRequest.newBuilder().addHeader("ribbon-client-token", "huzhanglin")

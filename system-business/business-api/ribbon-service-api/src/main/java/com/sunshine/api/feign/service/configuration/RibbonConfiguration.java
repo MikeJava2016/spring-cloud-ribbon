@@ -4,6 +4,7 @@ import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @Date 2022/5/9 10:52
  **/
 @Configuration
-public class RibbonConfiguration {
+public class RibbonConfiguration extends FeignClientsConfiguration {
 
     private final static Logger logger = LoggerFactory.getLogger(RibbonConfiguration.class);
 

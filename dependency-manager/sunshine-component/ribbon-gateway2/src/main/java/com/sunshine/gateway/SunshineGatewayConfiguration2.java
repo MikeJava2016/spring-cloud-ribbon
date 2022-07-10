@@ -1,6 +1,6 @@
 package com.sunshine.gateway;
 
-import com.sunshine.api.feign.service.AuthLoginClientAPI;
+import com.sunshine.api.feign.client.AuthLoginClientAPI;
 import com.sunshine.filter.AuthLoginGlobalFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

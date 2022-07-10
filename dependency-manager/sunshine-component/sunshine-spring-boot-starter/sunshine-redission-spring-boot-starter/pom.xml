@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sunshine</groupId>
     <version>0.0.1-SNAPSHOT</version>
-    <artifactId>sunshine-redission-spring-starter</artifactId>
+    <artifactId>sunshine-redission-spring-boot-starter</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

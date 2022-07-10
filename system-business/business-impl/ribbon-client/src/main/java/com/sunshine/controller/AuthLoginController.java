@@ -1,7 +1,7 @@
 package com.sunshine.controller;
 
 import com.sunshine.annotation.SunShine;
-import com.sunshine.api.feign.service.AuthLoginClientAPI;
+import com.sunshine.api.feign.client.AuthLoginClientAPI;
 import com.sunshine.api.feign.service.IUserAuthFeignService;
 import com.sunshine.common.ao.LoginUserDto;
 import com.sunshine.common.base.Result;
@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +30,12 @@ public class AuthLoginController implements AuthLoginClientAPI {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
+    private LoadBalancerClient loadBalancerClient;
+
+    @Autowired
     @Lazy
     private IUserAuthFeignService userAuthFeignService;
+
     /**
      * http://localhost:8080/hello/hello
      * @return
@@ -43,6 +48,8 @@ public class AuthLoginController implements AuthLoginClientAPI {
             throw new BizException("暂不支持该种登录类型");
         }
         Result<String> result = abstractLogin.doLogin(loginUserDto);
+//        ServiceInstance serviceInstance = loadBalancerClient.choose("ribbon-service");
+//        String instanceId = serviceInstance.getInstanceId();
         return result;
     }
 

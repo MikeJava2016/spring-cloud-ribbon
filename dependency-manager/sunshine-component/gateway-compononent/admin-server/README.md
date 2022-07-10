@@ -55,7 +55,7 @@ https://gitee.com/omsgit/flying-fish-gateway
 
 #### 安装教程
 
-1.  依赖spring-boot 2.3.9.RELEASE、spring-cloud Hoxton.SR10 版本，注意版本的搭配
+1.  依赖spring-boot 2.3.7.RELEASE、spring-cloud Hoxton.SR10 版本，注意版本的搭配
 2.  需安装eureke、consul、nacos等其中任意一种，也可无需注册中心运行
 3.  详细安装文档：**[doc/flying-fish-gateway-说明文档.docx](https://gitee.com/omsgit/flying-fish-gateway/tree/snapshot-nacos.v.3.2/doc)** 
 
@@ -113,7 +113,7 @@ https://gitee.com/omsgit/flying-fish-gateway
 注：前端需要同步更新到snapshot-nacos.v.3.1
 
  ++++++++ **snapshot-nacos.v.3.0** 
-1. 升级springcloud Hoxton.SR10\springboot 2.3.9.RELEASE版本
+1. 升级springcloud Hoxton.SR10\springboot 2.3.7.RELEASE版本
 2. 去除eureka注册发现中心，改为nacos（2.0.3版本）实现动态服务注册与发现、配置管理
 3. 此版本基于snapshot.v.3.0改造，核心代码一致
 4. 增加示例子模块
@@ -121,7 +121,7 @@ https://gitee.com/omsgit/flying-fish-gateway
 注：前端需要同步更新到snapshot-nacos.v.3.0
 
  ++++++++ **snapshot.v.3.0** 
-1. 升级springcloud Hoxton.SR10\springboot 2.3.9.RELEASE版本
+1. 升级springcloud Hoxton.SR10\springboot 2.3.7.RELEASE版本
 2. 扩展功能：新增接口心跳监控、邮件告警功能
 3. 代码优化，已知问题题修复
 

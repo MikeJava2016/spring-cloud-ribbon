@@ -1,6 +1,6 @@
 package com.sunshine.gateway;
 
-import com.sunshine.api.feign.service.AuthLoginClientAPI;
+import com.sunshine.api.feign.client.AuthLoginClientAPI;
 import com.sunshine.api.feign.service.IUserAuthFeignService;
 import com.sunshine.api.feign.service.UserFeignSerivce;
 import com.sunshine.gateway.filter.AuthLoginGlobalFilter;

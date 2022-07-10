@@ -1,6 +1,7 @@
 package com.sunshine.controller.feign;
 
-import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.sunshine.api.feign.service.UserFeignSerivce;
 import com.sunshine.common.annontation.Login;
 import com.sunshine.common.base.Result;
@@ -9,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +30,6 @@ public class UserFeignController {
     private String password;
 
     @Autowired
-    @Lazy
     private UserFeignSerivce userFeignSerivce;
 
     /**
@@ -39,7 +38,7 @@ public class UserFeignController {
      * @return
      */
     @GetMapping("/{id}")
-//    @SentinelResource(value = "userfeign", blockHandler = "blockHandler2", fallback = "fallbackHandle2")
+    @SentinelResource(value = "getUserById", blockHandler = "blockHandler2", fallback = "fallbackHandle2")
     public Result getUserById(@PathVariable("id")Long id) {
         return userFeignSerivce.getOne(id);
     }
@@ -62,7 +61,7 @@ public class UserFeignController {
         return userFeignSerivce.delete(id);
     }
 
-    public User blockHandler2(BlockException blockException) {
+    public User blockHandler2(FlowException FlowException) {
         logger.info("调用payment---blockHandler");
         return new User(0L);
     }

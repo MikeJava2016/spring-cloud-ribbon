@@ -1,12 +1,11 @@
 package com.sunshine.api.feign.service.sentinel;
 
-
 import com.sunshine.api.feign.service.UserFeignSerivce;
 import com.sunshine.common.base.Result;
 import com.sunshine.entity.User;
+import feign.hystrix.FallbackFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 @Component
