@@ -18,6 +18,7 @@ public class RibbonClientApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(RibbonClientApplication.class, args);
+//        ParserConfig.getGlobalInstance().c(true);
         EventConfig.EventPublisher eventPublisher = applicationContext.getBean(EventConfig.EventPublisher.class);
         eventPublisher.publishEvent(new EventConfig.MyEvent(applicationContext,"我是事件!",EventConfig.MyEventEnum.one));
     }

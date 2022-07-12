@@ -1,10 +1,12 @@
 package com.sunshine.controller;
 
+import com.alibaba.nacos.api.naming.NamingService;
 import com.sunshine.annotation.SunShine;
 import com.sunshine.common.base.Result;
 import com.sunshine.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private NamingService namingService;
 
     /**
      * http://localhost:8080/hello/hello

@@ -96,6 +96,7 @@ public class SunShineWebMvcConfigurer implements WebMvcConfigurer , Initializing
         log.info("addReturnValueHandlers");
     }
 
+    @Override
     // 添加拦截器
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new HandlerInterceptor() {
@@ -118,6 +119,7 @@ public class SunShineWebMvcConfigurer implements WebMvcConfigurer , Initializing
                 HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
             }
         });
+//        registry.addWebRequestInterceptor()
     }
 
     // 添加异步回调拦截器

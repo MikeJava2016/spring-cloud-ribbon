@@ -78,8 +78,8 @@ public class MybatisConfiguration {
         // IP黑名单 (存在共同时，deny优先于allow) : 如果满足deny的话提示:Sorry, you are not
         // permitted to view this page.
         // 登录查看信息的账号密码.
-        servletRegistrationBean.addInitParameter("loginUsername", "joey");
-        servletRegistrationBean.addInitParameter("loginPassword", "jay");
+        servletRegistrationBean.addInitParameter("loginUsername", "root");
+        servletRegistrationBean.addInitParameter("loginPassword", "root");
         // 是否能够重置数据.
         servletRegistrationBean.addInitParameter("resetEnable", "false");
         return servletRegistrationBean;

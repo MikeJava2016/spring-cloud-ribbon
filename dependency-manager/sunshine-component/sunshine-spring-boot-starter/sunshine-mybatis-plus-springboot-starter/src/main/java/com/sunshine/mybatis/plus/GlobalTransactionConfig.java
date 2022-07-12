@@ -39,6 +39,10 @@ public class GlobalTransactionConfig {
     @Autowired
     private TransactionManager transactionManager;
 
+    /**
+     * 事务拦截器
+     * @return
+     */
     @Bean
     public TransactionInterceptor txAdvice() {
 
