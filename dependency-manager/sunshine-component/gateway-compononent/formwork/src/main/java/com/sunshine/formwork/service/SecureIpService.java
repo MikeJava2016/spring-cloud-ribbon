@@ -26,6 +26,7 @@ public class SecureIpService extends BaseService<SecureIp, String, SecureIpDao> 
      */
     @Override
     public PageResult<SecureIp> pageList(SecureIp secureIp, int currentPage, int pageSize){
+
         //构造条件查询方式
         ExampleMatcher matcher = ExampleMatcher.matching();
         if (StringUtils.isNotBlank(secureIp.getIp())) {
