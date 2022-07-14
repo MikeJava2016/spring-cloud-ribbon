@@ -1,6 +1,6 @@
 package com.sunshine.gateway.filter;
 
-import com.sunshine.utils.web.HttpResponseUtils;
+import com.sunshine.utils.web.ReactiveHttpResponseUtils;
 import com.sunshine.utils.web.NetworkIpUtils;
 import com.sunshine.utils.RouteConstants;
 import com.sunshine.gateway.cache.IpListCache;
@@ -43,13 +43,13 @@ public class IpGatewayFilter implements GatewayFilter, Ordered {
         if (!this.isPassIp(ip)){
             String msg = "客户端IP已被限制，无权限访问网关!" +" ip:" + ip;
             log.error(msg);
-            return HttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
+            return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
         }
         GatewayRegServer regServer = getCacheRegServer(ip);
         if (regServer == null){
             String msg = "客户端IP未注册使用，无权限访问网关路由："+ routeId +"! Ip:" + ip;
             log.error(msg);
-            return HttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
+            return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
         }
         return chain.filter(exchange);
     }

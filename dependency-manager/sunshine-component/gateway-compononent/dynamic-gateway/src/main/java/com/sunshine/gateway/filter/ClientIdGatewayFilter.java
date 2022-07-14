@@ -1,6 +1,6 @@
 package com.sunshine.gateway.filter;
 
-import com.sunshine.utils.web.HttpResponseUtils;
+import com.sunshine.utils.web.ReactiveHttpResponseUtils;
 import com.sunshine.utils.web.NetworkIpUtils;
 import com.sunshine.utils.RouteConstants;
 import com.sunshine.gateway.cache.RegServerCache;
@@ -45,13 +45,13 @@ public class ClientIdGatewayFilter implements GatewayFilter, Ordered {
         if (StringUtils.isBlank(clientId)){
             String msg = "客户端ID值为空，无权限访问网关路由："+ routeId +"! Ip:" + ip;
             log.error(msg);
-            return HttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
+            return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
         }
         GatewayRegServer regServer = getCacheRegServer(clientId);
         if (regServer == null){
             String msg = "客户端ID未注册使用，无权限访问网关路由："+ routeId +"! Ip:" + ip;
             log.error(msg);
-            return HttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
+            return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
         }
         return chain.filter(exchange);
     }

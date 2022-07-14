@@ -1,65 +1,34 @@
 package com.sunshine.utils.web;
 
-import com.alibaba.fastjson.JSONObject;
-import com.sunshine.utils.ApiResult;
-import com.sunshine.utils.Constants;
-import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.server.reactive.ServerHttpResponse;
-import reactor.core.publisher.Mono;
+import com.sunshine.utils.common.JsonUtil;
 
-import java.nio.charset.StandardCharsets;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
- * @Description 使用给定的Publisher者将消息正文写入底层HTTP层.
- * @Author jianglong
- * @Date 2020/05/19
- * @Version V1.0
- */
+ * @version v1
+ * @Description TODO
+ * @Author huzhanglin
+ * @Date 2022/7/13 下午 06:56
+ **/
 public class HttpResponseUtils {
 
-    /**
-     * 正常输出
-     * @param response
-     * @param msg
-     */
-    public static Mono<Void> writeOk(ServerHttpResponse response, String msg) {
-        String jsonMsg = JSONObject.toJSONString(new ApiResult(Constants.SUCCESS, msg, null));
-        return write(response, HttpStatus.OK, jsonMsg);
+    public static void write(HttpServletResponse response,String msg, boolean disableCache) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        if (disableCache) {
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
+            response.setHeader("Cache-Control", "no-cache,no-store");
+        }
+        response.setStatus(HttpServletResponse.SC_OK);
+        out.write(msg);
+        out.flush();
+        out.close();
     }
 
-    /**
-     * 未授权输出
-     * @param response
-     * @param msg
-     */
-    public static Mono<Void> writeUnauth(ServerHttpResponse response, String msg) {
-        String jsonMsg = JSONObject.toJSONString(new ApiResult(Constants.FAILED, msg, null));
-        return write(response, HttpStatus.UNAUTHORIZED, jsonMsg);
+    public static void write(HttpServletResponse response,Object data, boolean disableCache) throws IOException {
+        write(response, JsonUtil.toJson(data),disableCache);
     }
-
-    /**
-     * 内部服务错误输出
-     * @param response
-     * @param msg
-     */
-    public static Mono<Void> writeError(ServerHttpResponse response, String msg) {
-        String jsonMsg = JSONObject.toJSONString(new ApiResult(Constants.FAILED, msg, null));
-        return write(response, HttpStatus.INTERNAL_SERVER_ERROR, jsonMsg);
-    }
-
-    /**
-     * 自定义输出
-     * @param response
-     * @param statusCode
-     * @param msg
-     */
-    public static Mono<Void> write(ServerHttpResponse response, HttpStatus statusCode, String msg){
-        msg = msg == null ? Constants.NULL : msg;
-        response.setStatusCode(statusCode);
-        response.getHeaders().add(Constants.CONTENT_TYPE, Constants.APPLICATION_JSON);
-        DataBuffer buffer = response.bufferFactory().wrap(msg.getBytes(StandardCharsets.UTF_8));
-        return response.writeWith(Mono.just(buffer));
-    }
-
 }

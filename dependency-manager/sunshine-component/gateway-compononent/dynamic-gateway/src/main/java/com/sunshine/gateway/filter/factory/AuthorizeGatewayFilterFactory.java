@@ -1,6 +1,6 @@
 package com.sunshine.gateway.filter.factory;
 
-import com.sunshine.utils.web.HttpResponseUtils;
+import com.sunshine.utils.web.ReactiveHttpResponseUtils;
 import com.sunshine.utils.web.NetworkIpUtils;
 import com.sunshine.gateway.cache.RouteCache;
 import com.sunshine.gateway.filter.authorize.CookieFilter;
@@ -72,7 +72,7 @@ public class AuthorizeGatewayFilterFactory extends AbstractGatewayFilterFactory<
                 //获取缓存中的指定key路由对象
                 Object obj = RouteCache.get(route.getId());
                 if (obj == null){
-                    return HttpResponseUtils.writeUnauth(exchange.getResponse(), "未获取到指定网关注册服务路由信息或路由请求无效！");
+                    return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), "未获取到指定网关注册服务路由信息或路由请求无效！");
                 }
                 try {
                     //执行header,ip,parameter,time,cookie验证
@@ -80,7 +80,7 @@ public class AuthorizeGatewayFilterFactory extends AbstractGatewayFilterFactory<
 
                 }catch(Exception e){
                     log.error("网关转发客户端【{}】路由请求【{}】，执行验证异常：", clientIp, route.getId(), e);
-                    return HttpResponseUtils.writeUnauth(exchange.getResponse(), "网关转发客户端【"+clientIp+"】路由请求【"+route.getId()+"】，执行验证异常：" + e.getMessage());
+                    return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), "网关转发客户端【"+clientIp+"】路由请求【"+route.getId()+"】，执行验证异常：" + e.getMessage());
                 }
             }
             return chain.filter(exchange);

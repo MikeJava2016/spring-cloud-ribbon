@@ -6,7 +6,7 @@ import com.sunshine.formwork.JwtTokenUtils;
 import com.sunshine.gateway.cache.RegServerCache;
 import com.sunshine.gateway.vo.GatewayRegServer;
 import com.sunshine.utils.RouteConstants;
-import com.sunshine.utils.web.HttpResponseUtils;
+import com.sunshine.utils.web.ReactiveHttpResponseUtils;
 import com.sunshine.utils.web.NetworkIpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -49,34 +49,34 @@ public class TokenGatewayFilter implements GatewayFilter, Ordered {
         if (StringUtils.isBlank(token)){
             String msg = "客户端Token值为空，无权限访问网关路由："+ routeId +"! Ip:" + ip;
             log.error(msg);
-            return HttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
+            return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
         }
         GatewayRegServer regServer = getCacheRegServer(token);
         if (regServer == null){
             String msg = "客户端Token未注册使用，无权限访问网关路由："+ routeId +"! Ip:" + ip;
             log.error(msg);
-            return HttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
+            return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
         }
         try {
             if (isPassToken(regServer.getClientId(), regServer.getToken(), regServer.getSecretKey())) {
                 String msg = "客户端Token值验证未通过，无权限访问网关路由：" + routeId + "! Ip:" + ip;
                 log.error(msg);
-                return HttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
+                return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
             }
             //会话超时异常
         }catch(TokenExpiredException tee){
             String msg = "客户端Token值会话超时，无权限访问网关路由：" + routeId + "! Ip:" + ip;
             log.error(msg, tee);
-            return HttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
+            return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
             //验签无效异常
         }catch(SignatureVerificationException sve){
             String msg = "客户端Token值验签无效，无权限访问网关路由：" + routeId + "! Ip:" + ip;
             log.error(msg, sve);
-            return HttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
+            return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
         }catch (Exception e){
             String msg = "客户端Token值有未知异常，无权限访问网关路由：" + routeId + "! Ip:" + ip;
             log.error(msg, e);
-            return HttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
+            return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
         }
         return chain.filter(exchange);
     }

@@ -3,7 +3,7 @@ package com.sunshine.gateway.handle;
 import com.alibaba.fastjson.JSONObject;
 import com.sunshine.utils.ApiResult;
 import com.sunshine.utils.Constants;
-import com.sunshine.utils.web.HttpResponseUtils;
+import com.sunshine.utils.web.ReactiveHttpResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.core.annotation.Order;
@@ -77,7 +77,7 @@ public class CustomWebExceptionHandler implements WebExceptionHandler {
         }
         message += " path：" + path;
         String jsonMsg = JSONObject.toJSONString(new ApiResult(Constants.FAILED, message, null));
-        return HttpResponseUtils.write(exchange.getResponse(), status, jsonMsg);
+        return ReactiveHttpResponseUtils.write(exchange.getResponse(), status, jsonMsg);
     }
 
     /**

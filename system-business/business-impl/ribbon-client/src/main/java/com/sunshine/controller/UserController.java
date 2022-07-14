@@ -1,5 +1,6 @@
 package com.sunshine.controller;
 
+import com.sunshine.springvc.servlet3.AsyncServletUtils;
 import com.sunshine.util.RestTemplateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RequestMapping("/user")
 @RestController
@@ -91,5 +94,15 @@ public class UserController {
         ResponseEntity<String> stringResponseEntity = RestTemplateUtils.get("http://"+name+"/hello/hello", String.class);
         System.out.println(stringResponseEntity.getBody());
         return "user:"+name;
+    }
+
+
+    /**
+     * 删除角色
+     */
+    @RequestMapping("/delete2")
+    public void delete( HttpServletRequest request) {
+        AsyncServletUtils.doAsyncResponse(request,4,"java",3);
+        return;
     }
 }

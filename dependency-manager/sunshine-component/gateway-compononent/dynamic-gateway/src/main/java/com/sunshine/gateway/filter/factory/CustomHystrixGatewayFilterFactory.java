@@ -1,6 +1,6 @@
 package com.sunshine.gateway.filter.factory;
 
-import com.sunshine.utils.web.HttpResponseUtils;
+import com.sunshine.utils.web.ReactiveHttpResponseUtils;
 import com.sunshine.utils.web.NetworkIpUtils;
 import com.sunshine.utils.RouteConstants;
 import com.sunshine.gateway.cache.RouteCache;
@@ -92,7 +92,7 @@ public class CustomHystrixGatewayFilterFactory extends AbstractGatewayFilterFact
         return (exchange, chain) -> {
             if (config.setter == null) {
                 if (config.name == null) {
-                    return HttpResponseUtils.writeError(exchange.getResponse(), "A name must be supplied for the Hystrix Command Key");
+                    return ReactiveHttpResponseUtils.writeError(exchange.getResponse(), "A name must be supplied for the Hystrix Command Key");
                 }
                 HystrixCommandProperties.Setter propertiesSetter = HystrixCommandProperties.Setter();
                 if (config.name.startsWith(RouteConstants.Hystrix.CUSTOM_HYSTRIX_NAME)){

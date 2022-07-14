@@ -1,7 +1,7 @@
 package com.sunshine.manage.filter;
 
 import com.sunshine.utils.Constants;
-import com.sunshine.utils.web.HttpResponseUtils;
+import com.sunshine.utils.web.ReactiveHttpResponseUtils;
 import com.sunshine.utils.web.NetworkIpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -44,7 +44,7 @@ public class AuthIpWebFilter implements WebFilter {
         if (!this.isPassIp(ip)){
             String msg = "客户端IP无权限访问："+ request.getURI().getPath() +"! Ip:" + ip ;
             log.error(msg + ", 如需访问，请yml配置文件中system.auth.ip里添加ip，为预防风险，建议指定内网IP访问！");
-            return HttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
+            return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), msg);
         }
         return chain.filter(exchange);
     }

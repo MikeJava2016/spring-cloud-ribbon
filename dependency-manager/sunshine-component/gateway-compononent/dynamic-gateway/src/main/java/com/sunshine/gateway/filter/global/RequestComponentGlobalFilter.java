@@ -1,6 +1,6 @@
 package com.sunshine.gateway.filter.global;
 
-import com.sunshine.utils.web.HttpResponseUtils;
+import com.sunshine.utils.web.ReactiveHttpResponseUtils;
 import com.sunshine.utils.web.NetworkIpUtils;
 import com.sunshine.gateway.cache.RotueGroovyCache;
 import com.sunshine.gateway.service.DynamicGroovyService;
@@ -73,10 +73,10 @@ public class RequestComponentGlobalFilter implements GlobalFilter, Ordered {
                                 .build());
                     } catch (InvocationTargetException e) {
                         log.error("网关转发客户端【{}】路由请求【{}】，执行Groovy规则引擎动态脚本反射验证异常：", clientIp, routeId, e);
-                        return HttpResponseUtils.writeUnauth(exchange.getResponse(), "网关转发客户端【" + clientIp + "】路由请求【" +routeId + "】，执行验证异常：" + e.getTargetException().getMessage());
+                        return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), "网关转发客户端【" + clientIp + "】路由请求【" +routeId + "】，执行验证异常：" + e.getTargetException().getMessage());
                     } catch (Exception e) {
                         log.error("网关转发客户端【{}】路由请求【{}】，执行Groovy规则引擎验证异常：", clientIp, routeId, e);
-                        return HttpResponseUtils.writeUnauth(exchange.getResponse(), "网关转发客户端【" + clientIp + "】路由请求【" + routeId + "】，执行验证异常：" + e.getMessage());
+                        return ReactiveHttpResponseUtils.writeUnauth(exchange.getResponse(), "网关转发客户端【" + clientIp + "】路由请求【" + routeId + "】，执行验证异常：" + e.getMessage());
                     }
                 });
     }
