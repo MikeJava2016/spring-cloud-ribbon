@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.context.logging.LoggingApplicationListener;
+import org.springframework.cloud.client.discovery.event.InstancePreRegisteredEvent;
+import org.springframework.cloud.client.discovery.event.InstanceRegisteredEvent;
+import org.springframework.cloud.client.serviceregistry.AbstractAutoServiceRegistration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
@@ -24,16 +27,51 @@ public class EventConfig {
 
     private final static Logger logger = LoggerFactory.getLogger(EventConfig.class);
 
-    @Bean(name = "1")
+    @Bean(name = "getMyListener")
     @Order(LoggingApplicationListener.DEFAULT_ORDER + 1)
     public MyListener getMyListener(){
         return new MyListener(MyEventEnum.one,message -> logger.info("MyListener1 {} ",message));
     }
 
-    @Bean(name = "2")
-    @Order(LoggingApplicationListener.DEFAULT_ORDER + 1)
+    @Bean(name = "getMyListener2")
+    @Order(LoggingApplicationListener.DEFAULT_ORDER + 2)
     public MyListener getMyListener2(){
         return new MyListener(MyEventEnum.two, message -> logger.info("MyListener2 {} ",message));
+    }
+
+    @Bean(name = "instancePreRegisteredListener3")
+    @Order(LoggingApplicationListener.DEFAULT_ORDER + 3)
+    public ApplicationListener instancePreRegisteredListener(){
+        InstancePreRegisteredListener instancePreRegisteredListener = new InstancePreRegisteredListener();
+        logger.info(" instance InstancePreRegisteredListener finish");
+        return instancePreRegisteredListener;
+    }
+
+    @Bean(name = "instanceRegisteredListener4")
+    @Order(LoggingApplicationListener.DEFAULT_ORDER + 4)
+    public ApplicationListener instanceRegisteredListener(){
+        InstanceRegisteredListener instanceRegisteredListener = new InstanceRegisteredListener();
+        logger.info(" instance InstanceRegisteredListener finish");
+        return instanceRegisteredListener;
+    }
+
+    public static class InstancePreRegisteredListener implements ApplicationListener<InstancePreRegisteredEvent>{
+
+        @Override
+        public void onApplicationEvent(InstancePreRegisteredEvent event) {
+            AbstractAutoServiceRegistration ServiceRegistration  = (AbstractAutoServiceRegistration) event.getSource();
+            logger.info(" 服务注册 ServiceRegistration 开始。。。");
+        }
+    }
+
+    public static class InstanceRegisteredListener implements ApplicationListener<InstanceRegisteredEvent>{
+
+        @Override
+        public void onApplicationEvent(InstanceRegisteredEvent event) {
+            AbstractAutoServiceRegistration serviceRegistration  = (AbstractAutoServiceRegistration) event.getSource();
+            logger.info(" 服务注册 ServiceRegistration 完成");
+
+        }
     }
 
 
