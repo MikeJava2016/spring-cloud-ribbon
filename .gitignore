@@ -31,3 +31,7 @@ build/
 .vscode/
 /logs/
 /dynamic-gateway/logs/
+dubbo-template/.mvn/wrapper/maven-wrapper.jar
+/dubbo-template/.mvn/wrapper/maven-wrapper.jar
+/dubbo-template/.mvn/wrapper/maven-wrapper.properties
+/dubbo-template/.mvn/wrapper/MavenWrapperDownloader.java

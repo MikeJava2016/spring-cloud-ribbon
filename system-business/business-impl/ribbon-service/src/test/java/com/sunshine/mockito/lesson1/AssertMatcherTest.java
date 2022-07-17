@@ -1,4 +1,4 @@
-package com.sunshine.mockito;
+package com.sunshine.mockito.lesson1;
 
 import org.junit.Test;
 
