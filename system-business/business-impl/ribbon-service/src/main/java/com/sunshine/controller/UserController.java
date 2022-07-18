@@ -3,7 +3,7 @@ package com.sunshine.controller;
 import com.sunshine.api.feign.service.UserFeignSerivce;
 import com.sunshine.common.base.Result;
 import com.sunshine.entity.User;
-import com.sunshine.mapper.UserMapper;
+import com.sunshine.service.UserService;
 import org.apache.shardingsphere.core.strategy.keygen.SnowflakeShardingKeyGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,14 +21,14 @@ public class UserController implements UserFeignSerivce {
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     // url:http://localhost:18085/user/1
     @Override
     @ResponseBody
     public Result<User> getOne(Long id) {
         logger.info(" id = {}", id);
-         return Result.success(userMapper.selectById(id));
+         return Result.success(userService.selectById(id));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class UserController implements UserFeignSerivce {
         Comparable<?> comparable = snowflakeShardingKeyGenerator.generateKey();
 
         user.setId((Long) comparable);
-        userMapper.insert(user);
+        userService.insert(user);
         logger.info(" user = {}", user);
         return Result.success(user);
     }
@@ -59,7 +59,7 @@ public class UserController implements UserFeignSerivce {
     @Override
     @ResponseBody
     public Result<User> getInfoByUserName(String username) {
-        User user = userMapper.selectByUsername(username);
+        User user = userService.selectByUsername(username);
         return Result.success(user);
     }
 }

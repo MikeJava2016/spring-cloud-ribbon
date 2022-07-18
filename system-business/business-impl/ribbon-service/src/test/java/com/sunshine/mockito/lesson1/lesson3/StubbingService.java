@@ -1,4 +1,4 @@
-package com.sunshine.lesson3;
+package com.sunshine.mockito.lesson1.lesson3;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
