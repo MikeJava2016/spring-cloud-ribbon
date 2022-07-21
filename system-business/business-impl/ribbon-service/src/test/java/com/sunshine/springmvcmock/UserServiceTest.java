@@ -34,9 +34,15 @@ public class UserServiceTest {
 
     private final static Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
+    /**
+     * 需要被測試的對象
+     */
     @InjectMocks
     private UserServiceImpl userService;
 
+    /**
+     * 依赖的对象
+     */
     @Mock
     private UserMapper userMapper;
 

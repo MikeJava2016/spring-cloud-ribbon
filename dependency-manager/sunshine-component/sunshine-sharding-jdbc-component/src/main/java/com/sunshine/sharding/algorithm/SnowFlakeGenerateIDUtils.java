@@ -142,7 +142,7 @@ public class SnowFlakeGenerateIDUtils {
 	 */
 	public static void main(String[] args) {
 		SnowFlakeGenerateIDUtils worker = new SnowFlakeGenerateIDUtils(10,10,100000000);
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 1000000; i++) {
            /* try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {

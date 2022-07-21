@@ -29,11 +29,10 @@
             <artifactId>curator-recipes</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
-            <version>3.4.10</version>
+            <version>3.4.12</version>
         </dependency>
 
         <dependency>
@@ -41,6 +40,13 @@
             <artifactId>zkclient</artifactId>
             <version>0.10</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 
