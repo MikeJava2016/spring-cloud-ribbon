@@ -68,5 +68,15 @@ public class UserServiceTest {
         reset(userMapper);
     }
 
+    @Test
+    public void test_insert() {
+        userService = spy(userService);
+        User param = new User();
+//        when(userMapper.insert(param)).thenReturn(1);
+        when(userMapper.insert(new User())).thenReturn(1);
+        int count  = userService.insert(param);
+        assertThat(count, equalTo(1));
+        reset(userMapper);
+    }
 
 }
