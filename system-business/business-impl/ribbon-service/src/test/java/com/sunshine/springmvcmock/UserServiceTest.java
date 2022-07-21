@@ -24,10 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserServiceTest {
@@ -48,6 +45,7 @@ public class UserServiceTest {
 
     @Before
     public void setUp() {
+        // 注入依赖
         MockitoAnnotations.initMocks(this);
     }
 
@@ -64,7 +62,7 @@ public class UserServiceTest {
             user.setToken("token:" + uid);
             return user;
         });
-        doNothing().when(userService).realMethodThrow();
+        doNothing().when(userService).realMethodThrow(); // mock 远程方法调用
         User user = userService.selectById(3L);
         assertThat(user.getUsername(), equalTo("username3"));
         reset(userMapper);
