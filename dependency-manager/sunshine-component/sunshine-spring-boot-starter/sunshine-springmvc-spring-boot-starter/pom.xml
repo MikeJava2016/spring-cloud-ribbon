@@ -60,6 +60,11 @@
                 <version>0.0.1-SNAPSHOT</version>
                 <optional>true</optional>
             </dependency>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+            </dependency>
         </dependencies>
 
     <dependencyManagement>

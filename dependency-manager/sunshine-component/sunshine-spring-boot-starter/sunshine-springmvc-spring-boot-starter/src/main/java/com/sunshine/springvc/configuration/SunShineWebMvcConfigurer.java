@@ -189,5 +189,4 @@ public class SunShineWebMvcConfigurer implements WebMvcConfigurer , Initializing
         return new RequestMappingHandlerAdapterConfiguration();
     }
 
-
 }

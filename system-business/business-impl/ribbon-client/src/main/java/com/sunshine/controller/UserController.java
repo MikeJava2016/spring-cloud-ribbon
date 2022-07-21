@@ -98,7 +98,7 @@ public class UserController {
 
 
     /**
-     * 删除角色
+     * 异步接口
      */
     @RequestMapping("/delete2")
     public void delete( HttpServletRequest request) {
