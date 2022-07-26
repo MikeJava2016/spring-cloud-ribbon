@@ -37,7 +37,8 @@ public class UserController implements UserFeignSerivce {
         Comparable<?> comparable = snowflakeShardingKeyGenerator.generateKey();
 
         user.setId((Long) comparable);
-        userService.insert(user);
+        int count =  userService.insert(user);
+        logger.info("count = {}" ,count);
         logger.info(" user = {}", user);
         return Result.success(user);
     }

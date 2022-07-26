@@ -1,15 +1,15 @@
 package com.sunshine.mockito.lesson1;
 
+import com.sunshine.StaticClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.stream.Stream;
 
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.either;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -18,6 +18,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * @Author huzhanglin
  * @Date 2022/7/17 上午 02:59
  **/
+@PrepareForTest({StaticClass.class})
+@RunWith(PowerMockRunner.class)
 public class AssertMatcherTest {
 
     @Test
@@ -32,6 +34,13 @@ public class AssertMatcherTest {
 
 
 
+    }
+
+    @Test
+    public void test_static(){
+        PowerMockito.mockStatic(StaticClass.class);
+        PowerMockito.when(StaticClass.get()).thenReturn("10");
+        System.out.println(StaticClass.get());
     }
 
 

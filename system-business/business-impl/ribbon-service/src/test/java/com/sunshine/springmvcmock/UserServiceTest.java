@@ -31,6 +31,7 @@ public class UserServiceTest {
 
     private final static Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
+
     /**
      * 需要被測試的對象
      */
@@ -72,8 +73,7 @@ public class UserServiceTest {
     public void test_insert() {
         userService = spy(userService);
         User param = new User();
-//        when(userMapper.insert(param)).thenReturn(1);
-        when(userMapper.insert(new User())).thenReturn(1);
+        when(userMapper.insert(param)).thenReturn(1);
         int count  = userService.insert(param);
         assertThat(count, equalTo(1));
         reset(userMapper);
