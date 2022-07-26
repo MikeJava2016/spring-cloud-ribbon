@@ -17,22 +17,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 
 public class SunShineHandlerInterceptor implements HandlerInterceptor {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
-
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-       /* HandlerMethod handlerMethod = (HandlerMethod) handler;
+        logger.info("SunShineHandlerInterceptor preHandle 。。。");
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         MethodParameter[] methodParameters = handlerMethod.getMethodParameters();
-        logger.info("preHandle1");
+
         Annotation[] declaredAnnotations = method.getDeclaredAnnotations();
-        boolean preHandle ;
+        boolean preHandle;
         // @RequestBody @Validate
         for (Annotation declaredAnnotation : handlerMethod.getMethod().getParameterAnnotations()[0]) {
             preHandle = this.handleAnnotations(handlerMethod, declaredAnnotation, request, response);
@@ -40,7 +40,7 @@ public class SunShineHandlerInterceptor implements HandlerInterceptor {
                 return false;
             }
             //handlerMethod.getMethod().getParameterAnnotations()
-        }*/
+        }
         return true;
     }
 
@@ -52,7 +52,7 @@ public class SunShineHandlerInterceptor implements HandlerInterceptor {
      * @param response
      */
     private boolean handleAnnotations(HandlerMethod handlerMethod, Annotation declaredAnnotation, HttpServletRequest request, HttpServletResponse response) {
-        logger.info("method ={}.", handlerMethod.getMethod().toGenericString());
+        logger.info(" SunShineHandlerInterceptor handleAnnotations method ={}.", handlerMethod.getMethod().toGenericString());
         if (declaredAnnotation instanceof SunShine) {
             this.handleAnnotationSunShine((SunShine) declaredAnnotation);
             return true;
@@ -108,12 +108,12 @@ public class SunShineHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        logger.info("postHandle");
+        logger.info(" SunShineHandlerInterceptor postHandle");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        logger.info("afterCompletion");
+        logger.info(" SunShineHandlerInterceptor afterCompletion");
     }
 }
 
