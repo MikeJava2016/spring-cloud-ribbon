@@ -32,6 +32,7 @@ public class RequestMappingHandlerAdapterConfiguration implements InitializingBe
         List<HandlerMethodArgumentResolver> argumentResolvers = adapter.getArgumentResolvers();
         for (HandlerMethodArgumentResolver argumentResolver : argumentResolvers) {
             argumentResolver = decorateHandlerMethodArgumentResolver(argumentResolver);
+
         }
 
         // 自定义参数参数解析器

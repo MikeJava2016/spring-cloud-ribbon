@@ -55,7 +55,7 @@ public class SpringWebConfig  {
         return executor;
     }
 
-    public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
+   public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
         configurer.setDefaultTimeout(2500).setTaskExecutor(new ConcurrentTaskExecutor())
                 .registerCallableInterceptors(new CallableProcessingInterceptor() { })
                 .registerDeferredResultInterceptors(new DeferredResultProcessingInterceptor() {});
