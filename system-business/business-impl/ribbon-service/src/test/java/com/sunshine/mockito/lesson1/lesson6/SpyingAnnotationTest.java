@@ -1,3 +1,4 @@
+/*
 package com.sunshine.mockito.lesson1.lesson6;
 
 import org.junit.Before;
@@ -12,12 +13,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
 
+*/
 /**
  * @version v1
  * @Description TODO
  * @Author huzhanglin
  * @Date 2022/7/18 上午 11:11
- **/
+ **//*
+
 
 public class SpyingAnnotationTest {
 
@@ -47,3 +50,4 @@ public class SpyingAnnotationTest {
     }
 
 }
+*/

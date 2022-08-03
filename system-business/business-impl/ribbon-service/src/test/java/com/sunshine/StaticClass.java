@@ -1,3 +1,4 @@
+/*
 package com.sunshine;
 
 public class StaticClass {
@@ -9,3 +10,4 @@ public class StaticClass {
         throw new UnsupportedOperationException("o--");
     }
 }
+*/

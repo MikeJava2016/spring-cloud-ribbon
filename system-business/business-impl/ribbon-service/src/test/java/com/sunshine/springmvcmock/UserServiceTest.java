@@ -1,11 +1,14 @@
+/*
 package com.sunshine.springmvcmock;
 
+*/
 /**
  * @version v1
  * @Description TODO
  * @Author huzhanglin
  * @Date 2022/7/18 下午 04:13
- **/
+ **//*
+
 
 import com.sunshine.entity.User;
 import com.sunshine.mapper.UserMapper;
@@ -32,15 +35,19 @@ public class UserServiceTest {
     private final static Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
 
-    /**
+    */
+/**
      * 需要被測試的對象
-     */
+     *//*
+
     @InjectMocks
     private UserServiceImpl userService;
 
-    /**
+    */
+/**
      * 依赖的对象
-     */
+     *//*
+
     @Mock
     private UserMapper userMapper;
 
@@ -80,3 +87,4 @@ public class UserServiceTest {
     }
 
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.sunshine.mockito.lesson1;
 
 import com.sunshine.StaticClass;
@@ -12,12 +13,14 @@ import java.util.stream.Stream;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+*/
 /**
  * @version v1
  * @Description TODO
  * @Author huzhanglin
  * @Date 2022/7/17 上午 02:59
- **/
+ **//*
+
 @PrepareForTest({StaticClass.class})
 @RunWith(PowerMockRunner.class)
 public class AssertMatcherTest {
@@ -66,3 +69,4 @@ public class AssertMatcherTest {
         assertThat("the double value is equal.",price,either(equalTo(23.56)).or(equalTo(12.52)));
     }
 }
+*/

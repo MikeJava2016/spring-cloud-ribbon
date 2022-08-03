@@ -1,3 +1,4 @@
+/*
 package com.sunshine.mockito.lesson1.lesson2;
 
 import com.sunshine.mockito.lesson1.Account;
@@ -10,12 +11,14 @@ import org.mockito.junit.MockitoRule;
 
 import static org.mockito.Mockito.mock;
 
+*/
 /**
  * @version v1
  * @Description TODO
  * @Author huzhanglin
  * @Date 2022/7/17 上午 10:58
- **/
+ **//*
+
 
 public class MockByRuleTest {
 
@@ -44,3 +47,4 @@ public class MockByRuleTest {
         );
     }
 }
+*/

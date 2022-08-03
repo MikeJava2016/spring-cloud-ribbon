@@ -1,7 +1,8 @@
 package com.sunshine.rocketmq;
 
 public class RocketMqConstant {
-    public static final String namesrvAddr = "192.168.56.100:9876";
+//    public static final String namesrvAddr = "192.168.56.100:9876";
+    public static final String namesrvAddr = "127.0.0.1:9876";
 
     public static class Topic{
 

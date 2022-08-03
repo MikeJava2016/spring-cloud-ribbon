@@ -1,3 +1,4 @@
+/*
 package com.sunshine.mockito.lesson1;
 
 import org.junit.Before;
@@ -56,4 +57,4 @@ public class AccountLoginControllerTest {
         String result = accountLoginController.login(request);
         assertThat(result,equalTo("/505"));
     }
-}
+}*/

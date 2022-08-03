@@ -1,3 +1,4 @@
+/*
 package com.sunshine.mockito.lesson1.lesson6;
 
 import org.junit.Test;
@@ -10,12 +11,14 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+*/
 /**
  * @version v1
  * @Description TODO
  * @Author huzhanglin
  * @Date 2022/7/18 下午 12:03
- **/
+ **//*
+
 public class ArguementMatcherTest {
     @Test
     public void basiccTest() {
@@ -28,3 +31,4 @@ public class ArguementMatcherTest {
 
     }
 }
+*/

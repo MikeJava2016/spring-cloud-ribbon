@@ -1,3 +1,4 @@
+/*
 package com.sunshine.mockito.lesson1.lesson2;
 
 import org.junit.Before;
@@ -9,12 +10,14 @@ import org.mockito.MockitoAnnotations;
 import static org.mockito.Mockito.when;
 
 
+*/
 /**
  * @version v1
  * @Description TODO
  * @Author huzhanglin
  * @Date 2022/7/17 上午 11:04
- **/
+ **//*
+
 public class DeepMockTest {
 
     @Mock
@@ -28,18 +31,22 @@ public class DeepMockTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    /**
+    */
+/**
      * stubbling
-     */
+     *//*
+
     @Test
     public void  testDeepMockFail(){
         Lesson03 lesson03 = lesson03Service.get();
         lesson03.foo();
     }
 
-    /**
+    */
+/**
      * stubbling
-     */
+     *//*
+
     @Test
     public void  testDeepMock(){
         when(lesson03Service.get()).thenReturn(lesson03);
@@ -57,3 +64,4 @@ public class DeepMockTest {
     }
 
 }
+*/

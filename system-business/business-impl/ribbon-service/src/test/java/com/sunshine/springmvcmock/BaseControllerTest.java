@@ -1,3 +1,4 @@
+/*
 package com.sunshine.springmvcmock;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,12 +20,14 @@ import java.util.Map;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+*/
 /**
  * @version v1
  * @Description TODO
  * @Author huzhanglin
  * @Date 2022/7/18 下午 07:17
- **/
+ **//*
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -69,3 +72,4 @@ public class BaseControllerTest {
         return responseDate;
     }
 }
+*/

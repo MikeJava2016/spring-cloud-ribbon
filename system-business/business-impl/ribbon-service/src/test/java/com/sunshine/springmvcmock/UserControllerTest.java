@@ -1,15 +1,18 @@
+/*
 package com.sunshine.springmvcmock;
 
 import com.sunshine.entity.User;
 import com.sunshine.utils.common.JsonUtil;
 import org.junit.Test;
 
+*/
 /**
  * @version v1
  * @Description TODO
  * @Author huzhanglin
  * @Date 2022/7/18 下午 03:48
- **/
+ **//*
+
 
 public class UserControllerTest extends BaseControllerTest{
 
@@ -30,3 +33,4 @@ public class UserControllerTest extends BaseControllerTest{
 
 
 }
+*/

@@ -1,14 +1,18 @@
+/*
 package com.sunshine.demo;
 
+*/
 /**
  * @version v1
  * @Description TODO
  * @Author huzhanglin
  * @Date 2022/5/6 19:30
- **/
+ **//*
+
 public class JedisDemo {
     public static void main(String[] args) {
-     /*   JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+     */
+/*   JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxTotal(10);
         jedisPoolConfig.setMaxIdle(5);
         jedisPoolConfig.setMinIdle(5);
@@ -20,6 +24,8 @@ public class JedisDemo {
         Jedis jedis = pool.getResource();
 
         jedis.set("SentinelKey","SentinelValue2");
-        System.out.println(jedis.get("SentinelKey"));*/
+        System.out.println(jedis.get("SentinelKey"));*//*
+
     }
 }
+*/

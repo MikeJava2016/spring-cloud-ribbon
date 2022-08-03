@@ -1,3 +1,4 @@
+/*
 package com.sunshine.mockito.lesson1.lesson2;
 
 import com.sunshine.mockito.lesson1.Account;
@@ -9,12 +10,14 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.mock;
 
+*/
 /**
  * @version v1
  * @Description TODO
  * @Author huzhanglin
  * @Date 2022/7/17 上午 10:36
- **/
+ **//*
+
 @RunWith(MockitoJUnitRunner.class)
 public class MockitoRunnerTest {
 
@@ -32,3 +35,4 @@ public class MockitoRunnerTest {
         System.out.println(account);
     }
 }
+*/

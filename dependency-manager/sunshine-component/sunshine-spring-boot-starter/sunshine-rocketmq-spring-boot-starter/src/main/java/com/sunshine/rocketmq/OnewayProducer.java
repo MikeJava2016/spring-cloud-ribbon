@@ -20,7 +20,10 @@ public class OnewayProducer {
 //                    RocketMqConstant.Tag.TAG_ORDER /* Tag */,
 
                     "1",("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
+
             );
+
+//            msg.setKeys("");  // 业务的唯一标识
             // 发送单向消息，没有任何返回结果
             producer.sendOneway(msg);
 

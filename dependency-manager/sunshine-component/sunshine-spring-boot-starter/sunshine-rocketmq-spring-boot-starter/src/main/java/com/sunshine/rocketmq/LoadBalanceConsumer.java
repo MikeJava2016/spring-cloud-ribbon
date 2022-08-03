@@ -19,7 +19,7 @@ import java.net.SocketAddress;
         // 指定Namesrv地址信息.
         consumer.setNamesrvAddr(RocketMqConstant.namesrvAddr);
         // 订阅Topic
-        consumer.subscribe(RocketMqConstant.Topic.LoadBalanceConsumer, "1");
+        consumer.subscribe(RocketMqConstant.Topic.LoadBalanceConsumer, "*");
         //负载均衡模式消费  集群模式  广播模式
         consumer.setMessageModel(MessageModel.CLUSTERING);
         // 注册回调函数，处理消息
@@ -27,6 +27,7 @@ import java.net.SocketAddress;
             System.out.printf("%s Receive New Messages: %s %n",
                     Thread.currentThread().getName(), msgs);
             for (MessageExt messageExt: msgs){
+                String keys = messageExt.getKeys();  // 根据业务唯一标识的 key 做幂等处理
                 printLog(messageExt);
                 handler(new String(messageExt.getBody()));
             }
@@ -50,7 +51,7 @@ import java.net.SocketAddress;
      * @param messageExt
      */
     private static void printLog(MessageExt messageExt) {
-        String brokerName = messageExt.getBrokerName();
+//        String brokerName = messageExt.getBrokerName();
         int queueId = messageExt.getQueueId();
         int storeSize = messageExt.getStoreSize();
         long queueOffset = messageExt.getQueueOffset();

@@ -1,3 +1,4 @@
+/*
 package com.sunshine.mockito.lesson1.lesson6;
 
 import org.junit.Test;
@@ -12,20 +13,24 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
+*/
 /**
  * @version v1
  * @Description TODO
  * @Author huzhanglin
  * @Date 2022/7/18 上午 11:03
- **/
+ **//*
+
 @RunWith(MockitoJUnitRunner.class)
 public class SpyingTest {
 
 
 
-    /**
+    */
+/**
      * 既可以调用真实方法，也可以调用mock方法
-     */
+     *//*
+
     @Test
     public void testSpy(){
         List<String> realList = new ArrayList<>();
@@ -46,3 +51,4 @@ public class SpyingTest {
         assertThat(list.size(),equalTo(0));
     }
 }
+*/

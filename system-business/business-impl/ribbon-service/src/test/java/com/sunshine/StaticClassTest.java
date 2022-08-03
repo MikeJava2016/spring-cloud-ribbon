@@ -1,3 +1,4 @@
+/*
 package com.sunshine;
 
 import org.junit.Before;
@@ -17,4 +18,4 @@ class StaticClassTest {
          PowerMockito.when(StaticClass.get()).thenReturn("10");
         System.out.println(StaticClass.get());
     }
-}
+}*/

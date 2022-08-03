@@ -1,3 +1,4 @@
+/*
 package com.sunshine.mockito.lesson1.lesson2;
 
 import com.sunshine.mockito.lesson1.Account;
@@ -8,12 +9,14 @@ import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+*/
 /**
  * @version v1
  * @Description TODO
  * @Author huzhanglin
  * @Date 2022/7/17 上午 10:54
- **/
+ **//*
+
 public class MockByAnnotationTest {
     @Mock(answer = Answers.RETURNS_SMART_NULLS)
     private AccountDao accountDao;
@@ -29,3 +32,4 @@ public class MockByAnnotationTest {
         System.out.println(account);
     }
 }
+*/

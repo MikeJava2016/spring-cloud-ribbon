@@ -1,3 +1,4 @@
+/*
 package com.sunshine.mockito.lesson1.lesson3;
 
 import org.junit.After;
@@ -20,12 +21,14 @@ import static org.mockito.Mockito.*;
 
 
 
+*/
 /**
  * @version v1
  * @Description TODO
  * @Author huzhanglin
  * @Date 2022/7/17 上午 11:25
- **/
+ **//*
+
 @RunWith(MockitoJUnitRunner.class)
 public class StubbingTest {
 
@@ -53,9 +56,11 @@ public class StubbingTest {
 
     }
 
-    /**
+    */
+/**
      * 定义返回值逻辑
-     */
+     *//*
+
     @Test
     public void stubbingWithAnswer(){
         when(list.get(anyInt())).thenAnswer((Answer<String>) invocation -> {
@@ -137,3 +142,4 @@ public class StubbingTest {
         reset(this.list);
     }
 }
+*/
