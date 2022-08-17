@@ -21,7 +21,7 @@ public class ZookeeperTest {
     public static void main(String[] args) throws Exception{
         CountDownLatch countDownLatch = new CountDownLatch(1);
         String path = "/124";
-
+        // k1
         Watcher watcher = watchedEvent -> {
 
             log.info("conneting...zk");
